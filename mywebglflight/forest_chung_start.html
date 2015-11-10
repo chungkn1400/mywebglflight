@@ -1,0 +1,66 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" >
+var folder="https://b3d8783ddc02a86af1ce60266a06c20f1a961f99.googledrive.com/host/0B6GM9ay7ImZLOXpiUkx5bFhacXc/";
+var linkurl=folder+"forest_chung.html";
+// launches linkurl?tsea&wclouds tsea=99
+//google.load("search", "1");
+//google.load("jquery", "1.4.2");
+//google.load("jqueryui", "1.7.2");
+var lat=48,lng=2,city="Paris";
+if (google.loader.ClientLocation) {
+    lat = google.loader.ClientLocation.latitude;
+    lng = google.loader.ClientLocation.longitude;
+	city= google.loader.ClientLocation.address.city;
+	//alert(city);
+}
+var weatherurl="http://api.openweathermap.org/data/2.5/weather?lat=48&lon=2";
+var wclouds=20;
+var xmlhttp;
+function createCORSRequest(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // Check if the XMLHttpRequest object has a "withCredentials" property.
+    // "withCredentials" only exists on XMLHTTPRequest2 objects.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // Otherwise, check if XDomainRequest.
+    // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // Otherwise, CORS is not supported by the browser.
+    xhr = null;
+  }
+  return xhr;
+}
+//var xhr = createCORSRequest('GET', url);
+function httpGet(theUrl,callback) 
+{   xmlhttp= createCORSRequest('get', theUrl);
+    xmlhttp.onload=function(e)
+    {   
+        callback(xmlhttp.responseText);
+    }
+    //xmlhttp.open("GET", theUrl, false);
+    xmlhttp.send();    
+}
+function getweather(responseText){
+            var weatherdata=(responseText);
+			var i=weatherdata.indexOf('"clouds":'),j=0;
+			var data=weatherdata.substr(i+10,100);
+			i=data.indexOf(':');j=data.indexOf('}');
+			wclouds=eval(data.substring(i+1,j));
+			//alert(weatherdata.substr(1,400));
+			//alert("wclouds="+wclouds);
+			var tsea=99;
+			document.location.href=linkurl+"?"+tsea+"&"+wclouds+"&";
+}	
+//weatherurl="http://query.yahooapis.com/v1/public/yql?q=select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text='"+city+"')&format=json";
+//httpGet("http://api.hostip.info/get_json.php?position=true",getlatlong);
+weatherurl="http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lng;
+//weatherurl=folder+"vk_keys.js";
+//weatherurl="http://weather.yahooapis.com/forecastrss?w=2502265";
+try{
+httpGet(weatherurl,getweather);
+}catch (e){//alert("error");
+}
+</script>

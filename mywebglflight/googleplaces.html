@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Place searches</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body, #map-canvas {
+        height: 600px;
+		width: 500px;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&language=en"></script>
+    <script>
+var map;
+var infowindow;
+var combotext,o1,lat,lng,next_page_token;
+function initialize() {
+  lat=48.826125291730506  ;lng=2.357055950047 ;
+  var paris = new google.maps.LatLng(lat,lng);
+  combotext="washington";subcombo2();//lat+=0.1;
+
+  map=new google.maps.Map(document.getElementById('mapdiv'), {
+    center: new google.maps.LatLng(lat,lng),//
+	//center: paris,
+    zoom: 11
+//	disableDefaultUI: true 
+  });
+  //map.setCenter(new google.maps.LatLng(lat,lng));
+
+  var request = {
+    location: new google.maps.LatLng(lat,lng),
+    radius: 40000,
+	//rankby:"distance",//"prominence"
+    types: ["airport"],
+	name:"airport"
+  };
+  var request2 = {
+    location: new google.maps.LatLng(lat,lng),//paris,
+    radius: 20000,
+	//types: ["establishment"],
+	//types: ["city_hall"],
+	//language: en,
+    name: "united states capitol"
+  };
+  var request3 = {
+    location: new google.maps.LatLng(lat,lng),//paris,
+    radius: 20000,
+	pagetoken: next_page_token
+  };
+  infowindow = new google.maps.InfoWindow();
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request2, callback);
+  //alert(next_page_token);
+  //service.nearbySearch(request3, callback);
+}
+var nresults=0,test=0;
+function callback(results, status, nextpage) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+	//alert(results[0].geometry.location.lat());
+	alert(results.length);
+	alert(results[0].name);
+	nresults+=results.length;
+	if(nextpage.hasNextPage && nresults<15){alert("ok");nextpage.nextPage();}
+	else{
+    for (var i = 0; i < results.length; i++) {
+      if(results[i].name=="Eiffel Tower"){
+        test+=1;alert(i);}	  
+      if(results[i].name.toLowerCase().indexOf("tower")>=-990 ||
+	     results[i].name.toLowerCase().indexOf("tour")>=0){
+	     createMarker(results[i]);}
+    }}
+	alert("test="+test);
+  }
+  else{alert(status);}
+}
+
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    var msg=place.name;
+	msg+=" lat="+place.geometry.location.lat();
+	msg+=" lng="+place.geometry.location.lng();
+	infowindow.setContent(msg);
+    infowindow.open(map, this);
+  });
+}
+//libertystatue  lat=40.689249 lng=-74.0444999
+//Eiffel Tower lat=48.85837 lng=2.29448100000
+//Christ rio lat=-22.951916 lng=-43.210487
+//Dome of the Rock lat=31.778019 lng=35.235408000
+//The Great Pyramid at Giza lat=29.979234 lng=31.1342019999
+//United States Capitol lat=38.889939 lng=-77.00905
+google.maps.event.addDomListener(window, 'load', initialize);
+
+function subcombo2(){
+//var combotext = document.getElementById('combo')[document.getElementById('combo').selectedIndex].id ;
+if (combotext=="deauville marinas"){lat=49.36198047661674   ;lng=0.07262960190958628   ;o1=120;}
+if (combotext=="deauville plage"){lat=49.35600551121942   ;lng=0.06075459446313726   ;o1=110;}
+if (combotext=="trouville plage"){lat=49.36663106706898   ;lng=0.07818353983048315   ;o1=130;}
+if (combotext=="nancy"){lat=48.69306979368741   ;lng=6.182922715725031   ;o1=70;}
+if (combotext=="crickvenica"){lat=45.1734569955986   ;lng=14.689314428610118   ;o1=-110;}
+if (combotext=="paris tolbiac"){lat=48.826125291730506   ;lng=2.3570559500472212   ;o1=0;}
+if (combotext=="paris defense"){lat=48.891977155490395   ;lng=2.237673523003608   ;o1=160;}
+if (combotext=="ivry romain roland"){lat=48.80346335679542   ;lng=2.3934673532940915   ;o1=-50;}
+if (combotext=="orsay"){lat=48.706787   ;lng=2.180894999999964   ;o1=-30;}
+if (combotext=="le barcares"){lat=42.78764305091493   ;lng=3.0338932951133533   ;o1=175;} 
+if (combotext=="jerusalem"){lat=31.776636707589287   ;lng=35.2337121963501   ;o1=36.3920;}
+if (combotext=="marseille"){lat=43.2803905;lng=5.405139   ;o1=36.3920;}
+if (combotext=="nice"){lat=43.7031905;lng=7.252817  ;o1=36.3920;}
+if (combotext=="arcachon"){lat=44.6514284;lng=-1.171656  ;o1=36.3920;}
+if (combotext=="grenoble"){lat=45.1841656;lng=5.7155425 ;o1=36.3920;}
+if (combotext=="san francisco"){lat=37.7577;lng=-122.4376 ;o1=36.3920;}
+if (combotext=="new york"){lat=40.7033121;lng=-73.97968 ;o1=36.3920;}
+if (combotext=="atlanta"){lat=33.7677129;lng=-84.42060 ;o1=36.3920;}
+if (combotext=="rio"){lat=-22.8650853;lng=-43.13109 ;o1=36.3920;}
+if (combotext=="hong kong"){lat=22.3700556;lng=114.153758 ;o1=36.3920;}
+if (combotext=="athenes"){lat=37.9908372;lng=23.7383394 ;o1=36.3920;}
+if (combotext=="pearth"){lat=-31.9546529;lng=115.852662 ;o1=36.3920;}
+if (combotext=="le caire"){lat=30.04441959;lng=31.23571160;o1=36.3920;}
+if (combotext=="washington"){lat=38.8850399;lng=-77.08054296;o1=36.3920;}
+}
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+	<div id="mapdiv" style="position:absolute;top:0px;left:0px;width:600px;height:500px;">
+    </div>	
+  </body>
+</html>
+

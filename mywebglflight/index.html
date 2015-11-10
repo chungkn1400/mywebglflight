@@ -1,0 +1,4679 @@
+<!DOCTYPE html>
+<html>
+<!-- mywebglflight a program  by NGUYEN.Chung (freeware 2014) --> 
+<!-- H key: help -->
+<head>
+<title>mywebglflight sim</title>
+<link rel="shortcut icon" href="mywebglflight.ico">
+<!--link rel="shortcut icon" href="http://sites.google.com/site/chungkn1400/mywebglflight/mywebglflight.ico"-->
+<!--meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"-->
+</head>
+<body   onunload="close();"  bgcolor="#C0C0FF">
+    H : help
+	<div style="position:absolute;top:910px;left:10px;zindex:4;">
+	<input type="text"  onblur="resetkeys();" onKeyUp="keyup(event);" onKeyDown="keydown(event);" id="intext" maxlength="1" size="1" value=""/>
+	</div>
+	<div style="position:absolute;top:900px;left:0px;zindex:1;">
+    <canvas id="canvas" style="border: none;top:0px;left:0px;" width="620" height="430"></canvas><!--620x430-->
+	<br />
+	<button id="fullscreen"  onclick="sizescreen();">fullscreen</button>
+	<input type="text"  onKeyUp="keyup(event);" onKeyDown="keydown(event);" id="clock" maxlength="2" size="2" value="18:05"/>
+	<input type="text"  onKeyUp="keyup(event);" onKeyDown="keydown(event);" id="intext0" maxlength="85" size="78" value=""/>
+    <br />
+    </div>
+ 
+<script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
+<script type="text/javascript" src="webgl-utils.js"></script>
+<script type="text/javascript" src="seedrandom.js"></script>
+<script type="text/javascript" src="vk_keys.js"></script>
+<script type="text/javascript" src="c150objtxt.js"></script>
+<script type="text/javascript" src="c150jpg.js"></script>
+<script type="text/javascript" src="map2jpg.js"></script>
+<script type="text/javascript" src="cloudpng.js"></script>
+<script type="text/javascript" src="sunpng.js"></script>
+<script type="text/javascript" src="bousspng.js"></script>
+<script type="text/javascript" src="c150redjpg.js"></script>
+<script type="text/javascript" src="piste12jpg.js"></script>
+<script type="text/javascript" src="tower1jpg.js"></script>
+<script type="text/javascript" src="c150minus6objtxt.js"></script>
+<script type="text/javascript" src="c150cockpit4png.js"></script>
+<script type="text/javascript" src="compas256jpg.js"></script>
+<script type="text/javascript" src="helice2jpg.js"></script>
+<script type="text/javascript" src="arrowpng.js"></script>
+<script type="text/javascript" src="waterjpg.js"></script>
+<script type="text/javascript" src="treejpg.js"></script>
+<script type="text/javascript" src="sunback2jpg.js"></script>
+<script type="text/javascript" src="radar2png.js"></script>
+<script type="text/javascript" src="azimut2png.js"></script>
+<script type="text/javascript" src="explosionjpg.js"></script>
+<script type="text/javascript" src="impactjpg.js"></script>
+<script type="text/javascript" src="shipobjtxt.js"></script>
+<script type="text/javascript" src="shipjpg.js"></script>
+<script type="text/javascript" src="bloodjpg.js"></script>
+<script type="text/javascript" src="spitfirelowobjtxt.js"></script>
+<script type="text/javascript" src="spitfirejpg.js"></script>
+<script type="text/javascript" src="spitfirecockpitobjtxt.js"></script>
+<script type="text/javascript" src="zeroobjtxt.js"></script>
+<script type="text/javascript" src="zerojpg.js"></script>
+<script type="text/javascript" src="zerocockpitobjtxt.js"></script>
+<script type="text/javascript" src="shipcarrierobjtxt.js"></script>
+<script type="text/javascript" src="shipcarrierjpg.js"></script>
+<!--script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/glMatrix-0.9.5.min.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/webgl-utils.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/seedrandom.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/vk_keys.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/c150objtxt.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/c150jpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/map2jpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/cloudpng.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/sunpng.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/bousspng.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/c150redjpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/piste12jpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/tower1jpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/c150minus6objtxt.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/c150cockpit4png.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/compas256jpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/helice2jpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/arrowpng.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/waterjpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/treejpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/sunback2jpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/radar2png.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/azimut2png.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/explosionjpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/impactjpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/shipobjtxt.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/shipjpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/bloodjpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/spitfirelowobjtxt.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/spitfirejpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/spitfirecockpitobjtxt.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/zeroobjtxt.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/zerojpg.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/zerocockpitobjtxt.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/shipcarrierobjtxt.js"></script>
+<script type="text/javascript" src="http://sites.google.com/site/chungkn1400/mywebglflight/shipcarrierjpg.js"></script-->
+<script type="text/javascript" >
+var folder="http://sites.google.com/site/chungkn1400/mywebglflight/";
+folder="";//set this to use local sound folder
+var test=0;if(folder==""){test=1;};
+var weatherurl="http://api.openweathermap.org/data/2.5/weather?lat=48&lon=2";
+var clouds=0;
+function httpGet(theUrl) 
+{
+    if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+    }
+    else
+    {// code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            var weatherdata=(xmlhttp.responseText);
+			var i=weatherdata.indexOf('"clouds":'),j=0;
+			var data=weatherdata.substr(i+10,100);
+			i=data.indexOf(':');j=data.indexOf('}');
+			clouds=eval(data.substring(i+1,j));
+			//alert(weatherdata.substr(400,800));			
+        }
+    }
+    xmlhttp.open("GET", theUrl, false);
+    xmlhttp.send();    
+} 
+httpGet(weatherurl);
+var tjoy="getGamepads" in navigator,joy=null,button=new Array(10);
+var joyx=0,joyy=0,joyz=0,joyr=0;
+function testjoystick(){
+ for(var i=0;i<10;i++){button[i]=0;}
+ joyx=0;joyy=0;joyz=0;joyr=0;
+ if(!tjoy){return;}
+ joy=navigator.getGamepads()[0];
+ if(!joy){return}
+ var butt=null,nbutt=joy.buttons.length;
+ if(nbutt>10){nbutt=10;}
+ for(var i=0;i<nbutt;i++){
+    butt=joy.buttons[i];
+    if (typeof(butt)=="object"){if(butt.pressed){button[i]=1;};
+	   }else{if(butt==1.0){button[i]=1;};}
+ }
+ var naxes=joy.axes.length; 
+ if(naxes>0){joyx=joy.axes[0]-1;if(Math.abs(joyx)<0.09){joyx=0;};}
+ if(naxes>1){joyy=joy.axes[1]-1;if(Math.abs(joyy)<0.09){joyy=0;};}
+ if(naxes>2){joyr=joy.axes[2]-1;if(Math.abs(joyr)<0.09){joyr=0;};}
+ if(naxes>3){joyz=joy.axes[3];if(Math.abs(joyz)<0.09){joyz=0;};}
+}
+//var irnd=0,nrnd=50000,random=new Array(nrnd);
+//for(var i=0;i<nrnd;i++){random[i]=Math.random();}
+function Mathrandom(){return Math.random();
+//  irnd+=1;if(irnd>=nrnd){irnd=0;};
+//  return random[irnd];
+}
+var seedrand=parseInt(Date.now());
+</script>
+<script type="text/javascript" >
+var audioctx = new (window.AudioContext || window.webkitAudioContext)();
+var songlength;
+function loadsound(source,url){
+source.request = new XMLHttpRequest();
+source.request.open('GET', url, true);
+source.request.responseType = 'arraybuffer';
+source.request.onload = function() {
+var audioData = source.request.response;
+audioctx.decodeAudioData(audioData, function(buffer) {
+//myBuffer = buffer;
+songlength = buffer.duration;
+source.buffer = buffer;
+source.playbackRate.value = 1.0;
+//source.connect(audioctx.destination);
+source.loopStart=0.5;
+source.loopEnd=songlength-0.5;
+source.gainNode = audioctx.createGain();
+source.connect(source.gainNode);
+source.gainNode.connect(audioctx.destination);
+source.gainNode.gain.value = 1.0;
+},
+function(e){"Error with decoding audio data" + e.err});
+}
+source.request.send();
+}
+function setvol(source,vol){
+  if(source.gainNode){source.gainNode.gain.value = vol;}
+}
+function setspeed(source,speed){
+  if(source.playbackRate){source.playbackRate.value=speed;}
+}
+function playloop(source){source.loop=true;source.start(0);}
+function playsound(source) {if(!source.gainNode){return;}
+  var sourcex = audioctx.createBufferSource(); // creates a sound source
+  sourcex.buffer = source.buffer;  // tell the source which sound to play
+  sourcex.loop=false;
+  sourcex.connect(source.gainNode);       // connect the source to the audioctx's destination (the speakers)
+  sourcex.start(0);                           // play the source now                                           // note: on older systems, may have to use deprecated noteOn(time);
+}
+var wav="mp3",browser="";
+if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){wav="ogg";browser="firefox";};
+//if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1){wav="wav";};
+//alert(navigator.userAgent+" "+wav);
+var audiosrc="";
+var myaudio = audioctx.createBufferSource();
+audiosrc=folder+"avion2."+wav;
+myaudio.volume=0;
+loadsound(myaudio,audiosrc);
+setTimeout("playloop(myaudio);",5000);
+setTimeout("setvol(myaudio,0.3);",4000);
+setTimeout("setspeed(myaudio,1.0);",4000);
+var myaudiopneu = audioctx.createBufferSource();
+audiosrc=folder+"pneu."+wav;
+myaudiopneu.volume=0;
+loadsound(myaudiopneu,audiosrc);
+setTimeout("playsound(myaudiopneu);",6000);
+setTimeout("setvol(myaudiopneu,0.4);",5000);
+setTimeout("setspeed(myaudiopneu,1.0);",5000);
+var tpneu=0;
+function soundpneu(){
+   playsound(myaudiopneu);
+   }   
+var myaudioshoot = audioctx.createBufferSource();
+audiosrc=folder+"shoot."+wav;
+myaudioshoot.volume=0;
+loadsound(myaudioshoot,audiosrc);
+setTimeout("playloop(myaudioshoot);",6000);
+setTimeout("setvol(myaudioshoot,0.002);",6000);
+setTimeout("setspeed(myaudioshoot,1.0);",6000);
+var tshoot=0;
+function soundshoot(){
+   tshoot=tframe+750;
+   }
+</script>
+<script id="vshader2d" type="x-shader/x-vertex">
+    attribute vec2 a_position;
+    varying vec2 v_texcoord;
+
+    void main() {
+      gl_Position = vec4(a_position,0,1);
+      v_texcoord = a_position*0.5+0.5;
+    }    
+</script>
+<script id="fshader2d" type="x-shader/x-fragment">
+precision mediump float;
+varying vec2 v_texcoord;
+uniform sampler2D u_sampler;
+void main() {
+    gl_FragColor = texture2D(u_sampler, v_texcoord);
+}
+</script>
+<script id="shader-fs" type="x-shader/x-fragment">
+    precision mediump float;
+	//precision highp float;
+
+    varying vec2 vTextureCoord;
+	varying float color;
+
+    uniform sampler2D uSampler;
+	uniform vec4 ucolor;
+
+    void main(void) {
+        gl_FragColor = texture2D(uSampler, vTextureCoord);
+		if(ucolor.a>0.001){
+		 gl_FragColor.a*=ucolor.a;
+		 gl_FragColor.r*=ucolor.r*color;
+		 gl_FragColor.g*=ucolor.g*color;
+		 gl_FragColor.b*=ucolor.b*color;
+		} 		
+    }
+</script>
+<script id="shader-fssky" type="x-shader/x-fragment">
+    precision mediump float;
+	//precision highp float;
+
+    varying vec2 vTextureCoord;
+	varying float color;
+
+    uniform sampler2D uSampler;
+	uniform float uhour;
+	uniform vec4 ucolor;
+
+    void main(void) {
+        gl_FragColor = texture2D(uSampler, vTextureCoord);
+		float k,k1,v;
+		v=vTextureCoord.y;
+		k=(abs(12.0-uhour))/19.5;
+		k=max(0.0,min(1.0,(1.0-v)*3.5*k));
+		k1=1.0-k;
+		gl_FragColor.r= (k*gl_FragColor.r + k1*ucolor.r); 
+		gl_FragColor.g= (k*gl_FragColor.g + k1*ucolor.g); 
+		gl_FragColor.b= (k*gl_FragColor.b + k1*ucolor.b); 
+    }
+</script>
+<script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec2 aTextureCoord;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+
+    varying vec2 vTextureCoord;
+	varying float color;
+
+
+    void main(void) {
+        gl_Position = uPMatrix * (uMVMatrix * vec4(aVertexPosition, 1.0));
+        vTextureCoord = aTextureCoord;
+		color=min(1.15,0.75+abs(gl_Position.y*0.65));
+    }
+</script>
+<script id="shader-fstree" type="x-shader/x-fragment">
+    precision mediump float;
+	//precision highp float;
+
+    varying vec2 vTextureCoord;
+
+    uniform sampler2D uSampler;
+
+    void main(void) {
+	   if(vTextureCoord.x>-1.0){
+        gl_FragColor = texture2D(uSampler, vTextureCoord);
+		if(gl_FragColor.r>0.7){discard;};
+	   }else{discard;};	
+    }
+</script>
+<script id="shader-vstree" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec2 aTextureCoord;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+	uniform float ucos1;
+	uniform float usin1;
+
+    varying vec2 vTextureCoord;
+
+    void main(void) {
+	    float x=aVertexPosition.x;
+	    float y=aVertexPosition.y;
+	    float z=aVertexPosition.z;
+		if(z<0.15 || z>20.0){vTextureCoord.x=-2.0;
+		  gl_Position = uPMatrix * (uMVMatrix * vec4(x,y,z, 1.0)); 
+		}else{
+		if(aTextureCoord.x<0.2){x-=usin1;y+=ucos1;}
+		if(aTextureCoord.x>0.8){x+=usin1;y-=ucos1;}
+        gl_Position = uPMatrix * (uMVMatrix * vec4(x,y,z, 1.0));
+        vTextureCoord = aTextureCoord;
+		};
+    }
+</script>
+<script id="shader-fssol" type="x-shader/x-fragment">
+    precision mediump float;
+	//precision highp float;
+
+    varying vec2 vTextureCoord;
+    varying vec2 vTextureCoord2;
+	varying float color;
+
+    uniform sampler2D uSampler;
+    uniform sampler2D uSampler2;
+	uniform float hour;
+
+    void main(void) {
+	 if(color>99.0){gl_FragColor=vec4(0.2,0.6,0.9,1.0);}else{
+	   if(hour<6.0 || hour>18.0){gl_FragColor = texture2D(uSampler, vTextureCoord);
+	          if(abs(color-1.0)>0.001){ gl_FragColor.rgb*=color;};
+	   }else{
+		float color2=color;
+		if(vTextureCoord2.x>0.0 && vTextureCoord2.x<1.0 && vTextureCoord2.y>0.0 && vTextureCoord2.y<1.0){
+		  vec4 fcolor2=texture2D(uSampler2, vTextureCoord2);
+		  color2=max(0.25,color/(1.0+(fcolor2.r+fcolor2.g+fcolor2.b)*9.0));
+        }
+		//gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+        if(abs(color2-1.0)>0.001){gl_FragColor = texture2D(uSampler, vTextureCoord);
+		                         gl_FragColor.rgb*=color2;
+        }else{gl_FragColor = texture2D(uSampler, vTextureCoord);};
+	   }
+	 }	
+    }
+</script>
+<script id="shader-vssol" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec2 aTextureCoord;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+	uniform float xmin;
+	uniform float xmax;
+	uniform float ymin;
+	uniform float ymax;
+	uniform int type;
+
+    varying vec2 vTextureCoord;
+    varying vec2 vTextureCoord2;
+	varying float color;
+
+
+    void main(void) {
+	    float x=aVertexPosition.x;
+	    float y=aVertexPosition.y;
+	    float z=aVertexPosition.z;
+		if(type==0){color=1.0;}else{
+		  if(z<9.0){color=1.0;}else{color=1.0+(z-8.8)*0.1;};}
+		float xpiste=(xmax-xmin)*0.5;
+        float ypiste=(ymax-ymin)*0.5;		
+		if(type==1){
+		 if(abs(x-xpiste)<62.0){
+		   if(abs(y-ypiste)<62.0){z=0.1;color*=1.9;};}
+		 float dxwater=x-(xpiste+500.0);//waterx
+		 float dywater=y-(ypiste-400.0);
+		 float distwater=dxwater*dxwater+dywater*dywater;
+		 if((distwater)<10000.0){z=-0.3;color=0.7;if(distwater<7000.0){color=99.7;};};
+		};
+		//if(type==1){
+		 if(x<xmin){x+=xmax-xmin;}
+		 if(x>xmax){x-=xmax-xmin;}
+		 if(y<ymin){y+=ymax-ymin;}
+		 if(y>ymax){y-=ymax-ymin;}
+		//}; 
+        gl_Position = uPMatrix * (uMVMatrix * vec4(x,y,z, 1.0));
+        vTextureCoord = aTextureCoord;
+		float distshadow=300.0; 
+		vTextureCoord2.y=0.5+(x-(xmax+xmin)*0.5)*0.5/distshadow;
+		vTextureCoord2.x=0.5-(y-(ymax+ymin)*0.5)*0.5/distshadow;
+    }
+</script>
+	<script id="shader-vsb" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec2 aTextureCoord;
+
+    uniform vec3 usunPosition;
+    uniform vec3 ucameraPosition;
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+	uniform float usize;
+
+    varying vec2 vTextureCoord;
+	varying float alpha,r,g,b;
+
+
+/*    void main(void) {
+        gl_Position = uPMatrix * (uMVMatrix * (vec4(aVertexPosition, 1.0)));
+        vTextureCoord = aTextureCoord;
+		}
+		*/
+void main() {
+        //alpha=abs(aTextureCoord.x)*0.3;if(alpha>1.0){alpha=1.0;};
+        alpha=abs(aTextureCoord.y)*0.25;if(alpha>1.0){alpha=1.0;};
+		float color=1.2-abs(aTextureCoord.x*usize)*0.2;if(color<0.1){color=0.1;};
+		if(usize<0.0){color=1.0;};//sun
+    	if(aTextureCoord.x>0.0){vTextureCoord.x=1.0;}else{vTextureCoord.x=0.0;}
+    	if(aTextureCoord.y>0.0){vTextureCoord.y=1.0;}else{vTextureCoord.y=0.0;}
+		vec3 worldPosition = aVertexPosition;
+		//vec3 ucameraPosition2=uMVMatrix[3].xyz;
+		vec3 eyeVector = normalize(worldPosition - ucameraPosition);
+        float time=(usunPosition.z+30.0)/300.0;
+		float distsun=length(usunPosition-worldPosition);
+		//if(distsun>500.0){distsun=500.0;};
+		float dist=length(normalize(usunPosition-ucameraPosition)-eyeVector);
+		if(distsun>200.0){time*=0.8*(dist);}else{time*=1.0;alpha=1.0;};
+		if(time>1.0){time=1.0;};
+		if(time<0.0){time=0.0;};
+		//alpha*=(2.0-time);
+		r=(3.0-2.0*time)*color;
+		g=time*color;
+		b=time*color;
+
+		vec3 CamUp= vec3(0.0,0.0,1.0);
+		vec3 sideVector = normalize(cross(eyeVector,CamUp));
+		vec3 upVector = normalize(cross(sideVector,eyeVector));
+
+		float width = 30.0*usize;
+		float height = 15.0*usize;
+        int type=0;
+        type=int(floor(mod(abs(aTextureCoord.x*100.0),2.0)));
+        if(type==0){	
+		worldPosition += sideVector * (aTextureCoord.x * width);
+		}else{
+		worldPosition -= sideVector * (aTextureCoord.x * width);
+		}
+        type=int(floor(mod(abs(aTextureCoord.y*100.0),2.0)));
+        if(type==0){	
+		worldPosition += upVector * (aTextureCoord.y+0.5*(abs(aTextureCoord.y)-1.0)) * height;
+		}else{
+		worldPosition -= upVector * (aTextureCoord.y-0.5*(abs(aTextureCoord.y)-1.0)) * height;
+		}
+
+		gl_Position = uPMatrix *(uMVMatrix *  vec4( worldPosition, 1.0 ));
+    //gl_Position = uPMatrix * uMVMatrix *  vec4( aVertexPosition, 1.0 );
+    }
+	</script>
+	<script id="shader-fsb" type="x-shader/x-fragment">
+    precision mediump float;
+	//precision highp float;
+
+    varying vec2 vTextureCoord;
+	varying float alpha,r,g,b;
+
+    uniform sampler2D uSampler;
+
+    void main(void) {
+        //gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+        gl_FragColor = texture2D(uSampler, vTextureCoord);
+		gl_FragColor.a*=alpha;
+		gl_FragColor.r*=r;
+		gl_FragColor.g*=g;
+		gl_FragColor.b*=b;
+    }
+	</script>
+
+<script type="text/javascript" >
+
+    var gl;
+
+    window.onunload=close;
+	//window.onbeforeunload=close;
+    var tclose=0,timeoutkey=null,timeouttick=null;
+	function subquit(){document.location.href="http://chungswebsite.blogspot.fr/search/label/mywebglflight";}
+	function close(){
+	//clearTimeout(timeoutkey);
+	clearTimeout(timeouttick);
+	if(tclose<2){tclose=3;
+	//closesounds();
+	//return;// "bye bye";
+	deletetextures();
+	//alert("close end");
+	}
+	}
+	function closesounds(){
+	myaudio.pause();myaudio.src="";
+	myaudio1.pause();myaudio1.src="";
+	myaudio2.pause();myaudio2.src="";
+	myaudio21.pause();myaudio21.src="";
+	myaudiopneu.pause();myaudiopneu.src="";
+	myaudioshoot.pause();myaudioshoot.src="";
+	audio.pause();audio.src="";
+    }
+	var fullscreen=0,winx=0,winy=900,windx=620,windy=430;
+	function sizescreen(){
+	    if(fullscreen==0){fullscreen=1;
+		                  canvas.width  = window.innerWidth*0.98;
+                          canvas.height = window.innerHeight*0.9;
+						 }else{fullscreen=0;
+						  canvas.width=620;canvas.height=430;};
+			gl.viewportWidth = canvas.width;
+            gl.viewportHeight = canvas.height;
+			windx = canvas.width;
+            windy = canvas.height;
+            gl.viewport(0, 0, windx,windy);
+            document.getElementById("canvas").style.zIndex="1";
+ }					 
+
+    function initGL(canvas) {
+        try {
+            gl = canvas.getContext("experimental-webgl");
+			gl.viewportWidth = canvas.width;
+            gl.viewportHeight = canvas.height;
+        } catch (e) {
+        }
+        if (!gl) {
+            alert("Could not initialise WebGL, sorry :-(");
+        }
+    }
+
+
+    function getShader(gl, id) {
+        var shaderScript = document.getElementById(id);
+        if (!shaderScript) {
+            return null;
+        }
+
+        var str = "";
+        var k = shaderScript.firstChild;
+        while (k) {
+            if (k.nodeType == 3) {
+                str += k.textContent;
+            }
+            k = k.nextSibling;
+        }
+
+        var shader;
+        if (shaderScript.type == "x-shader/x-fragment") {
+            shader = gl.createShader(gl.FRAGMENT_SHADER);
+        } else if (shaderScript.type == "x-shader/x-vertex") {
+            shader = gl.createShader(gl.VERTEX_SHADER);
+        } else {
+            return null;
+        }
+
+        gl.shaderSource(shader, str);
+        gl.compileShader(shader);
+
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+            alert(gl.getShaderInfoLog(shader));
+            return null;
+        }
+
+        return shader;
+    }
+
+
+    var shaderProgram,solProgram,cloudProgram,treeProgram,skyProgram,program2d;
+
+    function initShaders() {
+        var fragmentShader = getShader(gl, "shader-fs");
+        var fragmentShadersky = getShader(gl, "shader-fssky");
+        var vertexShader = getShader(gl, "shader-vs");
+        var fragmentShadersol = getShader(gl, "shader-fssol");
+        var vertexShadersol = getShader(gl, "shader-vssol");
+	    var vshadercloud = getShader(gl,"shader-vsb");
+	    var fshadercloud = getShader(gl,"shader-fsb");
+        var fshadertree = getShader(gl, "shader-fstree");
+        var vshadertree = getShader(gl, "shader-vstree");
+        var fshader = getShader(gl, "fshader2d");
+        var vshader = getShader(gl, "vshader2d");
+	
+        program2d = gl.createProgram();
+        gl.attachShader(program2d, vshader);
+        gl.attachShader(program2d, fshader);
+        gl.linkProgram(program2d);
+
+        if (!gl.getProgramParameter(program2d, gl.LINK_STATUS)) {
+            alert("Could not initialise shaders2d");
+        }
+
+        shaderProgram = gl.createProgram();
+        gl.attachShader(shaderProgram, vertexShader);
+        gl.attachShader(shaderProgram, fragmentShader);
+        gl.linkProgram(shaderProgram);
+
+        if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+            alert("Could not initialise shaders");
+        }
+
+        skyProgram = gl.createProgram();
+        gl.attachShader(skyProgram, vertexShader);
+        gl.attachShader(skyProgram, fragmentShadersky);
+        gl.linkProgram(skyProgram);
+
+        if (!gl.getProgramParameter(skyProgram, gl.LINK_STATUS)) {
+            alert("Could not initialise skyshaders");
+        }
+		
+        solProgram = gl.createProgram();
+        gl.attachShader(solProgram, vertexShadersol);
+        gl.attachShader(solProgram, fragmentShadersol);
+        gl.linkProgram(solProgram);
+
+        if (!gl.getProgramParameter(solProgram, gl.LINK_STATUS)) {
+            alert("Could not initialise solshaders");
+        }
+        
+		cloudProgram = gl.createProgram();
+        gl.attachShader(cloudProgram, vshadercloud);
+        gl.attachShader(cloudProgram, fshadercloud);
+        gl.linkProgram(cloudProgram);
+
+        if (!gl.getProgramParameter(cloudProgram, gl.LINK_STATUS)) {
+            alert("Could not initialise cloudshaders");
+        }
+
+		treeProgram = gl.createProgram();
+        gl.attachShader(treeProgram, vshadertree);
+        gl.attachShader(treeProgram, fshadertree);
+        gl.linkProgram(treeProgram);
+
+        if (!gl.getProgramParameter(treeProgram, gl.LINK_STATUS)) {
+            alert("Could not initialise treeshaders");
+        }
+
+        gl.useProgram(program2d);
+
+        program2d.vertexPositionAttribute = gl.getAttribLocation(program2d, "a_position");
+        gl.enableVertexAttribArray(program2d.vertexPositionAttribute);
+
+        //program2d.textureCoordAttribute = gl.getAttribLocation(program2d, "a_texcoord");
+        //gl.enableVertexAttribArray(program2d.textureCoordAttribute);
+
+        program2d.samplerUniform = gl.getUniformLocation(program2d, "u_sampler");
+
+        gl.useProgram(shaderProgram);
+
+        shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+        gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+
+        shaderProgram.textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
+        gl.enableVertexAttribArray(shaderProgram.textureCoordAttribute);
+
+        shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
+        shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
+        shaderProgram.samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
+        shaderProgram.colorUniform = gl.getUniformLocation(shaderProgram, "ucolor");
+
+        gl.useProgram(shaderProgram);
+
+        skyProgram.vertexPositionAttribute = gl.getAttribLocation(skyProgram, "aVertexPosition");
+        gl.enableVertexAttribArray(skyProgram.vertexPositionAttribute);
+
+        skyProgram.textureCoordAttribute = gl.getAttribLocation(skyProgram, "aTextureCoord");
+        gl.enableVertexAttribArray(skyProgram.textureCoordAttribute);
+
+        skyProgram.pMatrixUniform = gl.getUniformLocation(skyProgram, "uPMatrix");
+        skyProgram.mvMatrixUniform = gl.getUniformLocation(skyProgram, "uMVMatrix");
+        skyProgram.samplerUniform = gl.getUniformLocation(skyProgram, "uSampler");
+        skyProgram.colorUniform = gl.getUniformLocation(skyProgram, "ucolor");
+        skyProgram.hourUniform = gl.getUniformLocation(skyProgram, "uhour");
+
+        gl.useProgram(solProgram);
+
+        solProgram.vertexPositionAttribute = gl.getAttribLocation(solProgram, "aVertexPosition");
+        gl.enableVertexAttribArray(solProgram.vertexPositionAttribute);
+
+        solProgram.textureCoordAttribute = gl.getAttribLocation(solProgram, "aTextureCoord");
+        gl.enableVertexAttribArray(solProgram.textureCoordAttribute);
+
+        solProgram.pMatrixUniform = gl.getUniformLocation(solProgram, "uPMatrix");
+        solProgram.mvMatrixUniform = gl.getUniformLocation(solProgram, "uMVMatrix");
+        solProgram.samplerUniform = gl.getUniformLocation(solProgram, "uSampler");
+        solProgram.samplerUniform2 = gl.getUniformLocation(solProgram, "uSampler2");
+        solProgram.xmin = gl.getUniformLocation(solProgram, "xmin");
+        solProgram.xmax = gl.getUniformLocation(solProgram, "xmax");
+        solProgram.ymin = gl.getUniformLocation(solProgram, "ymin");
+        solProgram.ymax = gl.getUniformLocation(solProgram, "ymax");
+        solProgram.type = gl.getUniformLocation(solProgram, "type");
+        solProgram.hour = gl.getUniformLocation(solProgram, "hour");
+
+        gl.useProgram(cloudProgram);
+
+        cloudProgram.vertexPositionAttribute = gl.getAttribLocation(cloudProgram, "aVertexPosition");
+        gl.enableVertexAttribArray(cloudProgram.vertexPositionAttribute);
+
+        cloudProgram.textureCoordAttribute = gl.getAttribLocation(cloudProgram, "aTextureCoord");
+        gl.enableVertexAttribArray(cloudProgram.textureCoordAttribute);
+
+        cloudProgram.pMatrixUniform = gl.getUniformLocation(cloudProgram, "uPMatrix");
+        cloudProgram.mvMatrixUniform = gl.getUniformLocation(cloudProgram, "uMVMatrix");
+        cloudProgram.cameraPositionUniform = gl.getUniformLocation(cloudProgram, "ucameraPosition");
+        cloudProgram.sunPositionUniform = gl.getUniformLocation(cloudProgram, "usunPosition");
+        cloudProgram.sizeUniform = gl.getUniformLocation(cloudProgram, "usize");
+        cloudProgram.samplerUniform = gl.getUniformLocation(cloudProgram, "uSampler");
+		
+        gl.useProgram(treeProgram);
+
+        treeProgram.vertexPositionAttribute = gl.getAttribLocation(treeProgram, "aVertexPosition");
+        gl.enableVertexAttribArray(treeProgram.vertexPositionAttribute);
+
+        treeProgram.textureCoordAttribute = gl.getAttribLocation(treeProgram, "aTextureCoord");
+        gl.enableVertexAttribArray(treeProgram.textureCoordAttribute);
+
+        treeProgram.pMatrixUniform = gl.getUniformLocation(treeProgram, "uPMatrix");
+        treeProgram.mvMatrixUniform = gl.getUniformLocation(treeProgram, "uMVMatrix");
+        treeProgram.cos1Uniform = gl.getUniformLocation(treeProgram, "ucos1");
+        treeProgram.sin1Uniform = gl.getUniformLocation(treeProgram, "usin1");
+        treeProgram.samplerUniform = gl.getUniformLocation(treeProgram, "uSampler");
+		
+		}
+		
+
+	function handleLoadedTexture(texture) {
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
+        //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.bindTexture(gl.TEXTURE_2D, null);
+		//setTimeout("delete("+texture.image.src+");",10000);
+    }
+    function gettexturedata(texture){
+	  // Create a framebuffer backed by the texture
+      var framebuffer = gl.createFramebuffer();
+      gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,texture, 0);
+      // Read the contents of the framebuffer (data stores the pixel data)
+      var data = new Uint8Array(texture.image.width * texture.image.height * 4);
+      gl.readPixels(0,0,texture.image.width,texture.image.height,gl.RGBA,gl.UNSIGNED_BYTE,data);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      gl.deleteFramebuffer(framebuffer);
+	  return data;
+    }
+
+    var solTexture,objTexture,cloudTexture,skyTexture,sunTexture,boussTexture;
+	var pisteTexture,towerTexture,cockpitTexture,compasTexture,heliceTexture,arrowTexture;
+	var waterTexture,treeTexture,radarTexture,azimutTexture,tirTexture,impactTexture;
+	var shipTexture,bloodTexture,spitfireTexture,zeroTexture,shipcarrierTexture;
+	var rttFramebuffer,rttTexture,renderbuffer;
+
+    function deletetextures(){
+        //cancelRequestAnimationFrame(); 
+	    gl.deleteTexture(solTexture);
+	    gl.deleteTexture(objTexture);
+	    gl.deleteTexture(cloudTexture);
+	    gl.deleteTexture(skyTexture);
+	    gl.deleteTexture(sunTexture);
+	    gl.deleteTexture(boussTexture);
+	    gl.deleteTexture(pisteTexture);
+	    gl.deleteTexture(towerTexture);
+	    gl.deleteTexture(cockpitTexture);
+	    gl.deleteTexture(compasTexture);
+	    gl.deleteTexture(heliceTexture);
+	    gl.deleteTexture(arrowTexture);
+	    gl.deleteTexture(waterTexture);
+	    gl.deleteTexture(treeTexture);
+	    gl.deleteTexture(radarTexture);
+	    gl.deleteTexture(azimutTexture);
+	    gl.deleteTexture(tirTexture);
+	    gl.deleteTexture(impactTexture);
+	    gl.deleteTexture(shipTexture);
+	    gl.deleteTexture(bloodTexture);
+	    gl.deleteTexture(spitfireTexture);
+	    gl.deleteTexture(zeroTexture);
+	    gl.deleteTexture(shipcarrierTexture);
+    }
+    function initTexture() {
+        solTexture = gl.createTexture();
+        solTexture.image = new Image();
+        solTexture.image.onload = function () {
+            handleLoadedTexture(solTexture)
+        }
+
+        solTexture.image.src = map2jpg;
+
+        objTexture = gl.createTexture();
+        objTexture.image = new Image();
+        objTexture.image.onload = function () {
+            handleLoadedTexture(objTexture)
+        }
+
+        objTexture.image.src = c150jpg;
+
+        objTexture2 = gl.createTexture();
+        objTexture2.image = new Image();
+        objTexture2.image.onload = function () {
+            handleLoadedTexture(objTexture2)
+        }
+
+        objTexture2.image.src = c150redjpg;
+
+        cloudTexture = gl.createTexture();
+        cloudTexture.image = new Image();
+        cloudTexture.image.onload = function () {
+            handleLoadedTexture(cloudTexture)
+        }
+
+        cloudTexture.image.src = cloudpng;
+		
+        sunTexture = gl.createTexture();
+        sunTexture.image = new Image();
+        sunTexture.image.onload = function () {
+            handleLoadedTexture(sunTexture)
+        }
+
+        sunTexture.image.src = sunpng;
+		
+        boussTexture = gl.createTexture();
+        boussTexture.image = new Image();
+        boussTexture.image.onload = function () {
+            handleLoadedTexture(boussTexture)
+        }
+
+        boussTexture.image.src = bousspng;
+
+        pisteTexture = gl.createTexture();
+        pisteTexture.image = new Image();
+        pisteTexture.image.onload = function () {
+            handleLoadedTexture(pisteTexture)
+        }
+
+        pisteTexture.image.src = piste12jpg;
+
+        towerTexture = gl.createTexture();
+        towerTexture.image = new Image();
+        towerTexture.image.onload = function () {
+            handleLoadedTexture(towerTexture)
+        }
+
+        towerTexture.image.src = tower1jpg;
+
+        cockpitTexture = gl.createTexture();
+        cockpitTexture.image = new Image();
+        cockpitTexture.image.onload = function () {
+            handleLoadedTexture(cockpitTexture)
+        }
+
+        cockpitTexture.image.src = c150cockpit4png;
+
+        compasTexture = gl.createTexture();
+        compasTexture.image = new Image();
+        compasTexture.image.onload = function () {
+            handleLoadedTexture(compasTexture)
+        }
+
+        compasTexture.image.src = compas256jpg;
+
+        heliceTexture = gl.createTexture();
+        heliceTexture.image = new Image();
+        heliceTexture.image.onload = function () {
+            handleLoadedTexture(heliceTexture)
+        }
+
+        heliceTexture.image.src = helice2jpg;
+
+        arrowTexture = gl.createTexture();
+        arrowTexture.image = new Image();
+        arrowTexture.image.onload = function () {
+            handleLoadedTexture(arrowTexture)
+        }
+
+        arrowTexture.image.src = arrowpng;
+
+        waterTexture = gl.createTexture();
+        waterTexture.image = new Image();
+        waterTexture.image.onload = function () {
+            handleLoadedTexture(waterTexture)
+        }
+
+        waterTexture.image.src = waterjpg;
+
+        treeTexture = gl.createTexture();
+        treeTexture.image = new Image();
+        treeTexture.image.onload = function () {
+            handleLoadedTexture(treeTexture)
+        }
+
+        treeTexture.image.src = treejpg;
+		
+        radarTexture = gl.createTexture();
+        radarTexture.image = new Image();
+        radarTexture.image.onload = function () {
+            handleLoadedTexture(radarTexture)
+        }
+
+        radarTexture.image.src = radar2png;
+
+        azimutTexture = gl.createTexture();
+        azimutTexture.image = new Image();
+        azimutTexture.image.onload = function () {
+            handleLoadedTexture(azimutTexture)
+        }
+
+        azimutTexture.image.src = azimut2png;
+
+        rttFramebuffer = gl.createFramebuffer();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, rttFramebuffer);
+        rttFramebuffer.width = 512;
+        rttFramebuffer.height = 512;
+        rttTexture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, rttTexture);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA, rttFramebuffer.width, rttFramebuffer.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+        renderbuffer = gl.createRenderbuffer();
+        gl.bindRenderbuffer(gl.RENDERBUFFER, renderbuffer);
+        gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, rttFramebuffer.width, rttFramebuffer.height);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, rttTexture, 0);
+        gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderbuffer);
+
+        gl.bindTexture(gl.TEXTURE_2D, null);
+        gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+
+	
+        skyTexture = gl.createTexture();
+        skyTexture.image = new Image();
+        skyTexture.image.onload = function () {
+            handleLoadedTexture(skyTexture)
+        }
+
+        skyTexture.image.src = sunback2jpg;//skydome1_512.jpg";
+		
+        tirTexture = gl.createTexture();
+        tirTexture.image = new Image();
+        tirTexture.image.onload = function () {
+            handleLoadedTexture(tirTexture)
+        }
+
+        tirTexture.image.src = explosionjpg;
+		
+        impactTexture = gl.createTexture();
+        impactTexture.image = new Image();
+        impactTexture.image.onload = function () {
+            handleLoadedTexture(impactTexture)
+        }
+
+        impactTexture.image.src = impactjpg;
+		
+        shipTexture = gl.createTexture();
+        shipTexture.image = new Image();
+        shipTexture.image.onload = function () {
+            handleLoadedTexture(shipTexture)
+        }
+
+        shipTexture.image.src = shipjpg;
+		
+        bloodTexture = gl.createTexture();
+        bloodTexture.image = new Image();
+        bloodTexture.image.onload = function () {
+            handleLoadedTexture(bloodTexture)
+        }
+
+        bloodTexture.image.src = bloodjpg;
+		
+        spitfireTexture = gl.createTexture();
+        spitfireTexture.image = new Image();
+        spitfireTexture.image.onload = function () {
+            handleLoadedTexture(spitfireTexture)
+        }
+
+        spitfireTexture.image.src = spitfirejpg;
+
+        zeroTexture = gl.createTexture();
+        zeroTexture.image = new Image();
+        zeroTexture.image.onload = function () {
+            handleLoadedTexture(zeroTexture)
+        }
+
+        zeroTexture.image.src = zerojpg;
+		
+        shipcarrierTexture = gl.createTexture();
+        shipcarrierTexture.image = new Image();
+        shipcarrierTexture.image.onload = function () {
+            handleLoadedTexture(shipcarrierTexture)
+        }
+
+        shipcarrierTexture.image.src = shipcarrierjpg;
+		}
+
+    function drawrttshadow() {
+      //gl.bindRenderbuffer(gl.RENDERBUFFER, renderbuffer);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, rttFramebuffer);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, rttTexture, 0);
+      drawshadow();
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      //gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+    }
+	
+    var mvMatrix = mat4.create();
+    var mvMatrixStack = [];
+    var pMatrix = mat4.create();
+    var camx=0,camy=0,camz=0;
+
+    function mvPushMatrix() {
+        var copy = mat4.create();
+        mat4.set(mvMatrix, copy);
+        mvMatrixStack.push(copy);
+    }
+
+    function mvPopMatrix() {
+        if (mvMatrixStack.length == 0) {
+            throw "Invalid popMatrix!";
+        }
+        mvMatrix = mvMatrixStack.pop();
+    }
+
+
+    function setMatrixUniformssol() {
+        gl.uniformMatrix4fv(solProgram.pMatrixUniform, false, pMatrix);
+        gl.uniformMatrix4fv(solProgram.mvMatrixUniform, false, mvMatrix);
+        gl.uniform1f(solProgram.xmin, x-(xmax-xmin)/2);
+        gl.uniform1f(solProgram.xmax, x+(xmax-xmin)/2);
+        gl.uniform1f(solProgram.ymin, y-(ymax-ymin)/2);
+        gl.uniform1f(solProgram.ymax, y+(ymax-ymin)/2);
+        gl.uniform1i(solProgram.type, 1);
+        gl.uniform1f(solProgram.hour, hour);
+    }
+    function setMatrixUniformspiste() {
+        gl.uniformMatrix4fv(solProgram.pMatrixUniform, false, pMatrix);
+        gl.uniformMatrix4fv(solProgram.mvMatrixUniform, false, mvMatrix);
+        gl.uniform1f(solProgram.xmin, x-(xmax-xmin)/2);
+        gl.uniform1f(solProgram.xmax, x+(xmax-xmin)/2);
+        gl.uniform1f(solProgram.ymin, y-(ymax-ymin)/2);
+        gl.uniform1f(solProgram.ymax, y+(ymax-ymin)/2);
+        gl.uniform1i(solProgram.type, 2);
+        gl.uniform1f(solProgram.hour, hour);
+    }
+    function setMatrixUniformstown() {
+        gl.uniformMatrix4fv(solProgram.pMatrixUniform, false, pMatrix);
+        gl.uniformMatrix4fv(solProgram.mvMatrixUniform, false, mvMatrix);
+        gl.uniform1f(solProgram.xmin, x-(xmax-xmin)/2);
+        gl.uniform1f(solProgram.xmax, x+(xmax-xmin)/2);
+        gl.uniform1f(solProgram.ymin, y-(ymax-ymin)/2);
+        gl.uniform1f(solProgram.ymax, y+(ymax-ymin)/2);
+        gl.uniform1i(solProgram.type, 2);
+        gl.uniform1f(solProgram.hour, hour);
+    }
+    function setMatrixUniformssea() {
+        gl.uniformMatrix4fv(solProgram.pMatrixUniform, false, pMatrix);
+        gl.uniformMatrix4fv(solProgram.mvMatrixUniform, false, mvMatrix);
+        gl.uniform1f(solProgram.xmin, x-(xmax-xmin)*4);
+        gl.uniform1f(solProgram.xmax, x+(xmax-xmin)*4);
+        gl.uniform1f(solProgram.ymin, y-(ymax-ymin)*4);
+        gl.uniform1f(solProgram.ymax, y+(ymax-ymin)*4);
+        gl.uniform1i(solProgram.type, 2);
+        gl.uniform1f(solProgram.hour, hour);
+    }
+	 var colorr=1.0,colorg=1.0,colorb=1.0,colora=1.0;
+     function setMatrixUniforms() {
+        gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
+        gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
+        gl.uniform4f(shaderProgram.colorUniform,colorr,colorg,colorb,colora);
+    }
+    function setskyMatrixUniforms() {
+        gl.uniformMatrix4fv(skyProgram.pMatrixUniform, false, pMatrix);
+        gl.uniformMatrix4fv(skyProgram.mvMatrixUniform, false, mvMatrix);
+        gl.uniform4f(skyProgram.colorUniform,clearr,clearg,clearb,1.0);
+        gl.uniform1f(skyProgram.hourUniform,hour); 
+    }
+   function setcloudMatrixUniforms() {
+        //gl.uniform3fv(cloudProgram.cameraPositionUniform,[x,y,z]);
+        gl.uniform1f(cloudProgram.sizeUniform,cloudsize);
+        gl.uniform3f(cloudProgram.sunPositionUniform,x+sunx,y+suny,z+sunz);
+        gl.uniform3f(cloudProgram.cameraPositionUniform,camx,camy,camz);
+        gl.uniformMatrix4fv(cloudProgram.pMatrixUniform, false, pMatrix);
+        gl.uniformMatrix4fv(cloudProgram.mvMatrixUniform, false, mvMatrix);
+    }
+   function setsunMatrixUniforms() {
+        //gl.uniform3fv(cloudProgram.cameraPositionUniform,[x,y,z]);
+        gl.uniform1f(cloudProgram.sizeUniform,-1.0);
+        gl.uniform3f(cloudProgram.sunPositionUniform,x+sunx,y+suny,z+sunz);
+        gl.uniform3f(cloudProgram.cameraPositionUniform,camx,camy,camz);
+        gl.uniformMatrix4fv(cloudProgram.pMatrixUniform, false, pMatrix);
+        gl.uniformMatrix4fv(cloudProgram.mvMatrixUniform, false, mvMatrix);
+    }
+   function setMatrixUniformstree() {
+        gl.uniform1f(treeProgram.cos1Uniform,cos1);
+        gl.uniform1f(treeProgram.sin1Uniform,sin1);
+        gl.uniformMatrix4fv(treeProgram.pMatrixUniform, false, pMatrix);
+        gl.uniformMatrix4fv(treeProgram.mvMatrixUniform, false, mvMatrix);
+    }
+
+
+    function degtorad(degrees) {
+        return degrees * Math.PI / 180;
+    }
+
+    var solVertexPositionBuffer;
+    var solVertexTextureCoordBuffer;
+    var solVertexIndexBuffer;
+	var solVertexIndices,soltextureCoords;
+	var height;
+	var cloudVertexPositionBuffer;
+    var cloudVertexTextureCoordBuffer;
+	var cloudvertices;
+	var cloudtextureCoords;
+	var sunVertexPositionBuffer;
+    var sunVertexTextureCoordBuffer;
+	var sunvertices;
+	var boussVertexPositionBuffer;
+    var boussVertexTextureCoordBuffer;
+	var boussvertices;
+	var pisteVertexPositionBuffer;
+    var pisteVertexTextureCoordBuffer;
+	var pistevertices;
+	var towerVertexPositionBuffer;
+    var towerVertexTextureCoordBuffer;
+	var towervertices;
+	var townVertexPositionBuffer;
+    var townVertexTextureCoordBuffer;
+	var townvertices,townx,towny,townz,towno1,towndx,towndz;
+	var waterVertexPositionBuffer;
+    var waterVertexTextureCoordBuffer;
+	var watervertices;
+	var seaVertexPositionBuffer;
+    var seaVertexTextureCoordBuffer;
+	var seavertices;
+	var treeVertexPositionBuffer;
+    var treeVertexTextureCoordBuffer;
+	var treevertices;
+	var tirVertexPositionBuffer;
+    var tirVertexTextureCoordBuffer;
+	var tirvertices,tirx,tiry,tirz,vtirx,vtiry,vtirz,ttir,tirsize,tirtype;
+
+	var n=256,nmap=60,index=0,nmap2=nmap;
+	var scale=n*70/nmap;
+	var n4=scale;
+	var ncloud=parseInt(40*1.2*1.2),ncloud2=ncloud;
+	var xmax=0.97*(scale*(8.0*n)/n-n4), ymax=0.97*(scale*(n*8.0/n)-n4);
+	var xmin=0.97*(scale*(8.0*0)/n-n4), ymin=0.97*(scale*(0*8.0/n)-n4);
+	var sunx=1000,suny=200,sunz=800;
+	var boussx=43,boussy=43,boussz=0,landing=0;
+	var npiste=7,ntower=1,ntown=10,ntree=700,ntir=200,itir=0;
+    var pistex=(xmax-xmin)*0.5;
+	var pistey=(ymax-ymin)*0.5;
+	var waterx=(xmax-xmin)*0.5+500;
+	var watery=(ymax-ymin)*0.5-400;
+	var seaheight=0;
+	function append(tab,values){
+	  for(var i=0;i<values.length;i++){
+	     tab[index]=values[i];index+=1;
+	  }
+	}
+	function appendrot(tab,values,s,t,rot){
+	  var co1=Math.cos(rot);
+	  var si1=Math.sin(rot);
+	  for(var i=0;i<values.length;i++){
+	     var xx=values[i];i++;if(i>=values.length){break;};
+		 var yy=values[i];i++;if(i>=values.length){break;};
+         tab[index]=s+(xx-s)*co1-(yy-t)*si1;index+=1;
+		 tab[index]=t+(xx-s)*si1+(yy-t)*co1;index+=1; 
+	     tab[index]=values[i];index+=1;
+	  }
+	}
+	function reinitsol(){
+	    Math.seedrandom(seedrand);
+	    irnd=0;
+        //solVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, solVertexPositionBuffer);
+        var vertices = new Array(3*n*n);
+		//height=new Array((n+1)*(n+1));
+		var heightx=new Array((n+1)*(n+1));
+		var heighty=new Array((n+1)*(n+1));
+		var w=1.0,wx=1.0,wy=1.0;
+		for (var j=0; j < n; j++) {
+        for(var i=0;i<n;i++){
+		   if(Mathrandom()<0.2){w=Mathrandom()+0.35;}
+		   wx+=(w-wx)*0.3;
+		   heightx[i*n+j]=Math.cos(80*wx*(i)/nmap);
+		}}
+		for (var i=0; i < n; i++) {
+        for(var j=0;j<n;j++){
+		   if(Mathrandom()<0.2){w=Mathrandom()+0.35;}
+		   wy+=(w-wy)*0.3;
+		   heighty[i*n+j]=Math.cos(80*wy*(j)/nmap);
+		}}
+        seaheight=5.05;if(tsea==0){seaheight=0;}
+		for (var i=0; i <= n; i++) {
+        for(var j=0;j<n;j++){
+		   height[i*n+j]=5*heightx[i*n+j]*heighty[i*n+j];//(Math.cos(80*(i)/nmap)*Math.cos(80*(j)/nmap))*4.0;
+		}}
+		var nmount=35*2;if(seaheight<0.1){nmount=35;}
+		for(var i=0;i<nmount;i++){
+		   var imount=n*(0.5+0.9*(Mathrandom()-0.5));
+		   var jmount=n*(0.5+0.9*(Mathrandom()-0.5));
+		   var hmount=14*(1+Mathrandom());
+		   var dj=8;
+		   for(var j=-dj;j<dj;j++){
+		   for(var k=-dj;k<dj;k++){
+		      var jj=parseInt(j+imount),kk=parseInt(k+jmount);
+			  if(jj>0 && jj<n && kk>0 && kk<n){
+			    height[jj*n+kk]+=hmount*Math.cos(Math.abs(3.1416*j*0.5/dj))*Math.cos(Math.abs(3.1416*k*0.5/dj));
+			  }
+		   }
+		   }
+		}
+		for (var i=0; i <= n; i++) {
+        for(var j=0;j<n;j++){
+		   height[i*n+j]-=seaheight;
+		   if(height[i*n+j]<-0.4){height[i*n+j]=-0.4;}
+		   }
+		}   
+
+		//x=0.25*(scale*((n)*8.0)/n-n4);y=x;
+		var px=0,py=0;
+		index=0;
+		for (var i=0; i < n; i++) {
+        for(var j=0;j<n;j++){
+		   px=(scale*(i*8.0/n)-n4);py=scale*(j*8.0/n)-n4
+    	   if(Math.abs(px-pistex)<62.0){
+	         if(Math.abs(py-pistey)<62.0){height[i*n+j]=0.1;};}
+	       var dxwater=px-waterx;
+	       var dywater=py-watery;
+	       if((dxwater*dxwater+dywater*dywater)<10000){height[i*n+j]=-0.3;}
+    	   var dxtown=px-(xmax-xmin)*0.7;
+		   var dytown=py-(ymax-ymin)*0.7
+		   if(Math.abs(dxtown)<47.0){
+	         if(Math.abs(dytown)<47.0){if(height[i*n+j]<0.1){height[i*n+j]=0.1;};};}
+		   append(vertices,[
+             px,py,  height[i*n+j]
+             //(scale*((i+1)*8.0)/n-32)*12/8,  scale*(j*8.0/n)-n4,  height[(i+1)*n+j]
+            ]);
+		   
+		}}		
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        solVertexPositionBuffer.itemSize = 3;
+        solVertexPositionBuffer.numItems = n*n;
+
+	    Math.seedrandom(seedrand);
+		var xc=0,yc=0,zc=0;
+		//townVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, townVertexPositionBuffer);
+        //townvertices = new Float32Array(3*6*6*ntown);
+		//townx=new Array(ntown);towny=new Array(ntown);townz=new Array(ntown);
+		//towno1=new Array(ntown);towndx=new Array(ntown);towndz=new Array(ntown);
+		xc=0;yc=0;zc=0;
+		index=0;
+		for (var i=0; i < ntown; i++) {
+		   xc=2.5;
+		   yc=2.5;
+		   zc=3;
+		   var s=(xmax-xmin)*0.7,t=(ymax-ymin)*0.7,h=1.5;
+		   s+= Math.floor( Mathrandom() * 200 - 100 ) * 0.42;
+		   t+= Math.floor( Mathrandom() * 200 - 100 ) * 0.42;
+		   var rot= Mathrandom();
+		   var scx= Mathrandom() * Mathrandom() * Mathrandom() * Mathrandom() * 50 + 10;
+		   xc*=scx/10;yc*=scx/10;			
+		   zc*=(( Mathrandom() * Mathrandom() * Mathrandom() * scx ) * 8 + 8)/10;
+		   towndx[i]=xc;towndz[i]=zc;
+		   zc+=getterrainheight(s,t)-xc*0.1;
+		   townx[i]=s;towny[i]=t;townz[i]=zc;towno1[i]=rot;
+		   appendrot(townvertices,[
+             //s-xc,t-yc,zc,  s-xc,t+yc,zc,  s+xc,t-yc,zc,
+             //s-xc,t+yc,zc,  s+xc,t+yc,zc,  s+xc,t-yc,zc,
+             s-xc,t-yc,zc,  s-xc,t+yc,zc,  s,t,zc+h,
+             s+xc,t-yc,zc,  s+xc,t+yc,zc,  s,t,zc+h,
+             s-xc,t-yc,zc,  s+xc,t-yc,zc,  s,t,zc+h,
+             s-xc,t+yc,zc,  s+xc,t+yc,zc,  s,t,zc+h,
+			 
+             s-xc,t-yc,0,  s-xc,t-yc,zc,  s+xc,t-yc,0,
+             s-xc,t-yc,zc,  s+xc,t-yc,zc,  s+xc,t-yc,0,			 
+             
+             s-xc,t+yc,0,  s-xc,t+yc,zc,  s+xc,t+yc,0,
+             s-xc,t+yc,zc,  s+xc,t+yc,zc,  s+xc,t+yc,0,			 
+             
+			 s-xc,t-yc,0,  s-xc,t-yc,zc,  s-xc,t+yc,0,
+             s-xc,t-yc,zc,  s-xc,t+yc,zc,  s-xc,t+yc,0,			 
+             
+			 s+xc,t-yc,0,  s+xc,t-yc,zc,  s+xc,t+yc,0,
+             s+xc,t-yc,zc,  s+xc,t+yc,zc,  s+xc,t+yc,0,			 
+			 
+			 ],s,t,rot); 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (townvertices), gl.STATIC_DRAW);
+        townVertexPositionBuffer.itemSize = 3;
+        townVertexPositionBuffer.numItems = 6*6*ntown;
+
+	    Math.seedrandom(seedrand);
+        //treeVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, treeVertexPositionBuffer);
+        //treevertices = new Float32Array(3*3*ntree);
+		xc=0;yc=0;zc=0;
+		index=0;
+		for (var i=0; i < ntree; i++) {
+		   zc=1;
+		   var h=2;
+		   var s=Mathrandom()*2*90+(xmax-xmin)*0.5;
+		   var t=Mathrandom()*2*90+(ymax-ymin)*0.5;
+		   zc=getterrainheight(s,t);
+		   append(treevertices,[
+             s-xc,t-yc,zc,  s,t,zc+h,  s+xc,t+yc,zc	 
+			 ]); 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (treevertices), gl.STATIC_DRAW);
+        treeVertexPositionBuffer.itemSize = 3;
+        treeVertexPositionBuffer.numItems = 3*ntree;
+
+		if(tsea==1){resetcarrier();}
+		}
+
+    function initBuffers() {
+	    Math.seedrandom(seedrand);
+	    irnd=0;
+        solVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, solVertexPositionBuffer);
+        var vertices = new Array(3*n*n);
+		height=new Array((n+1)*(n+1));
+		var heightx=new Array((n+1)*(n+1));
+		var heighty=new Array((n+1)*(n+1));
+		var w=1.0,wx=1.0,wy=1.0;
+		for (var j=0; j < n; j++) {
+        for(var i=0;i<n;i++){
+		   if(Mathrandom()<0.2){w=Mathrandom()+0.35;}
+		   wx+=(w-wx)*0.3;
+		   heightx[i*n+j]=Math.cos(80*wx*(i)/nmap);
+		}}
+		for (var i=0; i < n; i++) {
+        for(var j=0;j<n;j++){
+		   if(Mathrandom()<0.2){w=Mathrandom()+0.35;}
+		   wy+=(w-wy)*0.3;
+		   heighty[i*n+j]=Math.cos(80*wy*(j)/nmap);
+		}}
+        seaheight=5.05;if(tsea==0){seaheight=0;}
+		for (var i=0; i <= n; i++) {
+        for(var j=0;j<n;j++){
+		   height[i*n+j]=5*heightx[i*n+j]*heighty[i*n+j];//(Math.cos(80*(i)/nmap)*Math.cos(80*(j)/nmap))*4.0;
+		}}
+		var nmount=35*2;if(seaheight<0.1){nmount=35;}
+		for(var i=0;i<nmount;i++){
+		   var imount=n*(0.5+0.9*(Mathrandom()-0.5));
+		   var jmount=n*(0.5+0.9*(Mathrandom()-0.5));
+		   var hmount=14*(1+Mathrandom());
+		   var dj=8;
+		   for(var j=-dj;j<dj;j++){
+		   for(var k=-dj;k<dj;k++){
+		      var jj=parseInt(j+imount),kk=parseInt(k+jmount);
+			  if(jj>0 && jj<n && kk>0 && kk<n){
+			    height[jj*n+kk]+=hmount*Math.cos(Math.abs(3.1416*j*0.5/dj))*Math.cos(Math.abs(3.1416*k*0.5/dj));
+			  }
+		   }
+		   }
+		}
+		for (var i=0; i <= n; i++) {
+        for(var j=0;j<n;j++){
+		   height[i*n+j]-=seaheight;
+		   if(height[i*n+j]<-0.4){height[i*n+j]=-0.4;}
+		   }
+		}   
+
+		//x=0.25*(scale*((n)*8.0)/n-n4);y=x;
+		var px=0,py=0;
+		index=0;
+		for (var i=0; i < n; i++) {
+        for(var j=0;j<n;j++){
+		   px=(scale*(i*8.0/n)-n4);py=scale*(j*8.0/n)-n4
+    	   if(Math.abs(px-pistex)<62.0){
+	         if(Math.abs(py-pistey)<62.0){height[i*n+j]=0.1;};}
+	       var dxwater=px-waterx;
+	       var dywater=py-watery;
+	       if((dxwater*dxwater+dywater*dywater)<10000){height[i*n+j]=-0.3;}
+    	   var dxtown=px-(xmax-xmin)*0.7;
+		   var dytown=py-(ymax-ymin)*0.7
+		   if(Math.abs(dxtown)<47.0){
+	         if(Math.abs(dytown)<47.0){if(height[i*n+j]<0.1){height[i*n+j]=0.1;};};}
+		   append(vertices,[
+             px,py,  height[i*n+j]
+             //(scale*((i+1)*8.0)/n-32)*12/8,  scale*(j*8.0/n)-n4,  height[(i+1)*n+j]
+            ]);
+		   
+		}}		
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        solVertexPositionBuffer.itemSize = 3;
+        solVertexPositionBuffer.numItems = n*n;
+
+
+        //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        //solVertexPositionBuffer.itemSize = 3;
+        //solVertexPositionBuffer.numItems = 24;
+
+        solVertexTextureCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, solVertexTextureCoordBuffer);
+        soltextureCoords = new Float32Array(2*n*n);
+		index=0;
+		for (var i=0; i < n; i++) {
+        for(var j=0;j<n;j++){
+		   append(soltextureCoords,[
+             (i*8.0)/n-4,  (j)*8.0/n-4 
+             //((i+1)*8.0)/n-4,  (j)*8.0/n-4
+            ]);
+		}}	
+        gl.bufferData(gl.ARRAY_BUFFER, (soltextureCoords), gl.STATIC_DRAW);
+        solVertexTextureCoordBuffer.itemSize = 2;
+        solVertexTextureCoordBuffer.numItems = n*n;//24;
+
+        solVertexIndexBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, solVertexIndexBuffer);
+        nmap2=2*nmap;
+		solVertexIndices = new Uint16Array(6*2*nmap*2*nmap);
+		var n2=n+n,i2=0,j2=0;
+		var nx=(n4)*n/(scale*8)-nmap2/2;
+		var ny=(n4)*n/(scale*8)-nmap2/2;
+		nx=parseInt(nx/6)*6;
+		ny=parseInt(ny/6)*6;
+		
+		index=0;
+		for (var i=(nx); i<((nx)+nmap2); i++) {i2=(i)*n;
+        for(var j=ny;j<(ny+(nmap2));j+=1){j2=(j);
+		   append(solVertexIndices,[
+             i2+j2,  i2+j2+n, i2+j2+1, 
+             i2+j2+n,  i2+j2+n+1,   i2+j2+1
+            ]);
+		}}
+        //indices16=new Uint16Array(solVertexIndices)		
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, solVertexIndices , gl.STATIC_DRAW);
+        solVertexIndexBuffer.itemSize = 1;
+        solVertexIndexBuffer.numItems = 6*nmap2*nmap2;
+		
+
+        cloudVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, cloudVertexPositionBuffer);
+        cloudvertices = new Float32Array(3*6*ncloud);
+		var xc=0,yc=0,zc=0,distmax=1.2*(xmax-xmin)/5;
+		index=0;
+		for (var i=0; i < ncloud; i++) {
+		   sc=(1+Math.random())*15;
+		   xc=x-distmax+Math.random()*(distmax+distmax);
+		   yc=y-distmax+Math.random()*(distmax+distmax);zc=30+Math.random()*30;
+		   append(cloudvertices,[
+             xc,yc,zc,  xc,yc,zc,  xc,yc,zc,
+             xc,yc,zc,  xc,yc,zc,  xc,yc,zc			 
+             //x,y-sc,z-sc,  x,y-sc,z+sc,  x,y+sc,z-sc,
+             //x,y-sc,z+sc,  x,y+sc,z+sc,  x,y+sc,z-sc			 
+			 ]); 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (cloudvertices), gl.STATIC_DRAW);
+        cloudVertexPositionBuffer.itemSize = 3;
+        cloudVertexPositionBuffer.numItems = 6*ncloud;
+
+        cloudVertexTextureCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, cloudVertexTextureCoordBuffer);
+        cloudtextureCoords = new Array(2*6*ncloud);
+		var sc=1,sc2=1;
+		index=0;
+		for (var i=0; i < ncloud; i++) {
+		   sc=(1+Math.random()*2)*0.5;
+		   sc2=(1+Math.random()*0.5)*sc;
+		   append(cloudtextureCoords,[
+             -sc,-sc2,  -sc,sc2,   sc,-sc2,
+			 -sc,sc2,   sc,sc2,    sc,-sc2
+            // 0.0,0.0,  0.0,1.0,  1.0,0.0,
+            // 0.0,1.0,  1.0,1.0,  1.0,0.0			 
+            ]);
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(cloudtextureCoords), gl.STATIC_DRAW);
+        cloudVertexTextureCoordBuffer.itemSize = 2;
+        cloudVertexTextureCoordBuffer.numItems = 6*ncloud;
+
+        sunVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, sunVertexPositionBuffer);
+        sunvertices = new Float32Array(3*6);
+		xc=0;yc=0;zc=0;
+		index=0;
+		for (var i=0; i < 1; i++) {
+		   xc=sunx;
+		   yc=suny;
+		   zc=sunz;
+		   append(sunvertices,[
+             xc,yc,zc,  xc,yc,zc,  xc,yc,zc,
+             xc,yc,zc,  xc,yc,zc,  xc,yc,zc			 
+			 ]); 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (sunvertices), gl.STATIC_DRAW);
+        sunVertexPositionBuffer.itemSize = 3;
+        sunVertexPositionBuffer.numItems = 6;
+
+        sunVertexTextureCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, sunVertexTextureCoordBuffer);
+        var suntextureCoords = new Array(2*6);
+		sc=5.5;sc2=11;
+		index=0;
+		for (var i=0; i < 1; i++) {
+		   append(suntextureCoords,[
+             -sc,-sc2,  -sc,sc2,   sc,-sc2,
+			 -sc,sc2,   sc,sc2,    sc,-sc2
+            ]);
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(suntextureCoords), gl.STATIC_DRAW);
+        sunVertexTextureCoordBuffer.itemSize = 2;
+        sunVertexTextureCoordBuffer.numItems = 6;
+
+        boussVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, boussVertexPositionBuffer);
+        boussvertices = new Float32Array(3*6);
+		xc=0;yc=0;zc=0;
+		index=0;
+		for (var i=0; i < 1; i++) {
+		   xc=boussx;
+		   yc=boussy;
+		   zc=boussz;
+		   append(boussvertices,[
+             -xc,-yc,zc,  -xc,yc,zc,  xc,-yc,zc,
+             -xc,yc,zc,  xc,yc,zc,  xc,-yc,zc			 
+			 ]); 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (boussvertices), gl.STATIC_DRAW);
+        boussVertexPositionBuffer.itemSize = 3;
+        boussVertexPositionBuffer.numItems = 6;
+
+        boussVertexTextureCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, boussVertexTextureCoordBuffer);
+        var bousstextureCoords = new Array(2*6);
+		sc=5.5;sc2=11;
+		index=0;
+		for (var i=0; i < 1; i++) {
+		   append(bousstextureCoords,[
+             0,0, 0,1, 1,0,
+			 0,1, 1,1, 1,0
+			 //-sc,-sc2,  -sc,sc2,   sc,-sc2,
+			 //-sc,sc2,   sc,sc2,    sc,-sc2
+            ]);
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(bousstextureCoords), gl.STATIC_DRAW);
+        boussVertexTextureCoordBuffer.itemSize = 2;
+        boussVertexTextureCoordBuffer.numItems = 6;
+
+        pisteVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, pisteVertexPositionBuffer);
+        pistevertices = new Float32Array(3*6*npiste);
+		xc=0;yc=0;zc=0;
+		index=0;
+		for (var i=0; i < npiste; i++) {
+		   xc=7;
+		   yc=7;
+		   zc=0.2;
+		   var s=i*2*xc+(xmax-xmin)*0.5-45.5,t=(ymax-ymin)*0.5;
+		   append(pistevertices,[
+             s-xc,t-yc,zc,  s-xc,t+yc,zc,  s+xc,t-yc,zc,
+             s-xc,t+yc,zc,  s+xc,t+yc,zc,  s+xc,t-yc,zc			 
+			 ]); 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (pistevertices), gl.STATIC_DRAW);
+        pisteVertexPositionBuffer.itemSize = 3;
+        pisteVertexPositionBuffer.numItems = 6*npiste;
+
+        pisteVertexTextureCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, pisteVertexTextureCoordBuffer);
+        var pistetextureCoords = new Array(2*6*npiste);
+		index=0;
+		   append(pistetextureCoords,[
+             0.5,0, 0.5,1, 1,0,
+			 0.5,1, 1,1, 1,0
+            ]);
+		for (var i=2; i < npiste; i++) {
+		   append(pistetextureCoords,[
+             0,0, 0,1, 1/2,0,
+			 0,1, 1/2,1, 1/2,0
+            ]);
+		}	
+		   append(pistetextureCoords,[
+             1,0, 1,1, 1/2,0,
+			 1,1, 1/2,1, 1/2,0
+            ]);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pistetextureCoords), gl.STATIC_DRAW);
+        pisteVertexTextureCoordBuffer.itemSize = 2;
+        pisteVertexTextureCoordBuffer.numItems = 6*npiste;
+
+        towerVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, towerVertexPositionBuffer);
+        towervertices = new Float32Array(3*6*6*ntower);
+		xc=0;yc=0;zc=0;
+		index=0;
+		for (var i=0; i < ntower; i++) {
+		   xc=2.5;
+		   yc=2.5;
+		   zc=3;
+		   var s=i*4*xc+(xmax-xmin)*0.5-20,t=(ymax-ymin)*0.5+20,h=0.9;
+		   append(towervertices,[
+             //s-xc,t-yc,zc,  s-xc,t+yc,zc,  s+xc,t-yc,zc,
+             //s-xc,t+yc,zc,  s+xc,t+yc,zc,  s+xc,t-yc,zc,
+             s-xc,t-yc,zc,  s-xc,t+yc,zc,  s,t,zc+h,
+             s+xc,t-yc,zc,  s+xc,t+yc,zc,  s,t,zc+h,
+             s-xc,t-yc,zc,  s+xc,t-yc,zc,  s,t,zc+h,
+             s-xc,t+yc,zc,  s+xc,t+yc,zc,  s,t,zc+h,
+			 
+             s-xc,t-yc,0,  s-xc,t-yc,zc,  s+xc,t-yc,0,
+             s-xc,t-yc,zc,  s+xc,t-yc,zc,  s+xc,t-yc,0,			 
+             
+             s-xc,t+yc,0,  s-xc,t+yc,zc,  s+xc,t+yc,0,
+             s-xc,t+yc,zc,  s+xc,t+yc,zc,  s+xc,t+yc,0,			 
+             
+			 s-xc,t-yc,0,  s-xc,t-yc,zc,  s-xc,t+yc,0,
+             s-xc,t-yc,zc,  s-xc,t+yc,zc,  s-xc,t+yc,0,			 
+             
+			 s+xc,t-yc,0,  s+xc,t-yc,zc,  s+xc,t+yc,0,
+             s+xc,t-yc,zc,  s+xc,t+yc,zc,  s+xc,t+yc,0,			 
+			 
+			 ]); 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (towervertices), gl.STATIC_DRAW);
+        towerVertexPositionBuffer.itemSize = 3;
+        towerVertexPositionBuffer.numItems = 6*6*ntower;
+
+        towerVertexTextureCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, towerVertexTextureCoordBuffer);
+        var towertextureCoords = new Array(2*6*6*ntower);
+		index=0;
+		for (var i=0; i < ntower; i++) {
+		   var u=0.25,v=0.25;
+		   append(towertextureCoords,[
+             u,v, u,v+0.1, u+0.1,v,
+			 u,v+0.1, u+0.1,v+0.1, u+0.1,v,
+
+             u,v, u,v+0.1, u+0.1,v,
+			 u,v+0.1, u+0.1,v+0.1, u+0.1,v
+			 ]);
+		   var s=4,t=3,sy=2;
+		   append(towertextureCoords,[
+             0,0, 0,t, s,0,
+			 0,t, s,t, s,0,
+			 
+             0,0, 0,t, s,0,
+			 0,t, s,t, s,0,			 
+
+             0,0, 0,t, sy,0,
+			 0,t, sy,t, sy,0,
+			 
+             0,0, 0,t, sy,0,
+			 0,t, sy,t, sy,0			 
+			 ]);
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(towertextureCoords), gl.STATIC_DRAW);
+        towerVertexTextureCoordBuffer.itemSize = 2;
+        towerVertexTextureCoordBuffer.numItems = 6*6*ntower;
+	
+	    Math.seedrandom(seedrand);
+        ntown=40;
+		townVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, townVertexPositionBuffer);
+        townvertices = new Float32Array(3*6*6*ntown);
+		townx=new Array(ntown);towny=new Array(ntown);townz=new Array(ntown);
+		towno1=new Array(ntown);towndx=new Array(ntown);towndz=new Array(ntown);
+		xc=0;yc=0;zc=0;
+		index=0;
+		for (var i=0; i < ntown; i++) {
+		   xc=2.5;
+		   yc=2.5;
+		   zc=3;
+		   var s=(xmax-xmin)*0.7,t=(ymax-ymin)*0.7,h=1.5;
+		   s+= Math.floor( Math.random() * 200 - 100 ) * 0.42;
+		   t+= Math.floor( Math.random() * 200 - 100 ) * 0.42;
+		   var rot= Math.random();
+		   var scx= Math.random() * Math.random() * Math.random() * Math.random() * 50 + 10;
+		   xc*=scx/10;yc*=scx/10;			
+		   zc*=(( Math.random() * Math.random() * Math.random() * scx ) * 8 + 8)/10;
+		   towndx[i]=xc;towndz[i]=zc;
+		   zc+=getterrainheight(s,t)-xc*0.1;
+		   townx[i]=s;towny[i]=t;townz[i]=zc;towno1[i]=rot;
+		   appendrot(townvertices,[
+             //s-xc,t-yc,zc,  s-xc,t+yc,zc,  s+xc,t-yc,zc,
+             //s-xc,t+yc,zc,  s+xc,t+yc,zc,  s+xc,t-yc,zc,
+             s-xc,t-yc,zc,  s-xc,t+yc,zc,  s,t,zc+h,
+             s+xc,t-yc,zc,  s+xc,t+yc,zc,  s,t,zc+h,
+             s-xc,t-yc,zc,  s+xc,t-yc,zc,  s,t,zc+h,
+             s-xc,t+yc,zc,  s+xc,t+yc,zc,  s,t,zc+h,
+			 
+             s-xc,t-yc,0,  s-xc,t-yc,zc,  s+xc,t-yc,0,
+             s-xc,t-yc,zc,  s+xc,t-yc,zc,  s+xc,t-yc,0,			 
+             
+             s-xc,t+yc,0,  s-xc,t+yc,zc,  s+xc,t+yc,0,
+             s-xc,t+yc,zc,  s+xc,t+yc,zc,  s+xc,t+yc,0,			 
+             
+			 s-xc,t-yc,0,  s-xc,t-yc,zc,  s-xc,t+yc,0,
+             s-xc,t-yc,zc,  s-xc,t+yc,zc,  s-xc,t+yc,0,			 
+             
+			 s+xc,t-yc,0,  s+xc,t-yc,zc,  s+xc,t+yc,0,
+             s+xc,t-yc,zc,  s+xc,t+yc,zc,  s+xc,t+yc,0,			 
+			 
+			 ],s,t,rot); 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (townvertices), gl.STATIC_DRAW);
+        townVertexPositionBuffer.itemSize = 3;
+        townVertexPositionBuffer.numItems = 6*6*ntown;
+
+        townVertexTextureCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, townVertexTextureCoordBuffer);
+        var towntextureCoords = new Array(2*6*6*ntown);
+		index=0;
+		for (var i=0; i < ntown; i++) {
+		   var u=0.25,v=0.25;
+		   append(towntextureCoords,[
+             u,v, u,v+0.1, u+0.1,v,
+			 u,v+0.1, u+0.1,v+0.1, u+0.1,v,
+
+             u,v, u,v+0.1, u+0.1,v,
+			 u,v+0.1, u+0.1,v+0.1, u+0.1,v
+			 ]);
+		   var s=2*towndx[i],t=1.5*towndz[i],sy=1*towndx[i];
+		   append(towntextureCoords,[
+             0,0, 0,t, s,0,
+			 0,t, s,t, s,0,
+			 
+             0,0, 0,t, s,0,
+			 0,t, s,t, s,0,			 
+
+             0,0, 0,t, sy,0,
+			 0,t, sy,t, sy,0,
+			 
+             0,0, 0,t, sy,0,
+			 0,t, sy,t, sy,0			 
+			 ]);
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(towntextureCoords), gl.STATIC_DRAW);
+        townVertexTextureCoordBuffer.itemSize = 2;
+        townVertexTextureCoordBuffer.numItems = 6*6*ntown;
+		
+		
+        waterVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, waterVertexPositionBuffer);
+        watervertices = new Float32Array(3*6);
+		xc=0;yc=0;zc=0;
+		index=0;
+		   xc=110;
+		   yc=110;
+		   zc=-0.2;
+		   var s=waterx,t=watery;
+		   append(watervertices,[
+             s-xc,t-yc,zc,  s-xc,t+yc,zc,  s+xc,t-yc,zc,
+             s-xc,t+yc,zc,  s+xc,t+yc,zc,  s+xc,t-yc,zc			 
+			 ]); 	
+        gl.bufferData(gl.ARRAY_BUFFER, (watervertices), gl.STATIC_DRAW);
+        waterVertexPositionBuffer.itemSize = 3;
+        waterVertexPositionBuffer.numItems = 6;
+
+        waterVertexTextureCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, waterVertexTextureCoordBuffer);
+        var watertextureCoords = new Array(2*6);
+		index=0;
+		var s=10;
+		   append(watertextureCoords,[
+             0,0, 0,s, s,0,
+			 0,s, s,s, s,0
+            ]);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(watertextureCoords), gl.STATIC_DRAW);
+        waterVertexTextureCoordBuffer.itemSize = 2;
+        waterVertexTextureCoordBuffer.numItems = 6;
+
+        seaVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, seaVertexPositionBuffer);
+        seavertices = new Float32Array(3*6);
+		xc=0;yc=0;zc=0;
+		index=0;
+		var seascale=4.7;
+		   xc=110*seascale;
+		   yc=110*seascale;
+		   zc=-0.3;
+		   var s=seax,t=seay;
+		   append(seavertices,[
+             s-xc,t-yc,zc,  s-xc,t+yc,zc,  s+xc,t-yc,zc,
+             s-xc,t+yc,zc,  s+xc,t+yc,zc,  s+xc,t-yc,zc			 
+			 ]); 	
+        gl.bufferData(gl.ARRAY_BUFFER, (seavertices), gl.STATIC_DRAW);
+        seaVertexPositionBuffer.itemSize = 3;
+        seaVertexPositionBuffer.numItems = 6;
+
+        seaVertexTextureCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, seaVertexTextureCoordBuffer);
+        var seatextureCoords = new Array(2*6);
+		index=0;
+		var s=10*seascale;
+		   append(seatextureCoords,[
+             0,0, 0,s, s,0,
+			 0,s, s,s, s,0
+            ]);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(seatextureCoords), gl.STATIC_DRAW);
+        seaVertexTextureCoordBuffer.itemSize = 2;
+        seaVertexTextureCoordBuffer.numItems = 6;
+
+	    Math.seedrandom(seedrand);
+        treeVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, treeVertexPositionBuffer);
+        treevertices = new Float32Array(3*3*ntree);
+		xc=0;yc=0;zc=0;
+		index=0;
+		for (var i=0; i < ntree; i++) {
+		   zc=1;
+		   var h=2;
+		   var s=Math.random()*2*90+(xmax-xmin)*0.5;
+		   var t=Math.random()*2*90+(ymax-ymin)*0.5;
+		   zc=getterrainheight(s,t);
+		   append(treevertices,[
+             s-xc,t-yc,zc,  s,t,zc+h,  s+xc,t+yc,zc	 
+			 ]); 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (treevertices), gl.STATIC_DRAW);
+        treeVertexPositionBuffer.itemSize = 3;
+        treeVertexPositionBuffer.numItems = 3*ntree;
+
+        treeVertexTextureCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, treeVertexTextureCoordBuffer);
+        var treetextureCoords = new Array(2*3*ntree);
+		index=0;
+		for (var i=0; i < ntree; i++) {
+		   append(treetextureCoords,[
+             0,0,  0.5,1,  1,0
+			 ]);
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(treetextureCoords), gl.STATIC_DRAW);
+        treeVertexTextureCoordBuffer.itemSize = 2;
+        treeVertexTextureCoordBuffer.numItems = 3*ntree;
+
+        tirVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, tirVertexPositionBuffer);
+        tirvertices = new Float32Array(3*6*ntir);
+        tirx = new Array(ntir);
+        tiry = new Array(ntir);
+        tirz = new Array(ntir);
+        vtirx = new Array(ntir);
+        vtiry = new Array(ntir);
+        vtirz = new Array(ntir);
+        tirsize = new Array(ntir);
+        tirtype = new Array(ntir);
+        ttir = new Array(ntir);
+		xc=0;yc=0;zc=0;
+		index=0;
+		for (var i=0; i < ntir; i++) {
+		   zc=20;
+		   var h=2;
+		   var s=i*10+x;
+		   var t=y;
+		   xc=1;zc=-999;
+		   tirx[i]=s;tiry[i]=t;tirz[i]=zc;tirsize[i]=1;ttir[i]=0;tirtype[i]=0;
+		   append(tirvertices,[
+             s-xc,t,zc,  s-xc,t,zc+h,  s+xc,t,zc,	 
+             s-xc,t,zc+h,  s+xc,t,zc+h,  s+xc,t,zc	 
+			 ]); 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (tirvertices), gl.STATIC_DRAW);
+        tirVertexPositionBuffer.itemSize = 3;
+        tirVertexPositionBuffer.numItems = 6*ntir;
+
+        tirVertexTextureCoordBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, tirVertexTextureCoordBuffer);
+        var tirtextureCoords = new Array(2*6*ntir);
+		index=0;
+		for (var i=0; i < ntir; i++) {
+		   append(tirtextureCoords,[
+             0,0,  0,1,  1,0,
+			 0,1,  1,1,  1,0
+			 ]);
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(tirtextureCoords), gl.STATIC_DRAW);
+        tirVertexTextureCoordBuffer.itemSize = 2;
+        tirVertexTextureCoordBuffer.numItems = 6*ntir;
+		
+	    Math.seedrandom();
+
+}
+		
+
+function addindex(tab,values){
+	var ix=0,n2=n*n;
+	for(var i=0;i<values.length;i++){
+	   ix=parseInt(values[i]);
+	   if(ix<0){ix+=n2;};
+       if(ix>n2){ix-=n2;};
+       tab[index]=ix;
+	   index+=1;
+	}
+}
+function addindexcloud(tab,values){
+	var ix=0;
+	for(var i=0;i<values.length;i++){
+	   ix=values[i];
+	   tab[index]=(ix);
+	   index+=1;
+	}
+}
+var nx0=0,ny0=0;
+function updateindex(){
+		var n2=n+n,i2=0,j2=0;
+        //n4=scale*1;
+		//var xmax=0.99*(scale*(8.0*n)/n-n4), ymax=0.99*(scale*(n*8.0/n)-n4);//,  height[i*n+j],
+		//var xmin=0.99*(scale*(8.0*0)/n-n4), ymin=0.99*(scale*(0*8.0/n)-n4);//,  height[i*n+j],
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, solVertexIndexBuffer);
+		nmap2=parseInt((1+z/80)*nmap);
+		if(nmap2>2*nmap){nmap2=2*nmap;};if(nmap2<1){nmap2=1;};
+		var nx=(x+n4)*n/(scale*8);
+		var ny=(y+n4)*n/(scale*8);
+		var alt=getterrainheight2(x,y);zsol=alt;if(z>(alt+5)){zsol=0.1;};
+		if(z<(alt+0.69001)){
+		   if(landing==0){soundpneu();}; 
+		   z=alt+0.69;landing=1;if(o2<-8*tpiste){o2=-0.6*o2+Math.random()*0.5;}else{if(o2<-0.02){o2=-0.01;};}
+		   }else{landing=0;};
+		nx-=nmap2/2;ny-=nmap2/2;
+		nx=parseInt(nx/6)*6;
+		ny=parseInt(ny/6)*6;
+		if(nx==nx0 && ny==ny0){return;};
+		nx0=nx;ny0=ny;
+		index=0;
+		for (var i=nx; i<(nx+nmap2); i++) {i2=(i)*n;
+        for(var j=ny;j<(ny+(nmap2));j++){j2=(j);
+		   addindex(solVertexIndices,[
+             i2+j2,  i2+j2+n, i2+j2+1, 
+             i2+j2+n,  i2+j2+n+1,   i2+j2+1
+            ]);
+		}}
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, solVertexIndices , gl.STATIC_DRAW);
+		solVertexIndexBuffer.numItems = 6*nmap2*(nmap2-1);
+}
+var cloudsize=1,cloudsize1=1;
+cloudsize=0.8+0.5*Math.random();
+cloudsize1=cloudsize;
+function updatecloud(){
+        gl.bindBuffer(gl.ARRAY_BUFFER, cloudVertexPositionBuffer);
+		var xc=0,yc=0,zc=0,distmax=1.2*(xmax-xmin)/5;
+		index=0;
+		for (var i=0; i < ncloud; i++) {
+		   xc=cloudvertices[index];
+		   yc=cloudvertices[index+1]+0.0015*dtime;
+		   zc=cloudvertices[index+2];
+		   while(xc<(x-distmax)){xc+=distmax*1.99;};
+		   while(xc>(x+distmax)){xc-=distmax*1.99;};
+		   while(yc<(y-distmax)){yc+=distmax*1.99;};
+		   while(yc>(y+distmax)){yc-=distmax*1.99;};
+		   addindexcloud(cloudvertices,[
+             xc,yc,zc,  xc,yc,zc,  xc,yc,zc,
+             xc,yc,zc,  xc,yc,zc,  xc,yc,zc			 
+			 ]); 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (cloudvertices), gl.STATIC_DRAW);
+        
+		if(Math.random()<0.001*dtime){if(Math.random()<0.05){
+		            cloudsize1=0.8+Math.random()*2.2;
+					if(Math.random()<0.72){cloudsize1=0.8+Math.random()*0.5;};};}
+		cloudsize+=(cloudsize1-cloudsize)*0.00005*dtime;
+}
+var thour=0,hour=0;
+function updatesun(){
+        gl.bindBuffer(gl.ARRAY_BUFFER, sunVertexPositionBuffer);
+		var xc=0,yc=0,zc=0;
+	    hour=new Date().getHours()+new Date().getMinutes()/60.0+ thour;
+		while(hour>24){hour-=24;}
+		while(hour<0){hour+=24;};
+    	sunx=1000*Math.sin((12-hour)*3.14/24);
+		suny=-1000*Math.cos((12-hour)*3.44/24);
+		sunz=800*Math.cos((12-hour)*3.14/24)*Math.cos((12-hour)*3.14/24)+40;
+		index=0;
+		for (var i=0; i < ncloud; i++) {
+		   xc=x+sunx;
+		   yc=y+suny;
+		   zc=sunz;
+		   addindexcloud(sunvertices,[
+             xc,yc,zc,  xc,yc,zc,  xc,yc,zc,
+             xc,yc,zc,  xc,yc,zc,  xc,yc,zc			 
+			 ]); 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (sunvertices), gl.STATIC_DRAW);
+}
+
+function updatetree(){
+        gl.bindBuffer(gl.ARRAY_BUFFER, treeVertexPositionBuffer);
+		var xc=0,yc=0,zc=0,distmax=90,test=0,h=2;
+		index=0;
+		for (var i=0; i < ntree; i++) {
+		   xc=treevertices[index];
+		   yc=treevertices[index+1];
+		   zc=treevertices[index+2];
+		   test=0;
+		   while(xc<(x-distmax)){xc+=distmax*1.99999;test=1;};
+		   while(xc>(x+distmax)){xc-=distmax*1.99999;test=1;};
+		   while(yc<(y-distmax)){yc+=distmax*1.99999;test=1;};
+		   while(yc>(y+distmax)){yc-=distmax*1.99999;test=1;};
+		   if(test==1){zc=getterrainheight(xc,yc);
+		     addindexcloud(treevertices,[
+               xc,yc,zc,  xc,yc,zc+h,  xc,yc,zc			 
+			   ]);}else{index+=9;}; 
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER, (treevertices), gl.STATIC_DRAW);
+}
+function updatesea(){
+        //while(seax>(x+110)){seax-=110;}
+		//while(seax<(x-110)){seax+=110;}
+        //while(seay>(y+110)){seay-=110;}
+		//while(seay<(y-110)){seay+=110;}
+		seax=x;seay=y;
+        gl.bindBuffer(gl.ARRAY_BUFFER, seaVertexPositionBuffer);
+        seavertices = new Float32Array(3*6);
+		xc=0;yc=0;zc=0;
+		index=0;
+		var seascale=4.7;
+		   xc=110*seascale;
+		   yc=110*seascale;
+		   zc=-0.3;
+		   var s=seax,t=seay;
+		   append(seavertices,[
+             s-xc,t-yc,zc,  s-xc,t+yc,zc,  s+xc,t-yc,zc,
+             s-xc,t+yc,zc,  s+xc,t+yc,zc,  s+xc,t-yc,zc			 
+			 ]); 	
+        gl.bufferData(gl.ARRAY_BUFFER, (seavertices), gl.STATIC_DRAW);
+        seaVertexPositionBuffer.itemSize = 3;
+        seaVertexPositionBuffer.numItems = 6;
+		
+        gl.bindBuffer(gl.ARRAY_BUFFER, seaVertexTextureCoordBuffer);
+        var seatextureCoords = new Array(2*6);
+		index=0;
+		var xc=110*seascale,yc=110*seascale;
+		var s=10*seascale,u=5*seascale*(seax%xc)/xc,v=5*seascale*(seay%yc)/yc;
+		   append(seatextureCoords,[
+             u,v, u,v+s, u+s,v,
+			 u,v+s, u+s,v+s, u+s,v
+            ]);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(seatextureCoords), gl.STATIC_DRAW);
+        seaVertexTextureCoordBuffer.itemSize = 2;
+        seaVertexTextureCoordBuffer.numItems = 6;
+
+}
+var tkeytir=0;
+function tir(){
+   tkeytir=tframe;
+   var s=1+(Math.random()-0.5)*0.12;
+   var t=1+(Math.random()-0.5)*0.12;
+   var u=1+(Math.random()-0.5)*0.12;
+   var v=(2.2+vplane)*(1+(Math.random()-0.5)*0.2);
+   var dx=-sin2*0.2*u-sin1*s+cos1*t,dy=-sin2*0.2*u+cos1*s+sin1*t,dz=0.2*cos2;
+   var xc=x+dx*cos3-dz*cos1*sin3,yc=y+dy*cos3-dz*sin1*sin3,zc=z+dz*cos3-sin3*cos2;
+   //addtir(xc,yc,zc,cos1*cos2*s*v,sin1*cos2*t*v,sin2*u*v);
+   var r=0.015;
+   var ss=(Math.random()-0.5)*r,tt=(Math.random()-0.5)*r,uu=(Math.random()-0.5)*r;
+   addtir(xc,yc,zc,(cos1*cos2*s+ss)*v,(sin1*cos2*t+tt)*v,(sin2*u+uu)*v,0);
+   s=1+(Math.random()-0.5)*0.12;
+   t=1+(Math.random()-0.5)*0.12;
+   u=1+(Math.random()-0.5)*0.12;
+   v=(2.2+vplane)*(1+(Math.random()-0.5)*0.2);
+   dx=-sin2*0.2*u+sin1*s-cos1*t;dy=-sin2*0.2*u-cos1*s-sin1*t;dz=0.2*cos2;
+   xc=x+dx*cos3-dz*cos1*sin3;yc=y+dy*cos3-dz*sin1*sin3;zc=z+dz*cos3+sin3*cos2;
+   //addtir(xc,yc,zc,cos1*cos2*s*v,sin1*cos2*t*v,sin2*u*v);
+   ss=(Math.random()-0.5)*r;tt=(Math.random()-0.5)*r;uu=(Math.random()-0.5)*r;
+   addtir(xc,yc,zc,(cos1*cos2*s+ss)*v,(sin1*cos2*t+tt)*v,(sin2*u+uu)*v,0);
+}
+var ptkeytir=0;
+function ptir(){
+   ptkeytir=tframe;
+   var s=1+(Math.random()-0.5)*0.12;
+   var t=1+(Math.random()-0.5)*0.12;
+   var u=1+(Math.random()-0.5)*0.12;
+   var v=(2.2+pvplane)*(1+(Math.random()-0.5)*0.2);
+   var dx=-psin2*0.2*u-psin1*s+pcos1*t,dy=-psin2*0.2*u+pcos1*s+psin1*t,dz=0.2*pcos2;
+   var xc=px+dx*pcos3-dz*pcos1*psin3,yc=py+dy*pcos3-dz*psin1*psin3,zc=pz+dz*pcos3-psin3*pcos2;
+   //addtir(xc,yc,zc,cos1*cos2*s*v,sin1*cos2*t*v,sin2*u*v);
+   var r=0.015;
+   var ss=(Math.random()-0.5)*r,tt=(Math.random()-0.5)*r,uu=(Math.random()-0.5)*r;
+   addtir(xc,yc,zc,(pcos1*pcos2*s+ss)*v,(psin1*pcos2*t+tt)*v,(psin2*u+uu)*v,2);
+   s=1+(Math.random()-0.5)*0.12;
+   t=1+(Math.random()-0.5)*0.12;
+   u=1+(Math.random()-0.5)*0.12;
+   v=(2.2+pvplane)*(1+(Math.random()-0.5)*0.2);
+   dx=-psin2*0.2*u+psin1*s-pcos1*t;dy=-psin2*0.2*u-pcos1*s-psin1*t;dz=0.2*pcos2;
+   xc=px+dx*pcos3-dz*pcos1*psin3;yc=py+dy*pcos3-dz*psin1*psin3;zc=pz+dz*pcos3+psin3*pcos2;
+   //addtir(xc,yc,zc,cos1*cos2*s*v,sin1*cos2*t*v,sin2*u*v);
+   ss=(Math.random()-0.5)*r;tt=(Math.random()-0.5)*r;uu=(Math.random()-0.5)*r;
+   addtir(xc,yc,zc,(pcos1*pcos2*s+ss)*v,(psin1*pcos2*t+tt)*v,(psin2*u+uu)*v,2);
+}
+function p3tir(){
+   p3tkeytir=tframe;
+   var s=1+(Math.random()-0.5)*0.12;
+   var t=1+(Math.random()-0.5)*0.12;
+   var u=1+(Math.random()-0.5)*0.12;
+   var v=(2.2+p3vplane)*(1+(Math.random()-0.5)*0.2);
+   var dx=-p3sin2*0.2*u-p3sin1*s+p3cos1*t,dy=-p3sin2*0.2*u+p3cos1*s+p3sin1*t,dz=0.2*p3cos2;
+   var xc=p3x+dx*p3cos3-dz*p3cos1*p3sin3,yc=p3y+dy*p3cos3-dz*p3sin1*p3sin3,zc=p3z+dz*p3cos3-p3sin3*p3cos2;
+   //addtir(xc,yc,zc,cos1*cos2*s*v,sin1*cos2*t*v,sin2*u*v);
+   var r=0.015;
+   var ss=(Math.random()-0.5)*r,tt=(Math.random()-0.5)*r,uu=(Math.random()-0.5)*r;
+   addtir(xc,yc,zc,(p3cos1*p3cos2*s+ss)*v,(p3sin1*p3cos2*t+tt)*v,(p3sin2*u+uu)*v,3);
+   s=1+(Math.random()-0.5)*0.12;
+   t=1+(Math.random()-0.5)*0.12;
+   u=1+(Math.random()-0.5)*0.12;
+   v=(2.2+p3vplane)*(1+(Math.random()-0.5)*0.2);
+   dx=-p3sin2*0.2*u+p3sin1*s-p3cos1*t;dy=-p3sin2*0.2*u-p3cos1*s-p3sin1*t;dz=0.2*p3cos2;
+   xc=p3x+dx*p3cos3-dz*p3cos1*p3sin3;yc=p3y+dy*p3cos3-dz*p3sin1*p3sin3;zc=p3z+dz*p3cos3+p3sin3*p3cos2;
+   //addtir(xc,yc,zc,cos1*cos2*s*v,sin1*cos2*t*v,sin2*u*v);
+   ss=(Math.random()-0.5)*r;tt=(Math.random()-0.5)*r;uu=(Math.random()-0.5)*r;
+   addtir(xc,yc,zc,(p3cos1*p3cos2*s+ss)*v,(p3sin1*p3cos2*t+tt)*v,(p3sin2*u+uu)*v,3);
+}
+function addtir(xc,yc,zc,vx,vy,vz,type){
+itir+=1;if(itir>(ntir-1)){itir=0;}
+tirx[itir]=xc;tiry[itir]=yc;tirz[itir]=zc;
+vtirx[itir]=vx;vtiry[itir]=vy;vtirz[itir]=vz;
+ttir[itir]=tframe+6000;
+tirsize[itir]=1.0;
+tirtype[itir]=type;
+if(type==1){tirsize[itir]=3.0;ttir[itir]=tframe+18000;}
+} 
+var ntir2=0,tattack=0,tattack2=0,tattack3=0,tattackp3=0;      
+function updatetir(){
+        gl.bindBuffer(gl.ARRAY_BUFFER, tirVertexPositionBuffer);
+		var xc=0,yc=0,zc=0,h=0.2,co1=0.2*cos1,si1=0.2*sin1,vx=0,vy=0,vz=0;
+		var dt=dtime*0.013,dt1=1.0-dtime*0.0001,s=1,i=0,zh=0;
+		var dt2=1.0-dtime*0.00007,dt11=dt1;
+		ntir2=0;
+		index=0;
+		for (var ii=0; ii < ntir; ii++) {
+		 i=itir+ii+1;if(i>=ntir){i-=ntir;}
+		 if(tframe<ttir[i]){
+		  ntir2+=1;
+		  s=tirsize[i];
+		  if(s<10.0){
+		   dt11=dt1;if(tirtype[i]==1){dt11=dt2;}
+		   vx=vtirx[i]*dt11;
+		   vy=vtiry[i]*dt11;
+		   vz=vtirz[i]*dt11-dt*0.00195;
+		   xc=tirx[i]+vx*dt;
+		   yc=tiry[i]+vy*dt;
+		   zc=tirz[i]+vz*dt;
+		   zh=-999;
+           if(tirtype[i]!=2){		   
+		    if(Math.abs(xc-px)<2){if(Math.abs(yc-py)<2){
+		      if(Math.abs(zc-pz)<1){vx=0,vy=0;vz=0;zh=-9999;
+			     if(Math.random()<0.3){tattack=1;};
+				 addimpact(xc,yc,zc);
+				 var pvie0=pvie;pvie-=Math.random()*2;
+				 if(pvie<0 && pvie0>=0){pvie-=50;};if(pvie<-150){pvie=100;};
+				 if(pvie<0 && Math.random()<dtime*0.004){addsmoke(xc,yc,zc,3);}
+			     s=15.0;ttir[i]=tframe+1000;tirsize[i]=s;};};}
+		   }		 
+           if(tirtype[i]!=3){		   
+		    if(Math.abs(xc-p3x)<2){if(Math.abs(yc-p3y)<2){
+		      if(Math.abs(zc-p3z)<1){vx=0,vy=0;vz=0;zh=-9999;
+			     if(Math.random()<0.3){tattackp3=1;};
+				 addimpact(xc,yc,zc);
+				 var p3vie0=p3vie;p3vie-=Math.random()*2;
+				 if(p3vie<0 && p3vie0>=0){p3vie-=50;};if(p3vie<-150){p3vie=100;};
+				 if(p3vie<0 && Math.random()<dtime*0.004){addsmoke(xc,yc,zc,3);}
+			     s=15.0;ttir[i]=tframe+1000;tirsize[i]=s;};};}
+		   }		 
+		   if(tirtype[i]!=1){
+            var dx=xc-shipx,dy=yc-shipy;
+	        var dxx=dx*shipco1+dy*shipsi1;
+	        if(dxx>-9 && dxx<9){
+	         var dyy=(-dx*shipcarriersi1+dy*shipcarrierco1);
+		     if(dyy>-2 && dyy<2){
+		      if(Math.abs(zc-(shipz+1))<4){vx=0,vy=0;vz=0;zh=-9999;
+			     if(Math.random()<0.3){tattack2=tframe;};
+				 addimpact2(xc,yc,zc);
+				 shipvie-=Math.random();if(shipvie<-50){shipvie=-50;}
+				 if(shipvie<0 && Math.random()<dtime*0.004){addsmoke(xc,yc,zc,6);}
+			     s=15.0;ttir[i]=tframe+1000;tirsize[i]=s;};};}
+		   }
+		   if(tirtype[i]!=1 && tsea==1){
+            var dx=xc-shipcarrierx,dy=yc-shipcarriery;
+	        var dxx=dx*shipcarrierco1+dy*shipcarriersi1;
+	        if(dxx>-24.5 && dxx<19.9){
+	         var dyy=(-dx*shipcarriersi1+dy*shipcarrierco1);
+		     if(dyy>-3.7 && dyy<7){
+		      if(Math.abs(zc-(shipcarrierz+1))<4){vx=0,vy=0;vz=0;zh=-9999;
+			     if(Math.random()<0.3){tattack3=tframe;};
+				 addimpact2(xc,yc,zc);
+				 shipcarriervie-=Math.random();if(shipcarriervie<-50){shipcarriervie=-50;}
+				 if(shipcarriervie<0 && Math.random()<dtime*0.004){addsmoke(xc,yc,zc,6);}
+			     s=15.0;ttir[i]=tframe+1000;tirsize[i]=s;};};}
+		   }
+		   if(tirtype[i]!=0){
+		    if(Math.abs(xc-x)<2){if(Math.abs(yc-y)<2){
+		      if(Math.abs(zc-z)<2){vx=0,vy=0;vz=0;zh=-9999;
+		         xc+=cos1*cos2*5;
+		         yc+=sin1*cos2*5;
+		         zc+=sin2*5;
+				 addimpact2(xc,yc,zc);vie-=Math.random()*10;
+				 if(vie<-50){vie=-21;if(pvie<50){pvie=50;};}
+				 tblood=tframe;o1blood+=1;if(o1blood>1.1){o1blood=0;}
+			     s=15.0;ttir[i]=tframe+1000;tirsize[i]=s;};};}
+		   }
+		   if(zc>zh && zh>-9998 && tirtype[i]!=1){zh=getterrainheight2(xc,yc);}
+           if(zc<zh-0.2){s=15.0;ttir[i]=tframe+1000;tirsize[i]=s;
+		                 if(testtown){addimpact2(xc,yc,zc);};};
+           tirx[i]=xc;tiry[i]=yc;tirz[i]=zc;
+           vtirx[i]=vx;vtiry[i]=vy;vtirz[i]=vz;
+		   }	
+           co1=0.2*cos1*s;si1=0.2*sin1*s;h=0.2*s;		   
+		   addindexcloud(tirvertices,[
+             xc-si1,yc+co1,zc-h,  xc-si1,yc+co1,zc+h,  xc+si1,yc-co1,zc-h,
+             xc-si1,yc+co1,zc+h,  xc+si1,yc-co1,zc+h,  xc+si1,yc-co1,zc-h			 
+			 ]);
+          }else{tirsize[i]=1.0;}	  
+		}	
+        gl.bufferData(gl.ARRAY_BUFFER,(tirvertices), gl.STATIC_DRAW);
+        tirVertexPositionBuffer.numItems=ntir2*6;
+}
+
+var x=0,y=0,z=0,o1=0,o2=0,o3=0,vrun=1.10,auxvar=null,auxvar2=null;
+var cos1=0,sin1=0,cos2=0,sin2=0,cos3=0,sin3=0,do1=0,do2=0,do3=0; 
+var px=0,py=0,pz=0,po1=0,po2=0,po3=0,pvrun=1,pvie=100;
+var pcos1=0,psin1=0,pcos2=0,psin2=0,pcos3=0,psin3=0,pdo1=0,pdo2=0,pdo3=0;
+var to1=0,to2=-15,tcos1=0,tsin1=0,tcos2=0,tsin2=0,tourelle=0,tourelle0=0; 
+var to11=180,to21=to2,ko1=to1,ko2=to2;
+var p3x=0,p3y=0,p3z=0,p3o1=0,p3o2=0,p3o3=0,p3vrun=1,p3vie=100;
+var p3cos1=0,p3sin1=0,p3cos2=0,p3sin2=0,p3cos3=0,p3sin3=0,p3do1=0,p3do2=0,p3do3=0;
+z=25;o2=-20.5;
+x=(xmax+xmin)/2;y=(ymax+ymin)/2;
+if(test){x=(xmax-xmin)/2-50;y=(ymax-ymin)/2;z=0;vrun=0;
+//x=waterx;y=watery;vplane=1;
+}
+pz=30;po2=0;px=x+100;py=y-10;
+p3z=30;p3o2=0;p3x=x+90;p3y=y-20;
+//y=ymax-100;x=xmax-100;
+var tshadow=0,zsol=0,distshadow=0,sunzz=1000,sunco2=0,sunsi2=1,sunco1=0,sunsi1=1;
+    function drawshadow() {
+	    tshadow=1;
+        gl.viewport(0, 0, 512,512);//620,430);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+		distshadow=300.0;
+		var wx=distshadow,wy=distshadow;
+		var dz=Math.sqrt(sunx*sunx+suny*suny+sunzz*sunzz);
+		var dx=Math.sqrt(sunx*sunx+suny*suny);
+		sunco2=dx/dz;sunsi2=sunzz/dz;
+		sunco1=sunx/dz;sunsi1=suny/dz;
+        //mat4.ortho(-wx,wx,-wy*sunsi2,wy*sunsi2,100.0, 100000.0, pMatrix);
+        mat4.ortho(-wx,wx,-wy,wy,100.0, 100000.0, pMatrix);
+		var xv=x+20*sunx,yv=y+20*suny,zv=zsol+20*sunzz;//20*sunz+51000;
+		mat4.lookAt([xv,yv,zv],[x,y,zsol],[-suny,sunx,1.01],mvMatrix);
+		gl.useProgram(cloudProgram);
+		camx=x+4000*cos1;camy=y+4000*sin1;camz=z+80000;
+		drawcloud();
+        gl.useProgram(shaderProgram);
+ 		sunzz=sunz+2500;
+		//zv=zsol+5*sunzz;
+        //xv=20*sunx;yv=20*suny;zv=20*sunzz;
+        mat4.lookAt([xv,yv,zv],[x,y,zsol],[1000,0,1.1],mvMatrix);
+        //mat4.identity(mvMatrix);
+		//mat4.translate(mvMatrix, [-x,-y,-zsol]);
+        //mat4.rotate(mvMatrix, degtorad(-o1), [0, 0, 1]);
+		drawplane();
+        //mat4.lookAt([xv,yv,zv],[px,py,zsol],[1000,0,0.1],mvMatrix);
+		drawplane2();
+		drawplane3();
+		tshadow=0;
+	}	
+	
+    var to22=0;	
+    function drawScene() {//o1=195;drawshadow();scrollTo(winx,winy);return;
+		gl.viewport(0, 0, windx,windy);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+        if(tourelle<2){
+		  mat4.perspective(47, gl.viewportWidth / gl.viewportHeight, 1, 10000.0, pMatrix);
+		}else{
+		  mat4.perspective(47, gl.viewportWidth / gl.viewportHeight, 0.2, 10000.0, pMatrix);
+		}
+		var xv=x-7*cos1*cos2,yv=y-7*sin1*cos2,zv=z-7*sin2;
+		var zv1=getterrainheight(xv,yv)+0.3;//0.2;
+		if(zv<zv1){zv=zv1;}
+		if(tourelle==0){
+		   var co3=Math.cos(degtorad(o3-planedo3));si3=Math.sin(degtorad(o3-planedo3));
+		   mat4.lookAt([xv,yv,zv],[x,y,z],[-cos1*sin2-sin1*si3,-sin1*sin2+cos1*si3,cos2*co3],mvMatrix);
+		   //mat4.lookAt([0,0,0],[0,0,-100],[0,1,0],mvMatrix);
+           //mat4.identity(mvMatrix);
+		}else{
+		   var tco1=Math.cos(degtorad(to1));
+           tcos1=Math.cos(degtorad(o1+to1));tsin1=Math.sin(degtorad(o1+to1));
+		   to22=o2*tco1+to2;if(to22>89){to22=88;};if(to22<-89){to22=-88;};
+           tcos2=Math.cos(degtorad(to22));tsin2=Math.sin(degtorad(to22));
+		   if(tourelle==1){
+		   mat4.lookAt([x,y,z+0.5],[x+tcos1*tcos2,y+tsin1*tcos2,z+tsin2+0.5],[-tcos1*tsin2*cos3-tsin1*sin3*tco1,-tsin1*tsin2*cos3+tcos1*sin3*tco1,tcos2*cos3],mvMatrix);
+           }else{//tourelle==2
+		   var co3=Math.cos(degtorad(o3-planedo3));si3=Math.sin(degtorad(o3-planedo3));
+		   var co2=Math.cos(degtorad(o2-planedo2));si2=Math.sin(degtorad(o2-planedo2));
+	       var dz=0.25,dx=0.01;
+		   xv=x-dz*sin1*si3+dx*cos1*co2;yv=y+dz*cos1*si3+dx*sin1*co2;zv=z+dz*co3+dx*si2;
+           mat4.lookAt([xv,yv,zv],[xv+tcos1*tcos2,yv+tsin1*tcos2,zv+tsin2+0.25],[-tcos1*tsin2*cos3-tsin1*sin3,-tsin1*tsin2*cos3+tcos1*sin3,tcos2*cos3],mvMatrix);
+		   }
+		}
+		   
+        if((hour<6 || hour>18)&& clouds>39){ 
+		 gl.useProgram(skyProgram);
+		 drawsky();
+		}; 
+
+        gl.useProgram(cloudProgram);
+		updatesun();
+		drawsun();
+
+        gl.useProgram(solProgram);
+        //drawskydome();
+		
+	    updateindex();
+		mvPushMatrix();
+        //mat4.translate(mvMatrix, [x,y,z]);
+        //mat4.translate(mvMatrix, [0.0, 0.0, -40.0]);
+		//mat4.rotate(mvMatrix, degtorad(zRot+o1), [0, 0, 1]);
+        //mat4.rotate(mvMatrix, degtorad(yRot+o2), [0, 1, 0]);
+        //mat4.rotate(mvMatrix, degtorad(xRot), [1, 0, 0]);
+		//mat4.rotate(mvMatrix, degtorad(o1), [0, 0, -1]);
+        //mat4.translate(mvMatrix, [-0.20*scale, 0.0, -0.0]);
+        //mat4.rotate(mvMatrix, degtorad(o2), [0, 1, 0]);
+        //mat4.rotate(mvMatrix, degtorad(o3), [1, 0, 0]);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, solVertexPositionBuffer);
+        gl.vertexAttribPointer(solProgram.vertexPositionAttribute, solVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, solVertexTextureCoordBuffer);
+        gl.vertexAttribPointer(solProgram.textureCoordAttribute, solVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+        gl.activeTexture(gl.TEXTURE1);
+        gl.bindTexture(gl.TEXTURE_2D, rttTexture);
+        gl.uniform1i(solProgram.samplerUniform2, 1);
+        gl.activeTexture(gl.TEXTURE2);
+        gl.bindTexture(gl.TEXTURE_2D, solTexture);
+        gl.uniform1i(solProgram.samplerUniform, 2);
+
+        //gl.bindBuffer(gl.ARRAY_BUFFER, solVertexColorBuffer);
+        //gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, solVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+        //setMatrixUniforms();
+       // gl.drawArrays(gl.TRIANGLE_STRIP, 0, solVertexPositionBuffer.numItems);
+       
+        gl.disable(gl.CULL_FACE);
+	    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, solVertexIndexBuffer);
+        setMatrixUniformssol();
+        gl.drawElements(gl.TRIANGLES, solVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+
+        mvPopMatrix();
+		drawpiste();
+		drawtower();
+		drawtown();
+		drawwater();
+		if(seaheight>0.1){updatesea();drawsea();}
+
+        gl.useProgram(treeProgram);
+		updatetree();
+		if(z<17){drawtree();};
+		
+        gl.useProgram(shaderProgram);
+		drawship();
+		if(tsea==1){drawshipcarrier();}
+		if(vie<-20 && tframe>(ttsmoke+1000)){ttsmoke=tframe;
+		   var sc=0.7;
+		   addsmoke(x+cos1*cos2*sc+(0.5-Math.random())/6,y+sin1*cos2*sc+(0.5-Math.random())/6,z+sin2*sc,1);}
+		drawsmoke();
+		drawimpact();
+		if(ntir2>0){drawtir();}
+		updatetir();
+		//testcollide();
+		if(tcollide==1){soundpneu();tcollide=0; 
+		       if(o2<-8){o2*=-0.6;}else{if(o2<-0.02){o2=-0.01;};}
+			   if(Math.abs(vplane)<0.25){x-=5*cos1;y-=5*sin1;}; 
+         }
+
+        gl.useProgram(cloudProgram);
+		updatecloud();
+		camx=x;camy=y;camz=z;
+		drawcloud();
+        
+        gl.useProgram(shaderProgram);
+        //gl.enable(gl.CULL_FACE);
+        drawplane2();
+        drawplane3();		
+        if(tourelle==0 || tourelle>=2){drawplane();}
+        gl.disable(gl.CULL_FACE);
+		drawbouss();
+		if(vie>-20){vie+=dtime*0.0003;if(vie>100){vie=100;};}
+		if(vie<0){if(tframe<tblood+320){drawblood();};}//{vie+=dtime*0.003;};}
+		
+
+	}   
+
+var pixdata=new Uint8Array(4),tcollide=0;
+/*function testcollide(){
+  var ix=parseInt(windx*0.5),iy=parseInt(windy*0.5);
+  gl.readPixels(ix,iy,1,1,gl.RGBA,gl.UNSIGNED_BYTE,pixdata);
+  //var r=pixdata[0]/255.0,g=pixdata[1]/255.0,b=pixdata[2]/255.0
+  var a=pixdata[3];
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+        mvPushMatrix();
+		mat4.identity(mvMatrix);
+		mat4.translate(mvMatrix, [0,0,-1.5]);
+
+ 		mat4.scale(mvMatrix,[0.0001,0.0001,0.0001]);
+    	gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, cloudTexture);
+        gl.uniform1i(shaderProgram.samplerUniform, 0);
+	
+	gl.bindBuffer(gl.ARRAY_BUFFER, boussVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, boussVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, boussVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, boussVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+	setMatrixUniforms();
+    gl.uniform4f(shaderProgram.colorUniform, 0,0,0,2/255.0);
+    gl.drawArrays(gl.TRIANGLES, 0, boussVertexPositionBuffer.numItems);
+		mvPopMatrix();
+	gl.disable(gl.BLEND);
+  
+gl.readPixels(ix,iy,1,1,gl.RGBA,gl.UNSIGNED_BYTE,pixdata);
+auxvar=pixdata[3]-a;
+if(pixdata[3]==a){tcollide=1;}else{tcollide=0;};
+}
+function drawskydome(){
+        mvPushMatrix();
+        //mat4.identity(mvMatrix);
+		mat4.translate(mvMatrix, [x,y,z]);
+        //mat4.rotate(mvMatrix, degtorad(-90), [1, 0, 0]);
+        //mat4.rotate(mvMatrix, degtorad(-o1), [0, 0, 1]);
+        //mat4.rotate(mvMatrix, degtorad(sin3*24), [1, 0, 0]);
+		mat4.scale(mvMatrix,[40.2,40.2,80.2]);
+	gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D,  skyTexture);
+    gl.uniform1i(shaderProgram.samplerUniform, 0);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, skydomeVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, skydomeVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, skydomeVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, skydomeVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.disable(gl.CULL_FACE);
+	setMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, skydomeVertexPositionBuffer.numItems);
+
+		mvPopMatrix()
+}
+*/
+function drawsky(){
+    gl.disable(gl.DEPTH_TEST);
+    mvPushMatrix();
+    //mat4.identity(mvMatrix);
+	if(tourelle==0){	
+		mat4.translate(mvMatrix, [x+cos1*1000,y+sin1*1000, -70]);
+        mat4.rotate(mvMatrix, degtorad(90), [0, 1, 0]);
+        mat4.rotate(mvMatrix, degtorad(-o1), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-o2), [0, 1, 0]);
+        mat4.rotate(mvMatrix, degtorad(90), [0, 0, 1]);
+		mat4.scale(mvMatrix,[17*windx/windy,17*windx/windy,7]);
+	}else{
+		mat4.translate(mvMatrix, [x+tcos1*1000,y+tsin1*1000, -70]);
+        mat4.rotate(mvMatrix, degtorad(90), [0, 1, 0]);
+        mat4.rotate(mvMatrix, degtorad(-o1-to1), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-o2-to2), [0, 1, 0]);
+        mat4.rotate(mvMatrix, degtorad(90), [0, 0, 1]);
+		mat4.scale(mvMatrix,[17*windx/windy,17*windx/windy,7]);
+	}
+	gl.activeTexture(gl.TEXTURE6);
+    gl.bindTexture(gl.TEXTURE_2D,  skyTexture);
+    gl.uniform1i(skyProgram.samplerUniform, 6);
+    drawcarresky();    
+
+		mvPopMatrix()
+    gl.enable(gl.DEPTH_TEST);
+}
+function drawcloud(){
+    gl.disable(gl.CULL_FACE);
+    gl.disable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);//_MINUS_SRC_ALPHA);
+        mvPushMatrix();
+		//vec3.set(cameraPosition,[x,y,z]);
+	    //mat4.identity(rotMatrix);
+        //mat4.translate(rotMatrix, [x,y,z]);
+        //mat4.rotate(rotMatrix, degtorad(o1), [0, 0, 1]);
+        //mat4.translate(rotMatrix, [-x,-y,-z]);
+		//mat4.translate(mvMatrix, [x,y,z]);
+        //mat4.rotate(mvMatrix, degtorad(-90), [1, 0, 0]);
+        //
+        //mat4.rotate(mvMatrix, degtorad(sin3*24), [1, 0, 0]);
+		//mat4.scale(mvMatrix,[40.2,40.2,80.2]);
+	gl.activeTexture(gl.TEXTURE3);
+    gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);
+    gl.uniform1i(cloudProgram.samplerUniform, 3);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, cloudVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(cloudProgram.textureCoordAttribute, cloudVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, cloudVertexPositionBuffer);
+    gl.vertexAttribPointer(cloudProgram.vertexPositionAttribute, cloudVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+	setcloudMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, 6*ncloud2);//cloudVertexPositionBuffer.numItems);
+
+		mvPopMatrix();
+    gl.enable(gl.DEPTH_TEST);
+    gl.disable(gl.BLEND);
+}
+function drawsun(){
+    gl.disable(gl.CULL_FACE);
+    gl.disable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);//_MINUS_SRC_ALPHA);
+        mvPushMatrix();
+		camx=x;camy=y;camz=z;
+		//mat4.translate(mvMatrix, [500,0,100]);
+	    //mat4.identity(rotMatrix);
+        //mat4.translate(rotMatrix, [x,y,z]);
+        //mat4.rotate(rotMatrix, degtorad(o1), [0, 0, 1]);
+	gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D,  sunTexture);
+    gl.uniform1i(cloudProgram.samplerUniform, 0);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, sunVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(cloudProgram.textureCoordAttribute, sunVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, sunVertexPositionBuffer);
+    gl.vertexAttribPointer(cloudProgram.vertexPositionAttribute, sunVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+	setsunMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, sunVertexPositionBuffer.numItems);
+
+		mvPopMatrix();
+    gl.enable(gl.DEPTH_TEST);
+    gl.disable(gl.BLEND);
+}
+var vie=100,tblood=0,o1blood=0;
+function drawblood(){
+    gl.disable(gl.CULL_FACE);
+    gl.disable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.ONE_MINUS_SRC_COLOR, gl.SRC_COLOR);
+        mvPushMatrix();
+		mat4.identity(mvMatrix);
+		mat4.translate(mvMatrix, [0,0,-110]);
+ 		if(o1blood<0.5){mat4.scale(mvMatrix,[windx/windy,1,1]);;
+		 }else{mat4.scale(mvMatrix,[-windx/windy,1,1]);} 
+	gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D,  bloodTexture);
+    gl.uniform1i(shaderProgram.samplerUniform, 0);
+    
+	//colorr=1;colorg=1;colorb=1;colora=0.999;
+    drawcarre();
+
+		mvPopMatrix();
+    gl.enable(gl.DEPTH_TEST);
+    gl.disable(gl.BLEND);
+	colorr=1.0;colorg=1.0;colorb=1.0;colora=1.0;
+}
+function drawbouss(){
+    gl.disable(gl.CULL_FACE);
+    gl.disable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+        mvPushMatrix();
+		mat4.identity(mvMatrix);
+		windx=canvas.width;
+		windy=canvas.height;
+		mat4.translate(mvMatrix, [230*windx/windy,-220,-600]);//boussx
+		if(tourelle==0){mat4.rotate(mvMatrix, degtorad(90-o1), [0, 0, 1]);
+	    }else{mat4.rotate(mvMatrix, degtorad(90-o1-to1), [0, 0, 1]);}
+		//mat4.identity(rotMatrix);
+        //mat4.translate(rotMatrix, [x,y,z]);
+        //mat4.rotate(rotMatrix, degtorad(o1), [0, 0, 1]);
+	gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D,  boussTexture);
+    gl.uniform1i(shaderProgram.samplerUniform, 0);
+    
+    drawcarre();
+
+		mvPopMatrix();
+    gl.enable(gl.DEPTH_TEST);
+    gl.disable(gl.BLEND);
+}
+function drawcarre(){
+	gl.bindBuffer(gl.ARRAY_BUFFER, boussVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, boussVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, boussVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, boussVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+	setMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, boussVertexPositionBuffer.numItems);
+}
+function drawcarresky(){
+	gl.bindBuffer(gl.ARRAY_BUFFER, boussVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(skyProgram.textureCoordAttribute, boussVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, boussVertexPositionBuffer);
+    gl.vertexAttribPointer(skyProgram.vertexPositionAttribute, boussVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+	setskyMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, boussVertexPositionBuffer.numItems);
+}
+var o3radar=0;
+function drawcockpit(){
+    gl.disable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);//replaced by shader alpha_test
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+        mvPushMatrix();
+		/*mat4.translate(mvMatrix, [x,y,z]);
+        mat4.rotate(mvMatrix, degtorad(180+o1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-o2), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(o3), [1, 0, 0]);*/
+		mat4.translate(mvMatrix, [-0.66,0.0,0]);
+        mat4.rotate(mvMatrix, degtorad(90), [0, 1, 0]);
+        mat4.rotate(mvMatrix, degtorad(-10), [1, 0, 0]);
+        //mat4.rotate(mvMatrix, degtorad(o2), [0, 1, 0]);
+        //mat4.rotate(mvMatrix, degtorad(o3), [1, 0, 0]);
+
+ 		mat4.scale(mvMatrix,[0.0073,0.0073,0.0073]);
+    	gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D,  compasTexture);
+        gl.uniform1i(shaderProgram.samplerUniform, 0);
+		mvPushMatrix();
+		//mat4.translate(mvMatrix, [-16.1,9.2-2.5*sin2,-1]);
+		mat4.translate(mvMatrix, [-16.1,9.2,-1]);
+		mat4.rotate(mvMatrix, degtorad(-o3), [0, 0, 1]);
+		if(sin2>0){mat4.translate(mvMatrix, [0,-2.5*Math.sqrt(sin2),0]);}else{
+		           mat4.translate(mvMatrix, [0,2.5*Math.sqrt(-sin2),0]);}
+ 		mat4.scale(mvMatrix,[0.07,0.14,0.1]);
+		drawcarre();
+		mvPopMatrix();
+        gl.bindTexture(gl.TEXTURE_2D,  cockpitTexture);
+		drawcarre();
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [-8.6,9.2,1]);
+		var o3alt=(z-0.7)*36,o3alt2=o3alt/13;
+		mat4.rotate(mvMatrix, degtorad(-o3alt), [0, 0, 1]);
+ 		mat4.scale(mvMatrix,[0.067,0.065,0.067]);
+        gl.bindTexture(gl.TEXTURE_2D,  arrowTexture);
+		drawcarre();
+		mat4.rotate(mvMatrix, degtorad(o3alt-o3alt2), [0, 0, 1]);
+		mat4.scale(mvMatrix,[1,0.6,1]);
+		drawcarre();
+		mvPopMatrix();
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [-22.35,9.2,1]);
+		var o3speed=(vplane)*190;if(o3speed>340){o3speed=340;}
+		mat4.rotate(mvMatrix, degtorad(-o3speed), [0, 0, 1]);
+ 		mat4.scale(mvMatrix,[0.067,0.062,0.067]);
+		drawcarre();
+		mvPopMatrix();
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [-8.6,2.3,1]);
+		var o3speedz=(vplanez)*590;
+		if(o3speedz>80){o3speedz=80;}
+		if(o3speedz<-80){o3speedz=-80;}
+		mat4.rotate(mvMatrix, degtorad(-o3speedz+90), [0, 0, 1]);
+ 		mat4.scale(mvMatrix,[0.062,0.062,0.067]);
+		drawcarre();
+		mvPopMatrix();
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [-2.1,2.3,1]);
+		var o3rpm=130-(vrun+0.4*vplane)*100;
+		if(o3rpm<-130){o3rpm=-130;};
+		mat4.rotate(mvMatrix, degtorad(o3rpm), [0, 0, 1]);
+ 		mat4.scale(mvMatrix,[0.065,0.059,0.067]);
+		drawcarre();
+		mvPopMatrix();
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [23.43,6.7,1]);
+		o3radar=tframe*0.060;
+		mat4.rotate(mvMatrix, degtorad(o3radar), [0, 0, 1]);
+ 		mat4.scale(mvMatrix,[0.137,0.137,0.137]);
+        gl.bindTexture(gl.TEXTURE_2D,  radarTexture);
+		drawcarre();
+		mvPopMatrix();
+		if(tframe<tradarpiste+5000 && dxradarpiste*0.015<5.4){
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [23.43,6.7,1]);
+		mat4.rotate(mvMatrix, degtorad(90-o1+o1radarpiste), [0, 0, 1]);
+ 		mat4.translate(mvMatrix, [dxradarpiste*0.015,0,0]);
+		var sc=0.01*(tradarpiste+7400-tframe)/7400;
+		mat4.scale(mvMatrix,[sc,sc,sc]);
+        gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);
+		drawcarre();
+		mvPopMatrix();
+		}
+		if(tframe<tradarwater+5000 && dxradarwater*0.015<5.4){
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [23.43,6.7,1]);
+		mat4.rotate(mvMatrix, degtorad(90-o1+o1radarwater), [0, 0, 1]);
+ 		mat4.translate(mvMatrix, [dxradarwater*0.015,0,0]);
+		var sc=0.01*(tradarwater+7400-tframe)/7400;
+		mat4.scale(mvMatrix,[sc,sc,sc]);
+        gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);
+		drawcarre();
+		mvPopMatrix();
+		}
+		if(tframe<tradartown+5000 && dxradartown*0.015<5.4){
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [23.43,6.7,1]);
+		mat4.rotate(mvMatrix, degtorad(90-o1+o1radartown), [0, 0, 1]);
+ 		mat4.translate(mvMatrix, [dxradartown*0.015,0,0]);
+		var sc=0.01*(tradartown+7400-tframe)/7400;
+		mat4.scale(mvMatrix,[sc,sc,sc]);
+        gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);
+		drawcarre();
+		mvPopMatrix();
+		}
+		if(tframe<tradarplane2+5000 && dxradarplane2*0.015<5.4){
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [23.43,6.7,1]);
+		mat4.rotate(mvMatrix, degtorad(90-o1+o1radarplane2), [0, 0, 1]);
+ 		mat4.translate(mvMatrix, [dxradarplane2*0.015,0,0]);
+		var sc=0.007*(tradarplane2+7400-tframe)/7400;
+		mat4.scale(mvMatrix,[sc,sc,sc]);
+        gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);
+		drawcarre();
+		mvPopMatrix();
+		}
+		if(tframe<tradarplane3+5000 && dxradarplane3*0.015<5.4){
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [23.43,6.7,1]);
+		mat4.rotate(mvMatrix, degtorad(90-o1+o1radarplane3), [0, 0, 1]);
+ 		mat4.translate(mvMatrix, [dxradarplane3*0.015,0,0]);
+		var sc=0.007*(tradarplane3+7400-tframe)/7400;
+		mat4.scale(mvMatrix,[sc,sc,sc]);
+        gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);
+		drawcarre();
+		mvPopMatrix();
+		}
+		if(tframe<tradarcarrier+5000 && dxradarcarrier*0.015<5.4){
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [23.43,6.7,1]);
+		mat4.rotate(mvMatrix, degtorad(90-o1+o1radarcarrier), [0, 0, 1]);
+ 		mat4.translate(mvMatrix, [dxradarcarrier*0.015,0,0]);
+		var sc=0.01*(tradarcarrier+7400-tframe)/7400;
+		mat4.scale(mvMatrix,[sc,sc,sc]);
+        gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);
+		drawcarre();
+		mvPopMatrix();
+		}
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [-2.1,9.23,1]);
+		var o3azimut=90-o1;
+		mat4.rotate(mvMatrix, degtorad(o3azimut), [0, 0, 1]);
+ 		mat4.scale(mvMatrix,[0.069,0.069,0.067]);
+        gl.bindTexture(gl.TEXTURE_2D,  azimutTexture);
+		drawcarre();
+		mvPopMatrix();
+		
+		mvPopMatrix();
+        gl.enable(gl.DEPTH_TEST);
+        gl.disable(gl.BLEND);
+}
+var o3helice=0;
+function drawhelice(){
+    gl.disable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_COLOR, gl.ONE);//_MINUS_SRC_COLOR);
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [-2,-0.165,0]);
+        mat4.rotate(mvMatrix, degtorad(90), [0, 1, 0]);
+		o3helice+=(vrun+vplane+0.14)*dtime*0.7;if(o3helice>1000){o3helice-=1000;};
+		mat4.rotate(mvMatrix, degtorad(o3helice), [0, 0, 1]);
+ 		var sc=0.0120*Math.sqrt(windx/windy);
+		mat4.scale(mvMatrix,[sc,sc,sc]);
+ 		//mat4.scale(mvMatrix,[0.0160,0.0160,0.0160]);
+    	gl.activeTexture(gl.TEXTURE5);
+        gl.bindTexture(gl.TEXTURE_2D,  heliceTexture);
+        gl.uniform1i(shaderProgram.samplerUniform, 5);
+		drawcarre();
+		mvPopMatrix();
+    gl.enable(gl.DEPTH_TEST);
+    gl.disable(gl.BLEND);
+}
+var planedo3=0,planedo2=0;
+function drawplane(){if(plane=="spitfire"){drawspitfire();return;}
+                     if(plane=="zero"){drawzero();return;}
+        mvPushMatrix();
+    if(tshadow==0){  
+	   if(tourelle==0){	
+		mat4.identity(mvMatrix);
+		mat4.translate(mvMatrix, [0.0, 0.0, -7.0]);
+        mat4.rotate(mvMatrix, degtorad(-90), [0, 1, 0]);
+        mat4.rotate(mvMatrix, degtorad(-sin2*24*cos2), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(sin3*24), [1, 0, 0]);
+		planedo3=sin3*24;
+	  }else{
+		mat4.translate(mvMatrix, [x,y,z]);
+        mat4.rotate(mvMatrix, degtorad(180+o1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-o2-sin2*4*cos2), [0, 0, 1]);
+        //mat4.rotate(mvMatrix, degtorad(o3+sin3*7), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(o3), [1, 0, 0]);
+		planedo3=sin3*7*1.4;planedo2=-(sin2+2)*1.4*cos2;
+      }	  
+	}else{
+	    var dx=Math.sqrt(sunx*sunx+suny*suny+sunzz*sunzz);
+		var dz=Math.max(0.0,z-zsol-3)*10;
+		//var kz=distshadow*0.5;//*0.705
+    	//mat4.translate(mvMatrix,[x-1.0*kz*sunx/dz,y-1.0*kz*suny/dz,z]);
+    	//mat4.translate(mvMatrix,[x+0.25*(1+cos1)*kz-dz*sunx/dx,y+0.25*(1+sin1)*kz-dz*suny/dx,z]);
+    	///mat4.translate(mvMatrix,[x+0.25*(1+0.5)*kz-dz*sunx/dx,y+0.25*(1+0.5)*kz-dz*suny/dx,z]);
+    	mat4.translate(mvMatrix,[x-dz*sunx/dx,y-dz*suny/dx,z]);
+		//mat4.rotate(mvMatrix, degtorad(180), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(180+o1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-o2), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(o3), [1, 0, 0]);
+    }	
+	if(tourelle==3 && tshadow==0){drawhelice();}
+	mvPushMatrix();
+	gl.activeTexture(gl.TEXTURE4);
+    if(tshadow==0){gl.bindTexture(gl.TEXTURE_2D,  objTexture);
+		if(tourelle==0){mat4.scale(mvMatrix,[0.02,0.02,0.02]);}else{
+		    var sc=0.019;mat4.scale(mvMatrix,[sc,sc,sc]);}
+	}else{
+ 		mat4.scale(mvMatrix,[0.03,0.03,0.03]);
+                   gl.disable(gl.DEPTH_TEST);
+	               gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);}
+    gl.uniform1i(shaderProgram.samplerUniform, 4);
+    
+   if(tshadow==0){
+    gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    setMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
+   }else{
+    gl.bindBuffer(gl.ARRAY_BUFFER, world2VertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, world2VertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, world2VertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, world2VertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    setMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, world2VertexPositionBuffer.numItems);
+   }   
+	mvPopMatrix();
+	if(tourelle>=2 && tshadow==0){drawcockpit();}
+
+		mvPopMatrix();
+    if(tshadow==1){gl.enable(gl.DEPTH_TEST);};
+
+}
+function drawspitfire(){
+        mvPushMatrix();
+    if(tshadow==0){  
+	   if(tourelle==0){	
+		mat4.identity(mvMatrix);
+		mat4.translate(mvMatrix, [0.0, 0.3, -7.0]);
+        mat4.rotate(mvMatrix, degtorad(-90), [0, 1, 0]);
+        mat4.rotate(mvMatrix, degtorad(-sin2*24*cos2), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(sin3*24), [1, 0, 0]);
+		planedo3=sin3*24;
+	  }else{
+		mat4.translate(mvMatrix, [x,y,z]);
+        mat4.rotate(mvMatrix, degtorad(180+o1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-o2-sin2*4*cos2), [0, 0, 1]);
+        //mat4.rotate(mvMatrix, degtorad(o3+sin3*7), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(o3), [1, 0, 0]);
+		planedo3=sin3*7*1.4;planedo2=-(sin2+2)*1.4*cos2;
+      }	  
+	}else{
+	    var dx=Math.sqrt(sunx*sunx+suny*suny+sunzz*sunzz);
+		var dz=Math.max(0.0,z-zsol-3)*10;
+		//var kz=distshadow*0.5;//*0.705
+    	//mat4.translate(mvMatrix,[x-1.0*kz*sunx/dz,y-1.0*kz*suny/dz,z]);
+    	//mat4.translate(mvMatrix,[x+0.25*(1+cos1)*kz-dz*sunx/dx,y+0.25*(1+sin1)*kz-dz*suny/dx,z]);
+    	///mat4.translate(mvMatrix,[x+0.25*(1+0.5)*kz-dz*sunx/dx,y+0.25*(1+0.5)*kz-dz*suny/dx,z]);
+    	mat4.translate(mvMatrix,[x-dz*sunx/dx,y-dz*suny/dx,z]);
+		//mat4.rotate(mvMatrix, degtorad(180), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(180+o1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-o2), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(o3), [1, 0, 0]);
+    }	
+	if(tourelle==3 && tshadow==0){drawhelice();}
+	mvPushMatrix();
+	mat4.translate(mvMatrix, [-0.26*cos2+0.05, -0.044, 0.0]);
+    mat4.rotate(mvMatrix, degtorad(-90), [1, 0, 0]);
+	gl.activeTexture(gl.TEXTURE4);
+    if(tshadow==0){gl.bindTexture(gl.TEXTURE_2D,  spitfireTexture);
+		if(tourelle==0){mat4.scale(mvMatrix,[0.021,0.0259,0.021]);}else{
+		    var sc=0.020;mat4.scale(mvMatrix,[sc,0.0209,sc]);}
+	}else{
+ 		mat4.scale(mvMatrix,[0.03,0.03,0.03]);
+                   gl.disable(gl.DEPTH_TEST);
+	               gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);}
+    gl.uniform1i(shaderProgram.samplerUniform, 4);
+    
+   if(tshadow==0){
+    if(tourelle==0 || Math.abs(to1)>100 || to2<-25){
+    gl.bindBuffer(gl.ARRAY_BUFFER, spitfireVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, spitfireVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, spitfireVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, spitfireVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    setMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, spitfireVertexPositionBuffer.numItems);
+	}else{
+    gl.bindBuffer(gl.ARRAY_BUFFER, spitfirecockpitVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, spitfirecockpitVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, spitfirecockpitVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, spitfirecockpitVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    setMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, spitfirecockpitVertexPositionBuffer.numItems);
+	}
+   }else{
+    gl.bindBuffer(gl.ARRAY_BUFFER, world2VertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, world2VertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, world2VertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, world2VertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    setMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, world2VertexPositionBuffer.numItems);
+   }   
+	mvPopMatrix();
+	if(tourelle>=2 && tshadow==0){drawcockpit();}
+
+		mvPopMatrix();
+    if(tshadow==1){gl.enable(gl.DEPTH_TEST);};
+
+}
+function drawzero(){
+        mvPushMatrix();
+    if(tshadow==0){  
+	   if(tourelle==0){	
+		mat4.identity(mvMatrix);
+		mat4.translate(mvMatrix, [0.0, 0.21, -7.0]);
+        mat4.rotate(mvMatrix, degtorad(-90), [0, 1, 0]);
+        mat4.rotate(mvMatrix, degtorad(-sin2*24*cos2), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(sin3*24), [1, 0, 0]);
+		planedo3=sin3*24;
+	  }else{
+		mat4.translate(mvMatrix, [x,y,z]);
+        mat4.rotate(mvMatrix, degtorad(180+o1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-o2-sin2*4*cos2), [0, 0, 1]);
+        //mat4.rotate(mvMatrix, degtorad(o3+sin3*7), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(o3), [1, 0, 0]);
+		planedo3=sin3*7*1.4;planedo2=-(sin2+2)*1.4*cos2;
+      }	  
+	}else{
+	    var dx=Math.sqrt(sunx*sunx+suny*suny+sunzz*sunzz);
+		var dz=Math.max(0.0,z-zsol-3)*10;
+		//var kz=distshadow*0.5;//*0.705
+    	//mat4.translate(mvMatrix,[x-1.0*kz*sunx/dz,y-1.0*kz*suny/dz,z]);
+    	//mat4.translate(mvMatrix,[x+0.25*(1+cos1)*kz-dz*sunx/dx,y+0.25*(1+sin1)*kz-dz*suny/dx,z]);
+    	///mat4.translate(mvMatrix,[x+0.25*(1+0.5)*kz-dz*sunx/dx,y+0.25*(1+0.5)*kz-dz*suny/dx,z]);
+    	mat4.translate(mvMatrix,[x-dz*sunx/dx,y-dz*suny/dx,z]);
+		//mat4.rotate(mvMatrix, degtorad(180), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(180+o1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-o2), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(o3), [1, 0, 0]);
+    }	
+	if(tourelle==3 && tshadow==0){drawhelice();}
+	mvPushMatrix();
+	mat4.translate(mvMatrix, [0.61*cos2-0.90, -0.17, 0.0]);
+    mat4.rotate(mvMatrix, degtorad(-90), [1, 0, 0]);
+	gl.activeTexture(gl.TEXTURE4);
+    if(tshadow==0){gl.bindTexture(gl.TEXTURE_2D,  zeroTexture);
+		if(tourelle==0){mat4.scale(mvMatrix,[0.021,0.023,0.021]);}else{
+		    var sc=0.0205;mat4.scale(mvMatrix,[sc,0.0185,sc]);}
+	}else{
+ 		mat4.scale(mvMatrix,[0.03,0.03,0.03]);
+                   gl.disable(gl.DEPTH_TEST);
+	               gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);}
+    gl.uniform1i(shaderProgram.samplerUniform, 4);
+    
+   if(tshadow==0){
+    if(tourelle==0 || Math.abs(to1)>100 || to2<-25){
+    gl.bindBuffer(gl.ARRAY_BUFFER, zeroVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, zeroVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, zeroVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, zeroVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    setMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, zeroVertexPositionBuffer.numItems);
+	}else{
+    gl.bindBuffer(gl.ARRAY_BUFFER, zerocockpitVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, zerocockpitVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, zerocockpitVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, zerocockpitVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    setMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, zerocockpitVertexPositionBuffer.numItems);
+	}
+   }else{
+    gl.bindBuffer(gl.ARRAY_BUFFER, world2VertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, world2VertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, world2VertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, world2VertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    setMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, world2VertexPositionBuffer.numItems);
+   }   
+	mvPopMatrix();
+	if(tourelle>=2 && tshadow==0){drawcockpit();}
+
+		mvPopMatrix();
+    if(tshadow==1){gl.enable(gl.DEPTH_TEST);};
+
+}
+var tradarplane2=0,o1radarplane2=0,dxradarplane2=0;
+function drawplane2(){
+        mvPushMatrix();
+	if(tshadow==0){	
+        var dxplane2=Math.abs(x-px),dyplane2=Math.abs(y-py);
+		dxradarplane2=Math.sqrt(dxplane2*dxplane2+dyplane2*dyplane2);
+		dxradarplane2=radardist(dxradarplane2);
+		if(dxradarplane2*0.015>5.4){return;}
+		o1radarplane2=diro1(px-x,py-y);
+		if(Math.cos(degtorad(o1radarplane2-o1-o3radar-30+90))>0.8){
+		   tradarplane2=tframe;
+		}
+        //mat4.identity(mvMatrix);
+		//mat4.rotate(mvMatrix,degtorad(-o1),[0,0,1]);
+		mat4.translate(mvMatrix, [px,py,pz]);
+        mat4.rotate(mvMatrix, degtorad(180+po1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-po2), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(po3), [1, 0, 0]);
+	}else{
+	    var dx=Math.sqrt(sunx*sunx+suny*suny+sunzz*sunzz);
+		var dz=Math.max(0.0,pz-zsol-3)*10;
+		var kz=distshadow*0.5;//*0.705;
+    	mat4.translate(mvMatrix,[px+0.25*(1+0.5)*kz-dz*sunx/dx,py+0.25*(1+0.5)*kz-dz*suny/dx,pz]);
+    	//mat4.translate(mvMatrix,[px,py,pz]);
+		//mat4.rotate(mvMatrix, degtorad(180), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(180+po1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-po2), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(po3), [1, 0, 0]);
+    }	
+	gl.activeTexture(gl.TEXTURE0);
+    if(tshadow==0){gl.bindTexture(gl.TEXTURE_2D,  objTexture2);
+		mat4.scale(mvMatrix,[0.02,0.02,0.02]);
+	}else{
+ 		mat4.scale(mvMatrix,[0.03,0.03,0.03]);
+                   gl.disable(gl.DEPTH_TEST);
+	               gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);}
+    gl.uniform1i(shaderProgram.samplerUniform, 0);
+    
+   if(tshadow==0){	
+    gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    
+    setMatrixUniforms(); 
+    gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
+   }else{
+    gl.bindBuffer(gl.ARRAY_BUFFER, world2VertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, world2VertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, world2VertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, world2VertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    setMatrixUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, world2VertexPositionBuffer.numItems);
+   }   
+		
+		mvPopMatrix();
+    if(tshadow==1){gl.enable(gl.DEPTH_TEST);};
+}
+var tradarplane3=0,o1radarplane3=0,dxradarplane3=0;
+function drawplane3(){
+        mvPushMatrix();
+	if(tshadow==0){	
+        var dxplane3=Math.abs(x-p3x),dyplane3=Math.abs(y-p3y);
+		dxradarplane3=Math.sqrt(dxplane3*dxplane3+dyplane3*dyplane3);
+		dxradarplane3=radardist(dxradarplane3);
+		if(dxradarplane3*0.015>5.4){return;}
+		o1radarplane3=diro1(p3x-x,p3y-y);
+		if(Math.cos(degtorad(o1radarplane3-o1-o3radar-30+90))>0.8){
+		   tradarplane3=tframe;
+		}
+        //mat4.identity(mvMatrix);
+		//mat4.rotate(mvMatrix,degtorad(-o1),[0,0,1]);
+		mat4.translate(mvMatrix, [p3x,p3y,p3z]);
+        mat4.rotate(mvMatrix, degtorad(180+p3o1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-p3o2), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(p3o3), [1, 0, 0]);
+	}else{
+	    var dx=Math.sqrt(sunx*sunx+suny*suny+sunzz*sunzz);
+		var dz=Math.max(0.0,p3z-zsol-3)*10;
+		var kz=distshadow*0.5;//*0.705;
+    	mat4.translate(mvMatrix,[p3x+0.25*(1+0.5)*kz-dz*sunx/dx,p3y+0.25*(1+0.5)*kz-dz*suny/dx,p3z]);
+    	//mat4.translate(mvMatrix,[p3x,p3y,p3z]);
+		//mat4.rotate(mvMatrix, degtorad(180), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(180+p3o1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-p3o2), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(p3o3), [1, 0, 0]);
+    }	
+	gl.activeTexture(gl.TEXTURE0);
+    if(tshadow==0){gl.bindTexture(gl.TEXTURE_2D,  objTexture);
+		mat4.scale(mvMatrix,[0.02,0.02,0.02]);
+	}else{
+ 		mat4.scale(mvMatrix,[0.03,0.03,0.03]);
+                   gl.disable(gl.DEPTH_TEST);
+	               gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);}
+    gl.uniform1i(shaderProgram.samplerUniform, 0);
+    
+   if(tshadow==0){	
+    gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, worldVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, worldVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    
+    colorb=0.05;
+    setMatrixUniforms(); 
+	colorb=1;
+    gl.drawArrays(gl.TRIANGLES, 0, worldVertexPositionBuffer.numItems);
+   }else{
+    gl.bindBuffer(gl.ARRAY_BUFFER, world2VertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, world2VertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, world2VertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, world2VertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+	setMatrixUniforms();
+	gl.drawArrays(gl.TRIANGLES, 0, world2VertexPositionBuffer.numItems);
+   }   
+		
+		mvPopMatrix();
+    if(tshadow==1){gl.enable(gl.DEPTH_TEST);};
+}
+
+var tpiste=0,tradarpiste=0,o1radarpiste=0,dxradarpiste=0;
+function radardist(dx){return 1000*dx/(1000+dx);}
+function drawpiste(){
+    var dxpiste=Math.abs(x-pistex),dypiste=Math.abs(y-pistey);
+	var dxmax=nmap2*scale*0.5*8/n;
+		dxradarpiste=Math.sqrt(dxpiste*dxpiste+dypiste*dypiste);
+		dxradarpiste=radardist(dxradarpiste);
+		if(dxradarpiste*0.015>5.4){return;}
+		o1radarpiste=diro1(pistex-x,pistey-y);
+		if(Math.cos(degtorad(o1radarpiste-o1-o3radar-30+90))>0.8){
+		   tradarpiste=tframe;
+		}
+        if(dxpiste>dxmax){return;}
+        if(dypiste>dxmax){return;}
+		tpiste=0;
+		if(x>(pistex+45.5-98) && x<(pistex+45.5)){
+       	  if(dypiste<7){tpiste=1;if(vplane<0.002 && vie<50){vie+=dtime*0.003};};}
+        mvPushMatrix();
+        //mat4.identity(mvMatrix);
+		//mat4.rotate(mvMatrix,degtorad(-o1),[0,0,1]);
+		/*mat4.translate(mvMatrix, [px,py,pz]);
+        mat4.rotate(mvMatrix, degtorad(180+po1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90), [1, 0, 0]);
+        mat4.rotate(mvMatrix, degtorad(-po2), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(po3), [1, 0, 0]);
+		mat4.scale(mvMatrix,[0.02,0.02,0.02]);*/
+	gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D,  pisteTexture);
+    gl.uniform1i(solProgram.samplerUniform, 0);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, pisteVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(solProgram.textureCoordAttribute, pisteVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, pisteVertexPositionBuffer);
+    gl.vertexAttribPointer(solProgram.vertexPositionAttribute, pisteVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    
+    setMatrixUniformspiste(); 
+    gl.drawArrays(gl.TRIANGLES, 0, pisteVertexPositionBuffer.numItems);
+		
+		mvPopMatrix();
+}
+var tradarwater=0,o1radarwater=0,dxradarwater=0;
+var seax=0,seay=0,seaz=0;
+function drawsea(){
+        mvPushMatrix();
+		//mat4.translate(mvMatrix, [seax,seay,seaz]);
+	gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D,  waterTexture);
+    gl.uniform1i(solProgram.samplerUniform, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, seaVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(solProgram.textureCoordAttribute, seaVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, seaVertexPositionBuffer);
+    gl.vertexAttribPointer(solProgram.vertexPositionAttribute, seaVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    
+    setMatrixUniformssea(); 
+    gl.drawArrays(gl.TRIANGLES, 0, seaVertexPositionBuffer.numItems);
+		
+		mvPopMatrix();
+}
+function drawwater(){
+        var waterxx=waterx-x,wateryy=watery-y;x-(xmax-xmin)/2
+		if(waterxx<-(xmax-xmin)/2){waterxx+=xmax-xmin;}
+		if(waterxx>(xmax-xmin)/2){waterxx-=xmax-xmin;}
+		if(wateryy<-(ymax-ymin)/2){wateryy+=ymax-ymin;}
+		if(wateryy>(ymax-ymin)/2){wateryy-=ymax-ymin;}
+    //var dxwater=Math.abs(x-waterx),dywater=Math.abs(y-watery);
+      var dxwater=shipx-x,dywater=shipy-y;		
+		dxradarwater=Math.sqrt(dxwater*dxwater+dywater*dywater);
+		dxradarwater=radardist(dxradarwater);
+		if(dxradarwater*0.015>5.4){return;}
+		o1radarwater=diro1(dxwater,dywater);
+		if(Math.cos(degtorad(o1radarwater-o1-o3radar-30+90))>0.8){
+		   tradarwater=tframe;
+		}
+        if(Math.abs(waterxx)>(-80+nmap2*scale*0.5*8/n)){return;}
+        if(Math.abs(wateryy)>(-80+nmap2*scale*0.5*8/n)){return;}
+        mvPushMatrix();
+	gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D,  waterTexture);
+    gl.uniform1i(solProgram.samplerUniform, 0);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, waterVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(solProgram.textureCoordAttribute, waterVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, waterVertexPositionBuffer);
+    gl.vertexAttribPointer(solProgram.vertexPositionAttribute, waterVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    
+    setMatrixUniformspiste(); 
+    gl.drawArrays(gl.TRIANGLES, 0, waterVertexPositionBuffer.numItems);
+
+	mvPopMatrix();
+}
+var shipx=waterx,shipy=watery+(Math.random()-0.5)*50,shipz=0;
+var shipo1=Math.random()*80,shipco1=1,shipsi1=0;
+var tshipo1=0,tshipo2=0,tshiptir=0,shipvie=100;
+function tirship(){
+var v=(2.2)*(1+(Math.random()-0.5)*0.2);
+var vx=v*Math.cos(degtorad(tshipo1))*Math.cos(degtorad(tshipo2));
+var vy=v*Math.sin(degtorad(tshipo1))*Math.cos(degtorad(tshipo2));
+var vz=v*Math.sin(degtorad(tshipo2));
+addtir(shipx,shipy,shipz+3,vx,vy,vz,1);
+}
+function drawship(){
+    if(shipvie<100){shipvie+=Math.random()*dtime*0.0004;};
+	shipco1=Math.cos(degtorad(shipo1));
+	shipsi1=Math.sin(degtorad(shipo1));
+    shipx+=dtime*0.0015*shipco1;
+    shipy+=dtime*0.0015*shipsi1;
+	var distship2=((shipx-waterx)*(shipx-waterx)+(shipy-watery)*(shipy-watery));
+	if(distship2>95*95){
+	  var do1=shipo1-diro1(waterx-shipx,watery-shipy);
+	  while(do1<-180){do1+=360;};
+	  while(do1>180){do1-=360;};
+	  if(Math.abs(do1)>35){shipo1+=0.02*dtime*(1+Math.random());};
+	}
+	    var dx=x-shipx,dy=y-shipy;
+        if(Math.abs(dx)>(nmap2*scale*0.5*8/n)){return;}
+        if(Math.abs(dy)>(nmap2*scale*0.5*8/n)){return;}
+		if(tframe<tattack2+120000){
+		   var distxy=Math.sqrt(dx*dx+dy*dy);
+		   dx+=vplane*cos1*distxy/80;dy+=vplane*sin1*distxy/80;
+		   var do1=tshipo1-diro1(dx,dy)+(Math.random()-0.5)*5;
+		   var do2=tshipo2-diro1(distxy,z-(shipz+3))+(Math.random()-0.5)*5;
+		   while(do1<-180){do1+=360;};
+	       while(do1>180){do1-=360;};
+		   while(do2<-180){do2+=360;};
+	       while(do2>180){do2-=360;};
+		   var v=1+Math.random()*0.5;
+		   if(do1>0){tshipo1-=dtime*0.03*v;}else{tshipo1+=dtime*0.03*v;}
+		   if(do2>0){tshipo2-=dtime*0.03*v;}else{tshipo2+=dtime*0.03*v;}
+		   if(tshipo2>80){tshipo2=80;}
+		   if(tshipo2<-80){tshipo2=-80;}
+		   if(tframe>(tshiptir+500) && distxy<240){tshiptir=tframe;
+		          if(Math.abs(do1)<40 && Math.abs(do2)<40){tirship();};};
+		}
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [shipx,shipy,shipz]);
+        mat4.rotate(mvMatrix, degtorad(shipo1), [0, 0, 1]);
+		mat4.scale(mvMatrix,[0.065,0.065,0.065]);
+ 	gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D,  shipTexture);
+    gl.uniform1i(shaderProgram.samplerUniform, 0);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, shipVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, shipVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, shipVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, shipVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    
+    setMatrixUniforms(); 
+    gl.drawArrays(gl.TRIANGLES, 0, shipVertexPositionBuffer.numItems);
+		
+		mvPopMatrix();
+}
+var shipcarrierx=(Math.random())*1000;
+var shipcarriery=0.7*ymax+Math.random()*300,shipcarrierz=0;
+var shipcarriero1=Math.random()*40-20,shipcarrierco1=1,shipcarriersi1=0;
+var tshipcarriero1=0,tshipcarriero2=0,tshipcarriertir=0,shipcarriervie=100;
+function tirshipcarrier(){
+var v=(2.2)*(1+(Math.random()-0.5)*0.2);
+var vx=v*Math.cos(degtorad(tshipcarriero1))*Math.cos(degtorad(tshipcarriero2));
+var vy=v*Math.sin(degtorad(tshipcarriero1))*Math.cos(degtorad(tshipcarriero2));
+var vz=v*Math.sin(degtorad(tshipcarriero2));
+addtir(shipcarrierx,shipcarriery,shipcarrierz+3,vx,vy,vz,1);
+}
+var tcarrier=0,tradarcarrier=0,o1radarcarrier=0,dxradarcarrier=0;
+function resetcarrier(){
+  shipcarrierco1=Math.cos(degtorad(shipcarriero1));
+  shipcarriersi1=Math.sin(degtorad(shipcarriero1));
+  for(var i=0;i<50;i++){
+	if(getterrainheight(shipcarrierx+20*shipcarrierco1-9*shipcarriersi1,shipcarriery+20*shipcarriersi1+9*shipcarrierco1)<0){break;}
+	if(getterrainheight(shipcarrierx+20*shipcarrierco1+9*shipcarriersi1,shipcarriery+20*shipcarriersi1-9*shipcarrierco1)<0){break;}     
+    shipcarrierx+=40*shipcarrierco1;
+	shipcarriery+=40*shipcarriersi1;
+	if(shipcarrierx>xmax-200){shipcarrierx-=(xmax-xmin-400);}
+	if(shipcarrierx<xmin+200){shipcarrierx+=(xmax-xmin-400);}
+	if(shipcarriery>ymax-200){shipcarriery-=(ymax-ymin-400);}
+	if(shipcarriery<ymin+200){shipcarriery+=(ymax-ymin-400);}
+  }
+}
+function moveshipcarrier(){
+    if(shipcarriervie<100){shipcarriervie+=Math.random()*dtime*0.0004;};
+	shipcarrierco1=Math.cos(degtorad(shipcarriero1));
+	shipcarriersi1=Math.sin(degtorad(shipcarriero1));
+    shipcarrierx+=dtime*0.0015*shipcarrierco1;
+    shipcarriery+=dtime*0.0015*shipcarriersi1;
+	if(landing==0){tcarrier=0;}
+	if(tcarrier==1){
+      x+=dtime*0.0015*shipcarrierco1;
+      y+=dtime*0.0015*shipcarriersi1;
+	}
+    var do1=0;
+	var dh1=getterrainheight(shipcarrierx+20*shipcarrierco1-9*shipcarriersi1,shipcarriery+20*shipcarriersi1+9*shipcarrierco1);
+    var dh2=getterrainheight(shipcarrierx+20*shipcarrierco1+9*shipcarriersi1,shipcarriery+20*shipcarriersi1-9*shipcarrierco1);
+	if(dh1>0){
+	  do1=-0.01*dtime*(1+Math.random());
+    }else{
+	  if(dh2>0){do1=0.01*dtime*(1+Math.random());}
+    }
+    if(shipcarrierx<(xmin+200) || shipcarrierx>(xmax-200)){do1=-0.01*dtime*(1+Math.random());}
+    if(shipcarriery<(ymin+200) || shipcarriery>(ymax-200)){do1=-0.01*dtime*(1+Math.random());}
+	if(Math.abs(do1)>0.0001){
+	  shipcarriero1+=do1;
+	  if(tcarrier==1){o1+=do1;var si1=Math.sin(degtorad(do1));
+	                  var dx=x-shipcarrierx,dy=y-shipcarriery;
+		              x+=-dy*si1;y+=dx*si1;}
+	}
+	tcarrier=0;
+}
+function drawshipcarrier(){
+    var dxcarrier=shipcarrierx-x,dycarrier=shipcarriery-y;		
+	dxradarcarrier=Math.sqrt(dxcarrier*dxcarrier+dycarrier*dycarrier);
+	dxradarcarrier=radardist(dxradarcarrier);
+	if(dxradarcarrier*0.015>5.4){return;}
+	o1radarcarrier=diro1(dxcarrier,dycarrier);
+	if(Math.cos(degtorad(o1radarcarrier-o1-o3radar-30+90))>0.8){
+	   tradarcarrier=tframe;
+	}
+	    var dx=x-shipcarrierx,dy=y-shipcarriery;
+        if(Math.abs(dx)>(nmap2*scale*0.5*8/n)){return;}
+        if(Math.abs(dy)>(nmap2*scale*0.5*8/n)){return;}
+		if(tframe<tattack3+120000){
+		   var distxy=Math.sqrt(dx*dx+dy*dy);
+		   dx+=vplane*cos1*distxy/80;dy+=vplane*sin1*distxy/80;
+		   var do1=tshipcarriero1-diro1(dx,dy)+(Math.random()-0.5)*5;
+		   var do2=tshipcarriero2-diro1(distxy,z-(shipcarrierz+3))+(Math.random()-0.5)*5;
+		   while(do1<-180){do1+=360;};
+	       while(do1>180){do1-=360;};
+		   while(do2<-180){do2+=360;};
+	       while(do2>180){do2-=360;};
+		   var v=1+Math.random()*0.5;
+		   if(do1>0){tshipcarriero1-=dtime*0.03*v;}else{tshipcarriero1+=dtime*0.03*v;}
+		   if(do2>0){tshipcarriero2-=dtime*0.03*v;}else{tshipcarriero2+=dtime*0.03*v;}
+		   if(tshipcarriero2>80){tshipcarriero2=80;}
+		   if(tshipcarriero2<-80){tshipcarriero2=-80;}
+		   if(tframe>(tshipcarriertir+500) && distxy<240){tshipcarriertir=tframe;
+		          if(Math.abs(do1)<40 && Math.abs(do2)<40){tirshipcarrier();};};
+		}
+		mvPushMatrix();
+		mat4.translate(mvMatrix, [shipcarrierx,shipcarriery,shipcarrierz]);
+        mat4.rotate(mvMatrix, degtorad(shipcarriero1), [0, 0, 1]);
+		mat4.translate(mvMatrix, [0,1,0]);
+		mat4.scale(mvMatrix,[0.17,0.17,0.17]);
+ 	gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D,  shipcarrierTexture);
+    gl.uniform1i(shaderProgram.samplerUniform, 0);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, shipcarrierVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, shipcarrierVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, shipcarrierVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, shipcarrierVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    
+    setMatrixUniforms(); 
+    gl.drawArrays(gl.TRIANGLES, 0, shipcarrierVertexPositionBuffer.numItems);
+		
+		mvPopMatrix();
+}
+function drawtower(){
+        if(Math.abs(x-(xmax-xmin)*0.5)>(nmap2*scale*0.5*8/n)){return;}
+        if(Math.abs(y-(ymax-ymin)*0.5)>(nmap2*scale*0.5*8/n)){return;}
+        mvPushMatrix();
+	gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D,  towerTexture);
+    gl.uniform1i(solProgram.samplerUniform, 0);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, towerVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(solProgram.textureCoordAttribute, towerVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, towerVertexPositionBuffer);
+    gl.vertexAttribPointer(solProgram.vertexPositionAttribute, towerVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    
+    setMatrixUniformspiste(); 
+    gl.drawArrays(gl.TRIANGLES, 0, towerVertexPositionBuffer.numItems);
+		
+		mvPopMatrix();
+}
+var tradartown=0,o1radartown=0,dxradartown=0;
+var townxx=(xmax-xmin)*0.7;
+var townyy=(ymax-ymin)*0.7;
+function getheighttown(px,py){
+if(Math.abs(townxx-px)>90){return -1;}
+if(Math.abs(townyy-py)>90){return -1;}
+var h=-1;
+for(var i=0;i<ntown;i++){
+   if(Math.abs(townx[i]-px)<towndx[i]){
+     if(Math.abs(towny[i]-py)<towndx[i]){
+	   if(h<townz[i]){h=townz[i];};
+	 }
+   }
+}
+return h;
+}
+function drawtown(){
+    //var townxx=(xmax-xmin)*0.7,townyy=(ymax-ymin)*0.7;
+    var dxtown=Math.abs(x-townxx),dytown=Math.abs(y-townyy);
+		dxradartown=Math.sqrt(dxtown*dxtown+dytown*dytown);
+		dxradartown=radardist(dxradartown);
+		if(dxradartown*0.015>5.4){return;}
+		o1radartown=diro1(townxx-x,townyy-y);
+		if(Math.cos(degtorad(o1radartown-o1-o3radar-30+90))>0.8){
+		   tradartown=tframe;
+		}
+        if(Math.abs(x-townxx)>(-40+nmap2*scale*0.5*8/n)){return;}
+        if(Math.abs(y-townyy)>(-40+nmap2*scale*0.5*8/n)){return;}
+        mvPushMatrix();
+	gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D,  towerTexture);
+    gl.uniform1i(solProgram.samplerUniform, 0);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, townVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(solProgram.textureCoordAttribute, townVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, townVertexPositionBuffer);
+    gl.vertexAttribPointer(solProgram.vertexPositionAttribute, townVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    
+    setMatrixUniformstown(); 
+    gl.drawArrays(gl.TRIANGLES, 0, townVertexPositionBuffer.numItems);
+		
+		mvPopMatrix();
+}
+function drawtree(){
+        mvPushMatrix();
+	gl.activeTexture(gl.TEXTURE5);
+    gl.bindTexture(gl.TEXTURE_2D,  treeTexture);
+    gl.uniform1i(treeProgram.samplerUniform, 5);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, treeVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(treeProgram.textureCoordAttribute, treeVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, treeVertexPositionBuffer);
+    gl.vertexAttribPointer(treeProgram.vertexPositionAttribute, treeVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    
+    setMatrixUniformstree(); 
+    gl.drawArrays(gl.TRIANGLES, 0, treeVertexPositionBuffer.numItems);
+		
+		mvPopMatrix();
+}
+function drawtir(){
+    gl.disable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_COLOR, gl.ONE_MINUS_SRC_COLOR);
+        mvPushMatrix();
+		//mat4.scale(mvMatrix,[0.1,0.1,0.1]);
+	gl.activeTexture(gl.TEXTURE7);
+    gl.bindTexture(gl.TEXTURE_2D,  tirTexture);
+    gl.uniform1i(shaderProgram.samplerUniform, 7);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, tirVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, tirVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, tirVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, tirVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    
+    setMatrixUniforms(); 
+    gl.uniform4f(shaderProgram.colorUniform,0.7,0.57,0.57,0.0);
+    gl.drawArrays(gl.TRIANGLES, 0, tirVertexPositionBuffer.numItems);
+		
+		mvPopMatrix();
+	gl.disable(gl.BLEND);
+    gl.enable(gl.DEPTH_TEST);
+}
+var nimpact=14,nimpact2=4,iimpact=0;
+var impactx=new Array(nimpact),impacty=new Array(nimpact),impactz=new Array(nimpact);
+var timpact=new Array(nimpact);
+function addimpact(px,py,pz){
+iimpact+=1;if(iimpact>=nimpact || iimpact>=nimpact2){iimpact=0;}
+impactx[iimpact]=px;
+impacty[iimpact]=py;
+impactz[iimpact]=pz;
+timpact[iimpact]=tframe;
+}
+function addimpact2(px,py,pz){
+iimpact+=1;if(iimpact>=nimpact){iimpact=0;}
+impactx[iimpact]=px;
+impacty[iimpact]=py;
+impactz[iimpact]=pz;
+timpact[iimpact]=tframe;
+}
+function drawimpact(){
+    gl.disable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.ONE_MINUS_SRC_COLOR, gl.SRC_COLOR);
+	gl.activeTexture(gl.TEXTURE8);
+    gl.bindTexture(gl.TEXTURE_2D,  impactTexture);
+    gl.uniform1i(shaderProgram.samplerUniform, 8);
+    for(var i=0;i<nimpact;i++){ 
+      if(tframe<(timpact[i]+3500)){	
+        mvPushMatrix();
+		mat4.translate(mvMatrix, [impactx[i],impacty[i],impactz[i]]);
+        mat4.rotate(mvMatrix, degtorad(o1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90+o2), [0, 1, 0]);
+		var sc=(1.0+(tframe-timpact[i])/300);if(sc>3){sc=3+(sc-3)*0.2;};
+		sc*=0.022;
+		mat4.scale(mvMatrix,[sc,sc,sc]);
+		drawcarre();
+		mvPopMatrix();
+	  };	
+	};	
+	gl.disable(gl.BLEND);
+    gl.enable(gl.DEPTH_TEST);
+}
+var nsmoke=20,ismoke=0;
+var smokex=new Array(nsmoke),smokey=new Array(nsmoke),smokez=new Array(nsmoke);
+var tsmoke=new Array(nsmoke),vsmoke=new Array(nsmoke),sizesmoke=new Array(nsmoke);
+var ttsmoke=0;
+function addsmoke(px,py,pz,size){
+ismoke+=1;if(ismoke>=nsmoke){ismoke=0;}
+smokex[ismoke]=px;
+smokey[ismoke]=py;
+smokez[ismoke]=pz;
+tsmoke[ismoke]=tframe;
+vsmoke[ismoke]=vplane;
+sizesmoke[ismoke]=size;
+}
+function drawsmoke(){
+    gl.disable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);//_MINUS_SRC_ALPHA);
+	gl.activeTexture(gl.TEXTURE3);
+    gl.bindTexture(gl.TEXTURE_2D,  cloudTexture);
+    gl.uniform1i(shaderProgram.samplerUniform, 3);
+    for(var i=0;i<nsmoke;i++){ 
+      if(tframe<(tsmoke[i]+5000+(sizesmoke[i]-1)*1700)){	
+        mvPushMatrix();
+		var dt=dtime;if(dt>120){dt=120;}
+		if(sizesmoke[i]<2){
+		 var dv=vsmoke[i]*dt*0.0125;
+		 vsmoke[i]-=vplane*dt*0.00048;
+		 smokez[i]+=dv*sin2;
+		 smokex[i]+=dv*cos1*cos2;
+		 smokey[i]+=dv*sin1*cos2;
+		 smokez[i]+=dt*0.0001*(2+Math.random());
+		} 
+		mat4.translate(mvMatrix, [smokex[i],smokey[i],smokez[i]]);
+        mat4.rotate(mvMatrix, degtorad(o1), [0, 0, 1]);
+        mat4.rotate(mvMatrix, degtorad(90+o2), [0, 1, 0]);
+		var sc=((1+vplane*1.8)*(0.3+tframe-tsmoke[i])/500);if(sc>3){sc=3+(sc-3)*0.2;};
+		sc*=0.0020*sizesmoke[i];
+		mat4.scale(mvMatrix,[sc,sc,sc]);
+		drawcarre();
+		mvPopMatrix();
+	  };	
+	};	
+	gl.disable(gl.BLEND);
+    gl.enable(gl.DEPTH_TEST);
+}
+    var tframe=0,tframe0=0,tfps=30,fps=10,dtime=1,tmsg=0,clearr,clearg,clearb,tskip=0;
+	var ttimeout=0;
+	function tick(tt) {
+        //requestAnimFrame(tick);
+		testkeys();
+		if(x<xmin){x+=xmax-xmin;px+=xmax-xmin;p3x+=xmax-xmin;nmap2*=2;tskip=1;};
+		if(x>xmax){x-=xmax-xmin;px-=xmax-xmin;p3x-=xmax-xmin;nmap2*=2;tskip=1;};
+		if(y<ymin){y+=ymax-ymin;py+=ymax-ymin;p3y+=ymax-ymin;nmap2*=2;tskip=1;};
+		if(y>ymax){y-=ymax-ymin;py-=ymax-ymin;p3y-=ymax-ymin;nmap2*=2;tskip=1;};
+		var aux=1-0.45*Math.abs(12-hour)/12;
+   	    var aux2=1-0.3*Math.abs(12-hour)/12;
+   	    var aux3=1-0.2*Math.abs(12-hour)/12;
+        if(hour<6 || hour>18){		
+		//  var aux4=Math.abs(12-hour)/3000;
+        //  gl.clearColor(aux4,aux4,aux4, 1.0);
+		//}else{gl.clearColor(0,0,0, 1.0);};
+		}else{gl.clearColor(0,0,0, 1.0);
+		if(tskip==0){drawrttshadow();};}
+        gl.clearColor(0.70*aux3, 0.70*aux, 1.0*aux2, 1.0);
+        clearr=0.70*aux3;clearg=0.70*aux;clearb=1.0*aux2;
+        if(tskip==0){drawScene();}
+		scrollTo(winx,winy);
+		tskip=0;
+		tframe0=tframe;
+		tframe=timer();
+		dtime=tframe-tframe0;if(dtime>5000){dtime=5000;}
+		tfps+=(tframe-tframe0-tfps)*0.2;
+		if(tfps<1){tfps=1;}
+		if(tfps>1000){tfps=1000;}
+		fps=1000/tfps;
+		var dt=(tframe0+25-tframe);
+		if(dt<7){dt=7};
+		if(tclose==0 && ttimeout){timeouttick=setTimeout("tick(0);",dt);
+           }else{
+		   //if(tclose==0){requestAnimationFrame(tick);};
+           if(tclose==0){requestAnimFrame(tick);};}
+		//if(tclose==0){timeouttick=setTimeout("tick(0);",dt);}
+        //if(tclose==0){requestAnimationFrame(tick);};
+        //if(tclose==0){requestAnimFrame(tick);};
+    }
+
+
+    function webGLStart() {
+        var canvas = document.getElementById("canvas");
+        initGL(canvas);
+        initShaders();
+        initBuffers();
+        initTexture();
+        loadWorld();
+		
+        gl.clearColor(0.70, 0.70, 1.0, 1.0);
+        gl.enable(gl.DEPTH_TEST);
+
+        tkey=timer();
+        testkeys();
+		if(tsea==1){resetcarrier();}
+        setTimeout("tick(0);",1000);
+        //if(tclose==0){requestAnimationFrame(tick);};
+        //if(tclose==0){requestAnimFrame(tick);};
+   }
+
+var timer0=0,timer1=0;
+function timer(){
+return Date.now();
+return (new Date()).getTime();//ms
+}
+var keys=new Array(256),keys0=new Array(256),tkeys=new Array(256),tkey=0;
+var pkeys=new Array(256);
+function resetkeys(){
+ for(var i=0;i<256;i++){keys[i]=0;keys0[i]=0;tkeys[i]=0;}
+}
+resetkeys();
+ function keydown(e){
+var key=eval(e.which || e.keyCode)
+var t=timer();
+if(key>0 && key<256){keys[key]=1;tkeys[key]=t;if(keys0[key]==0){keys0[key]=1;}}
+//if(tkey>(t-40000)){tkey=t;}else{tkey=t;}//testkeys();}
+}
+function keyup(e){
+var key=eval(e.which || e.keyCode)
+if(key>0 && key<256){keys[key]=0;keys0[key]=0;}
+//var t=timer();
+//for(var i=16;i<=40;i++){if(tkeys[i]<(t-40000)){keys[i]=0;keys0[i]=0;tkeys[i]=t;};}
+}
+function subhelp(){
+var crlf=String.fromCharCode(13)+String.fromCharCode(10);
+var msg="H => help  / P => pause"+crlf;
+msg+="esc => quit"+crlf;
+msg+="arrows keys => rotate"+crlf;
+msg+="pageup/pagedown or ctrl+arrows => motor"+crlf;
+msg+="T => tourelle view  /  shift+T => change timehour"+crlf;
+msg+="V => plane/tourelle/cockpit view"+crlf;
+msg+="Shift + arrow key => rotate cockpit view"+crlf;
+msg+="C => number of clouds  /  L => link URL"+crlf;
+msg+="space => shoot"+crlf;
+msg+="F => cessna/spitfire/zero"+crlf;
+msg+="S => settimeout/requestanim mode"+crlf;
+msg+="R => radio message  /  W => water/ground"+crlf;
+alert(msg);	 
+document.getElementById('intext').focus();
+}
+var vplane=0,dmx=0,dmy=0,dmz=0,vplanez=0,tclock=0,tvie=0,tvie0=0,tsea=0;
+var plane="c150",vrunmax=1.30;
+var searchtxt="",parms=[],iparm=0;
+function addparm(parm){
+   searchtxt+=(parseInt(parm*1000)/1000)+"&";
+}
+function initparms(){
+  if(Math.random()<0.5){tsea=1;}
+  var hash=document.location.search;//parent.location.hash;
+  if(hash!=""){parms=[];parms=hash.split("&");
+    tsea=eval(parms[0].substr(1,parms[0].length-1));
+    var i=1,n=parms.length;
+	x=eval(parms[i]);i+=1;if(i>=n){return;}
+    y=eval(parms[i]);i+=1;if(i>=n){return;}
+	z=eval(parms[i]);i+=1;if(i>=n){return;}
+	o1=eval(parms[i]);i+=1;if(i>=n){return;}
+    o2=eval(parms[i]);i+=1;if(i>=n){return;}
+	o3=eval(parms[i]);i+=1;if(i>=n){return;}
+	vplane=eval(parms[i]);i+=1;if(i>=n){return;}
+    vrun=eval(parms[i]);i+=1;if(i>=n){return;}
+	vrunmax=eval(parms[i]);i+=1;if(i>=n){return;}
+	tourelle=eval(parms[i]);i+=1;if(i>=n){return;}
+	seedrand=eval(parms[i]);i+=1;if(i>=n){return;}
+	px=eval(parms[i]);i+=1;if(i>=n){return;}
+    py=eval(parms[i]);i+=1;if(i>=n){return;}
+	pz=eval(parms[i]);i+=1;if(i>=n){return;}
+	po1=eval(parms[i]);i+=1;if(i>=n){return;}
+    po2=eval(parms[i]);i+=1;if(i>=n){return;}
+	po3=eval(parms[i]);i+=1;if(i>=n){return;}
+	pvplane=eval(parms[i]);i+=1;if(i>=n){return;}
+    pvrun=eval(parms[i]);i+=1;if(i>=n){return;}
+	shipx=eval(parms[i]);i+=1;if(i>=n){return;}
+    shipy=eval(parms[i]);i+=1;if(i>=n){return;}
+	shipz=eval(parms[i]);i+=1;if(i>=n){return;}
+	shipo1=eval(parms[i]);i+=1;if(i>=n){return;}
+	shipcarrierx=eval(parms[i]);i+=1;if(i>=n){return;}
+    shipcarriery=eval(parms[i]);i+=1;if(i>=n){return;}
+	shipcarrierz=eval(parms[i]);i+=1;if(i>=n){return;}
+	shipcarriero1=eval(parms[i]);i+=1;if(i>=n){return;}
+	plane=parms[i];i+=1;if(i>=n){return;}
+	p3x=eval(parms[i]);i+=1;if(i>=n){return;}
+    p3y=eval(parms[i]);i+=1;if(i>=n){return;}
+	p3z=eval(parms[i]);i+=1;if(i>=n){return;}
+	p3o1=eval(parms[i]);i+=1;if(i>=n){return;}
+    p3o2=eval(parms[i]);i+=1;if(i>=n){return;}
+	p3o3=eval(parms[i]);i+=1;if(i>=n){return;}
+	p3vplane=eval(parms[i]);i+=1;if(i>=n){return;}
+    p3vrun=eval(parms[i]);i+=1;if(i>=n){return;}
+   }
+}
+function setlink(){
+  alert("copy the adress bar to link to this place later");
+  searchtxt="";
+  addparm(tsea);
+  addparm(x);
+  addparm(y);
+  addparm(z);
+  addparm(o1);
+  addparm(o2);
+  addparm(o3);
+  addparm(vplane);
+  addparm(vrun);
+  addparm(vrunmax);
+  addparm(tourelle);
+  addparm(seedrand);
+  addparm(px);
+  addparm(py);
+  addparm(pz);
+  addparm(po1);
+  addparm(po2);
+  addparm(po3);
+  addparm(pvplane);
+  addparm(pvrun);
+  addparm(shipx);
+  addparm(shipy);
+  addparm(shipz);
+  addparm(shipo1);
+  addparm(shipcarrierx);
+  addparm(shipcarriery);
+  addparm(shipcarrierz);
+  addparm(shipcarriero1);
+  searchtxt+=plane+"&";
+  addparm(p3x);
+  addparm(p3y);
+  addparm(p3z);
+  addparm(p3o1);
+  addparm(p3o2);
+  addparm(p3o3);
+  addparm(p3vplane);
+  addparm(p3vrun);
+  document.location.search=searchtxt;  
+}
+function testkeys() {
+if(tmsg<(tframe-150)){tmsg=tframe;
+ var xx=Math.round(x),yy=Math.round(y),zz=Math.round(z),oo1=Math.round(o1),vv=Math.round(vplane*2000)/10;
+ var pp=Math.round(vrun*1000)/10,oo2=Math.round(o2),ff=Math.round(fps),oo3=Math.round(o3);
+ var msg="x="+xx+"  y="+yy+"  z="+zz+"  v="+vv+"  prop="+pp
+ if(test==1){msg+="  o1="+oo1+" o2="+oo2+" o3="+oo3;};
+ msg+=" fps="+ff;
+ if(Math.abs(tvie0-vie)>0.001){tvie0=vie;tvie=tframe;}
+ if(tframe<(tvie+5000)){msg+=" vie="+parseInt(vie);}
+ if(ttimeout){msg+=" timeout";}
+ if(auxvar!=null){msg+=" aux="+auxvar;}
+ if(tourelle==1){msg+=" tourelle";}
+ if(tframe<tradio+25000){msg=radiotxt.substr(0,parseInt((tframe-tradio)/110));tmsg=tframe-120;
+    if(tframe>tradio+12000){if(Math.cos((tframe-tradio)*0.004)>0.59){msg="";};};}
+ document.getElementById('intext0').value=msg;
+ document.getElementById('intext').focus();
+ setvolume();
+ //testjoystick();
+ }
+if(tclock<tframe-5000){tclock=tframe;var hh=parseInt(hour),mn=parseInt((hour-hh)*60);
+ if(mn<10){mn="0"+mn;};
+ document.getElementById('clock').value=hh+":"+mn;
+ }
+timer0=timer1;timer1=timer();
+//if (tkey>(timer1-300000)){
+	var dt=timer1-timer0;if(dt>300){dt=300;}
+	var o10=o1,o20=o2,o30=o3;
+    //left=37,up=38,right=39,down=40,pageup=33,pagedown=34,m=77,esc=27,h=72,shift=16
+    //p=80,T=84,V=86,b=66,n=78,ctrl=17,l=76,space=32,c=67,w=87,f=70,s=83,r=82
+    if (keys[76]) {keys[76]=0;tclose=1;setlink();return;};
+    if (keys[87]) {keys[87]=0;if(tsea==0){tsea=1;}else{tsea=0;};
+	               reinitsol();}
+				   //document.location.search=tsea+"&"+x+"&"+y+"&"+z+"&"+o1+"&"+o2+"&"+o3+"&"+vplane+"&"+vrun+"&"+vie+"&"+plane+"&"+tourelle+"&"+vrunmax;}
+	if (keys[82]) {keys[82]=0;subradio();}
+	if (keys[83]) {keys[83]=0;ttimeout+=1;if(ttimeout>1){ttimeout=0;};}
+	if (keys[70]) {keys[70]=0;var vrunmax0=vrunmax;
+	   if(plane=="c150"){plane="spitfire";vrunmax=1.70;
+	   }else{if(plane=="spitfire"){plane="zero";vrunmax=1.50;}else{plane="c150";vrunmax=1.30;};};
+	   vrun*=vrunmax/vrunmax0;}
+	if (keys[67]) {keys[67]=0;ncloud2-=15;if(ncloud2<1){ncloud2=ncloud;};}
+	if (keys[32]) {if(tframe>(tkeytir+80)){soundshoot();tir();};}
+	if (keys[86]) {keys[86]=0;tourelle+=1;if(tourelle>3){tourelle=0;};
+	               if(tourelle==0){ko1=to1;ko2=to2;};
+				   if(tourelle==1){to1=to11;to2=to21;};
+				   if(tourelle==2){to11=to1;to21=to2;to1=ko1;to2=ko2;};}
+	if (keys[84] && keys[16]) {thour+=3.5;if(thour>24){thour-=24;};
+	    hour=new Date().getHours()+thour;
+		while(hour>24){hour-=24;}
+		while(hour<0){hour+=24;}
+	    alert("timehour = "+hour);keys[84]=0;keys[16]=0;}
+	if (keys[84] && keys[16]==0){keys[84]=0;
+	   if(tourelle==1){tourelle=tourelle0;}else{tourelle0=tourelle;tourelle=1;};
+	   	           if(tourelle==0){to11=to1;to21=to2;};
+				   if(tourelle==1){if(tourelle0>=2){ko1=to1;ko2=to2;};
+				                   to1=to11;to2=to21;};
+				   if(tourelle>=2){to11=to1;to21=to2;to1=ko1;to2=ko2;};
+                   }
+	if (keys[72]) {subhelp();keys[72]=0;}
+	if (keys[80]) {subhelp();keys[80]=0;}
+	if (keys[27]) {tclose=1;setTimeout("subquit();",1000);return;}
+   if(keys[17]==0){
+    if(tourelle==0 || keys[16]==0){
+	 if (keys[40] && Math.abs(vplane)>0.2*cos3) {
+	         var dt2=(0.8+vplane/2)*dt;if(vplane>2){dt2=1.8*dt;}
+			 o2+=dt2*0.015*cos3;o1+=dt2*0.015*sin3;}
+     if (keys[38]) {o2-=dt*0.015*cos3;o1-=dt*0.015*sin3;}
+     if (keys[37]) {o3+=dt*0.019;if(o3>180){o3-=360;o30-=360;};if(landing){o1+=dt*0.004;};}
+     if (keys[39]) {o3-=dt*0.019;if(o3<-180){o3+=360;o30+=360;};if(landing){o1-=dt*0.004;};}
+	}else{
+	 if (keys[38]) {to2+=dt*0.035;if(to2>89){to2=89;};}
+     if (keys[40]) {to2-=dt*0.035;if(to2<-89){to2=-89;};}
+     if (keys[37]) {to1+=dt*0.039;if(to1>180){to1-=360;};}
+     if (keys[39]) {to1-=dt*0.039;if(to1<-180){to1+=360;};}
+	}
+  }else{
+	if (keys[38] || keys[39]) {vrun+=dt*0.0003;};
+    if (keys[40] || keys[37]) {vrun-=dt*0.0003;if(vrun<0){vrun=0;};};
+  }  
+	if (keys[33]) {vrun+=dt*0.0003;};
+    if (keys[34]) {vrun-=dt*0.0003;if(vrun<0){vrun=0;};};
+	if(vrun>vrunmax){vrun=vrunmax;};
+	var air=(5000-z)/(5000+z);if(air<0){air=0;};
+	//vplane+=0.4*((vrun-vplane)*0.0013*0.8*air*dt-dt*(air*0.0003*vplane+sin2*0.004));
+	var vrun2=vrun*((3-1.4*vplane)/2)*3*air*air/(2+air*air);
+	//vplane+=0.8*((vrun2)*0.0003*air*dt-dt*(air*0.0003*vplane+(sin2+0.03)*0.0024));
+	vplane+=0.8*((vrun2)*0.0003*air*dt-dt*(air*0.0003*vplane+(sin2+0.01)*0.0020));
+	if(vplane>4){vplane=4;}//max vv=800
+	if(vplane<-0.5){vplane=-0.5;}//min vv=-100
+    var vcruise=0.8;if(plane=="spitfire"){vcruise=0.85;};if(plane=="zero"){vcruise=0.84;}
+	o1+=sin3*dt*0.010;
+	o2-=Math.abs(Math.sin(degtorad(0.7*o3)))*dt*0.0015;
+	if(cos3>0){o2+=(vplane*air-vcruise)*air*cos2*cos3*dt*0.004;}else{
+	           o2+=(vplane*air+vcruise)*air*cos2*cos3*dt*0.004;}
+	if(o3>0.1){o3-=dt*0.001;};
+	if(o3<-0.1){o3+=dt*0.001;};
+	var dt1=(dt*0.002);
+	if(dt1>0.8){dt1=0.8;}
+	do3+=(o3-o30)-dt1*do3;
+	do2+=(o2-o20)-dt1*do2;
+	do1+=(o1-o10)-dt1*do1;
+	if(landing==1){if(o2<-0.02){o2=-0.01;do2=0;sin2=0;};
+	  if(o2>0.1 && vplane<0.05){do2-=dt*0.050;};
+	  if(keys[34]){vplane-=0.000145*dt*vplane;};
+	  vplane-=0.00003*dt*vplane;o3=0;if(vplane<0.003){vplane=0.000001;};}
+	o1+=do1*dt*0.001;
+	o2+=do2*dt*0.0025;
+	o3+=do3*dt*0.0025;
+	if(Math.abs(o3)<1.6){o3+=Math.cos(timer()*0.0015)*0.2*(1.6-Math.abs(o3));};
+	var vdt=dt*0.013*vplane;
+	x+=vdt*cos1*cos2;
+	y+=vdt*sin1*cos2;
+	z+=vdt*sin2;
+	vplanez=vplane*sin2;
+	if(Math.abs(vplane)<0.2 && landing==0){z-=(0.2-Math.abs(vplane))*dt*0.013/3;vplanez-=(0.2-vplane)/3;
+	                                       o2-=dt*0.004*cos2};
+    if(o2>85){o2=84;o1=180+o1;o3=o3+180;};
+    if(o2<-85){o2=-84;o1=180+o1+o3;o3=0;};
+	if(o2>35){if(cos3>0){o1-=90*sin3*dt*0.004*sin2;o3-=90*sin3*dt*0.004*sin2;}else{
+	                     o1+=90*sin3*dt*0.004*sin2;o3+=90*sin3*dt*0.004*sin2;};}
+	if(o2<-35){if(cos3>0){o1-=90*sin3*dt*0.004*sin2;o3+=90*sin3*dt*0.004*sin2;}else{
+	                     o1+=90*sin3*dt*0.004*sin2;o3-=90*sin3*dt*0.004*sin2;};}
+	while(o1>180){o1-=360;} 
+	while(o1<-180){o1+=360;}
+	while(o3>180){o3-=360;}
+	while(o3<-180){o3+=360;}
+    cos1=Math.cos(degtorad(o1));sin1=Math.sin(degtorad(o1));
+    cos2=Math.cos(degtorad(o2));sin2=Math.sin(degtorad(o2));
+    cos3=Math.cos(degtorad(o3));sin3=Math.sin(degtorad(o3));
+	dmx=cos1*cos2;dmy=sin1*cos2;dmz=sin2;
+    /*if (Math.abs(o2)>=50 && Math.abs(o2)<84.01){
+       o1=diro1(dmx,dmy);
+       o2=diro1(Math.sqrt(dmx*dmx+dmy*dmy),dmz);
+       var aux=1.0/Math.max(0.5,Math.sqrt(dmx*dmx+dmy*dmy+dmz*dmz));
+       dmx*=aux;dmy*=aux;dmz*=aux;
+       cos1=Math.cos(degtorad(o1));sin1=Math.sin(degtorad(o1));
+       cos2=Math.cos(degtorad(o2));sin2=Math.sin(degtorad(o2));
+       cos3=Math.cos(degtorad(o3));sin3=Math.sin(degtorad(o3));
+	   //dmx=cos1*cos2;dmy=sin1*cos2;dmz=sin2;
+    } */	
+	moveplane2(dt);
+	moveplane3(dt);
+	moveshipcarrier();
+	//if(tclose==0){timeoutkey=setTimeout("testkeys();",40);}
+//}
+}
+function getterrainheight(px,py){
+	if(Math.abs(px-pistex)<62.0){
+	  if(Math.abs(py-pistey)<62.0){return 0.1;};}
+	var dxwater=px-waterx;
+	var dywater=py-watery;
+	if((dxwater*dxwater+dywater*dywater)<10000){return -0.3;}
+	var nx=(px+n4)*n/(scale*8);
+	var ny=(py+n4)*n/(scale*8);
+	while(nx<0){nx+=n};
+	while(ny<0){ny+=n;};
+	var i=parseInt(nx),j=parseInt(ny);
+	var dx=nx-i,dy=ny-j;
+	while(i<0){i+=n;}
+	while(i>=n){i-=n;}
+	while(j<0){j+=n;}
+	while(j>=n){j-=n;}
+	var i1=i+1,j1=j+1;
+	while(i1<0){i1+=n;}
+	while(i1>=n){i1-=n;}
+	while(j1<0){j1+=n;}
+	while(j1>=n){j1-=n;}
+	//return height[parseInt(nx)*n+parseInt(ny)];
+if(dx<=(1.0-dy)){ 
+    var z00=height[i*n+j];
+    var z10=height[i1*n+j];
+    var z01=height[i*n+j1];
+    return ( dx*(z10-z00) +dy*(z01-z00) +z00)+0.05;
+}else{
+    var z10=height[i1*n+j];
+    var z01=height[i*n+j1];
+    var z11=height[i1*n+j1];
+    return ( (1-dx)*(z01-z11) +(1-dy)*(z10-z11) +z11 )+0.05;
+	}
+}
+var testtown=0;	
+function getterrainheight2(px,py){
+	var h=getheighttown(px,py);
+	if(h>0){testtown=1;return h;}
+	testtown=0;
+    if(Math.abs(px-shipx)<9){if(Math.abs(py-shipy)<9){
+       var dx=px-shipx,dy=py-shipy;
+	   var dxx=dx*shipco1+dy*shipsi1;
+	   if(Math.abs(dxx)<9){
+	      var dyy=Math.abs(-dx*shipsi1+dy*shipco1);
+		  if(dyy<2){if(dxx<5 && dxx>-3){return 4;}else{return 3;};};
+	   }
+	};}
+	if(tsea==1){
+    if(Math.abs(px-shipcarrierx)<27){if(Math.abs(py-shipcarriery)<27){
+       var dx=px-shipcarrierx,dy=py-shipcarriery;
+	   var dxx=dx*shipcarrierco1+dy*shipcarriersi1;
+	   if(dxx>-24.5 && dxx<19.9){
+	      var dyy=(-dx*shipcarriersi1+dy*shipcarrierco1);
+		  if(dyy>-3.7 && dyy<7){if(dxx>-2.4 && dxx<6.7 && dyy<-0.2){return 3.7;}else{tpiste=1;tcarrier=1;return 2.15;};};
+	   }
+	};}
+	}
+	return getterrainheight(px,py);
+}
+var tpo1=0,tpo2=0;
+var pvplane=0,pdmx=0,pdmy=0,pdmz=0;
+function moveplane2(dt){
+    if(pvie<100){pvie+=Math.random()*dtime*0.0004;};
+	var pdx=0,pdy=0,pdz=0,pdo1=0,pdo2=0,pdist=1000;
+	if(pvie<0){pdx=x-px;pdy=y-py;pdz=z-pz;
+	   pdist=pdx*pcos1*pcos2+pdy*psin1*pcos2+pdz*psin2;
+	   pdo1=-pdx*psin1+pdy*pcos1;
+	   pdo2=pdz;
+	   if(pdist>2 && pdist<100 && Math.abs(pdo1)<pdist/6 && Math.abs(pdo2)<pdist/6){pkeys[32]=1;}
+	}
+	var po10=po1,po20=po2,po30=po3;
+	var distmax=900;
+	while(px<(x-distmax)){px+=1.9999*distmax;}
+	while(px>(x+distmax)){px-=1.9999*distmax;}
+	while(py<(y-distmax)){py+=1.9999*distmax;}
+	while(py>(y+distmax)){py-=1.9999*distmax;}
+	var alt=getterrainheight2(px+40*pcos1,py+40*psin1);
+	var alt0=getterrainheight(px+5*pcos1,py+5*psin1);
+	if(pz<(alt0+1)){pz=alt0+1.1;if(po2<-1.1){po2=-1.0;};};
+	var t=timer();
+	if (t>tpo1 && alt>(pz-5)){
+	   tpo1=t+Math.random()*7000;tattack=0;
+	   var alt1=getterrainheight(px+40*pcos1-15*psin1,px+40*psin1+15*psin1);
+	   var alt2=getterrainheight(px+40*pcos1+15*psin1,px+40*psin1-15*psin1);
+	   if(alt1<alt2){pkeys[37]=1;pkeys[39]=0;}else{pkeys[37]=0;pkeys[39]=1;};
+	}
+	if(pvie>0 || (pdist*0.4)<Math.abs(pdo1)){
+	 if(pvie<0 && Math.random()*20<0.001*dt){tattack=1;}
+	 if(pkeys[37] || pkeys[39]){tattack=0;}
+	 if(tattack){tattack=0;
+	   tpo1=t+Math.random()*20000;
+	   if(Math.random()>0.5){pkeys[37]=1;pkeys[39]=0;}else{pkeys[37]=0;pkeys[39]=1;};
+	 }
+	}else{
+	 pkeys[37]=0;pkeys[39]=0;tattack=1;
+	 if(pdo1>(pdist/4)){pkeys[37]=1;pkeys[39]=0;tattack=0;tpo1=t+2;}
+	 if(pdo1<(-pdist/4)){pkeys[37]=0;pkeys[39]=1;tattack=0;tpo1=t+2;}
+	 if(tattack){tattack=0;
+	   tpo1=t+Math.random()*20000;
+	   if(Math.random()>0.5){pkeys[37]=1;pkeys[39]=0;}else{pkeys[37]=0;pkeys[39]=1;};
+	 }
+    }	
+	if (t>tpo1){if(Math.random()<0.001*dt){if(Math.random()<1/40){//40sec
+	   tpo1=t+Math.random()*20000;
+	   if(Math.random()>0.5){pkeys[37]=1;pkeys[39]=0;}else{pkeys[37]=0;pkeys[39]=1;};
+	}}else{pkeys[37]=0;pkeys[39]=0;
+	      if(po3<-2){pkeys[37]=1;};if(po3>2){pkeys[39]=1;};};
+	}
+	if(pvie<0 && pdist>Math.abs(pdo1/2)){
+	 if(pdo2>(pdist/7)){pkeys[38]=0;pkeys[40]=1;tattack=0;tpo2=t+2;}
+	 if(pdo2<(-pdist/5)){pkeys[38]=1;pkeys[40]=0;tattack=0;tpo2=t+2;}
+	}
+	if (t>tpo2){if(Math.random()<0.001*dt){if(Math.random()<1/40){//40sec
+	   tpo2=t+Math.random()*10000;
+	   if(Math.random()>0.5){pkeys[40]=1;pkeys[38]=0;}else{pkeys[40]=0;pkeys[38]=1;};
+	}}else{pkeys[40]=0;pkeys[38]=0;
+	     if(pvie>0){
+		  if(pz<18){pkeys[40]=1;};if(pz>40){pkeys[38]=1;};
+		 }else{
+		  if(pz<5.5){pkeys[40]=1;};if(pz>90){pkeys[38]=1;};
+		 };
+	 }
+	}
+	if(pvplane<0.65){pvrun=1.3;}else{pvrun=1.0;};
+	if(pvie>0 || pdist<Math.abs(pdo1/4)){
+	  if(pz>40 || pvplane<0.5){pkeys[40]=0;pkeys[38]=1;if(pz>45.01){pz=45;};}
+	  if(pz<18){pkeys[40]=1;pkeys[38]=0;if(pz<15){pz=15.01;};}
+	}else{
+	  if(pz>90 || pvplane<0.5){pkeys[40]=0;pkeys[38]=1;if(pz>95.01){pz=95;};}
+	  if(pz<5.5){pkeys[40]=1;pkeys[38]=0;if(pz<4){pz=4.01;};}
+	}
+	tattack=0;
+    //left=37,up=38,right=39,down=40,pageup=33,pagedown=34,m=77,esc=27,h=72,shift=16
+    //p=80,T=84
+    if (pkeys[40]) {po2+=dt*0.015*pcos3;if(po2>89){po2=89;};po1+=dt*0.015*psin3;}
+    if (pkeys[38]) {po2-=dt*0.015*pcos3;if(po2<-89){po2=-89;};po1-=dt*0.015*psin3;}
+    if (pkeys[37]) {po3+=dt*0.019;if(po3>180){po3-=360;po30-=360;};}
+    if (pkeys[39]) {po3-=dt*0.019;if(po3<-180){po3+=360;po30+=360;};}
+	if (pkeys[33] || pkeys[16]) {pvrun+=dt*0.0003;if(pvrun>1.3){pvrun=1.3;};};
+    if (pkeys[34]) {pvrun-=dt*0.0003;if(pvrun<0){pvrun=0;};};
+	if (pkeys[32]) {pkeys[32]=0;if(tframe>(ptkeytir+80)){soundshoot();ptir();};}
+	if(pvie>0 || pdist<(-Math.abs(pdo1/3))){
+	 if(po3<-35.01){po3=-35;}
+	 if(po3>35.01){po3=35;}
+    }else{
+	 if(po3<-45.01){po3=-45;}
+	 if(po3>45.01){po3=45;}
+	}
+	if(po2<-18.01){po2=-18;}
+	if(po2>10.01){po2=10;}
+	//var pair=10000.0/(10000+z);
+	////vplane+=0.4*((vrun-vplane)*0.0013*0.8*air*dt-dt*(air*0.0003*vplane+sin2*0.004));
+	//pvplane+=0.7*((pvrun)*0.0003*pair*dt-dt*(pair*0.0003*pvplane+psin2*0.0024));
+	var pair=(5000-pz)/(5000+pz);if(pair<0){pair=0;};
+	//vplane+=0.4*((vrun-vplane)*0.0013*0.8*air*dt-dt*(air*0.0003*vplane+sin2*0.004));
+	var pvrun2=pvrun*((3-1.4*pvplane)/2)*3*pair*pair/(2+pair*pair);
+	if(pdist>50 && pvie<0){if(pvrun2<1.5 && pdist>Math.abs(pdo1/2)){pvrun2=1.5;};}
+	//pvplane+=0.8*((pvrun2)*0.0003*pair*dt-dt*(pair*0.0003*pvplane+(psin2+0.03)*0.0024));
+	pvplane+=0.8*((pvrun2)*0.0003*pair*dt-dt*(pair*0.0003*pvplane+(psin2+0.01)*0.0020));
+	if(pvplane>4){pvplane=4;}//max vv=800
+	//var pair=50000.0/(50000+pz);
+	//pvplane+=0.4*((pvrun-pvplane)*0.0013*0.8*pair*dt-dt*(pair*0.0003*pvplane+psin2*0.004));
+    var pvdt=dt*0.013*pvplane;var pvcruise=0.8;
+	po1+=psin3*dt*0.010;
+	po2-=Math.abs(Math.sin(degtorad(0.7*po3)))*dt*0.0015;
+	po2+=(pvplane*pair-pvcruise)*pair*pcos2*pcos3*dt*0.01;
+	if(po3>0.1){po3-=dt*0.001;};
+	if(po3<-0.1){po3+=dt*0.001;};
+	var dt1=(dt*0.002);
+	if(dt1>0.8){dt1=0.8;}
+	pdo3+=(po3-po30)-dt1*pdo3;
+	pdo2+=(po2-po20)-dt1*pdo2;
+	pdo1+=(po1-po10)-dt1*pdo1;
+	if(pdo1<-20){pdo1=-20;}
+	if(pdo1>20){pdo1=20;}
+	if(pdo1*psin3<0){po3-=po3*dt*0.0015;
+	   if(po3>0){pkeys[37]=0;}else{pkeys[39]=0;};}
+	po1+=pdo1*dt*0.001;
+	po2+=pdo2*dt*0.0025;
+	po3+=pdo3*dt*0.0025;
+	if(Math.abs(po3)<1.6){po3+=Math.cos(timer()*0.0015)*0.2*(1.6-Math.abs(po3));};
+	px+=pvdt*pcos1*pcos2;
+	py+=pvdt*psin1*pcos2;
+	pz+=pvdt*psin2;
+    if(po2>85){po2=84-(po2-85);po1=180+po1;po3=180+po3;};
+    if(po2<-85){po2=-84-(po2+85);po1=180+po1;po3=180+po3;};
+	if(po1>180){po1-=360;} 
+	if(po1<-180){po1+=360;}
+	if(po3>180){po3-=360;}
+	if(po3<-180){po3+=360;}
+    pcos1=Math.cos(degtorad(po1));psin1=Math.sin(degtorad(po1));
+    pcos2=Math.cos(degtorad(po2));psin2=Math.sin(degtorad(po2));
+    pcos3=Math.cos(degtorad(po3));psin3=Math.sin(degtorad(po3));
+	pdmx=pcos1*pcos2;pdmy=psin1*pcos2;pdmz=psin2;
+}	
+var tp3o1=0,tp3o2=0;
+var p3vplane=0,p3dmx=0,p3dmy=0,p3dmz=0;
+var p3keys=new Array(256),p3tkeytir=0,p3tfollow=0;
+function moveplane3(dt){
+    if(p3vie<100){p3vie+=Math.random()*dtime*0.0004;};
+	var p3dx=0,p3dy=0,p3dz=0,p3do1=0,p3do2=0,p3dist=1000,p3vie0=p3vie;
+	if(p3vie<0){p3dx=x-p3x;p3dy=y-p3y;p3dz=z-p3z;
+	   p3dist=p3dx*p3cos1*p3cos2+p3dy*p3sin1*p3cos2+p3dz*p3sin2;
+	   p3do1=-p3dx*p3sin1+p3dy*p3cos1;
+	   p3do2=p3dz;
+	   if(p3dist>2 && p3dist<100 && Math.abs(p3do1)<p3dist/6 && Math.abs(p3do2)<p3dist/6){p3keys[32]=1;}
+	}else{p3dx=px-p3x;p3dy=py-p3y;p3dz=pz-p3z;
+	   p3dist=p3dx*p3cos1*p3cos2+p3dy*p3sin1*p3cos2+p3dz*p3sin2;
+	   p3do1=-p3dx*p3sin1+p3dy*p3cos1;
+	   p3do2=p3dz;
+	   if(p3vie<99){
+	      if(p3dist>2 && p3dist<100 && Math.abs(p3do1)<p3dist/6 && Math.abs(p3do2)<p3dist/6){p3keys[32]=1;}
+	   }
+	}
+	if(p3vie<99 || p3dist>(8+Math.abs(p3do1))){p3vie=-90;
+	}else{p3do1=0;p3do2=0;}
+	if(tframe<p3tfollow && p3vie0>99){p3do1=0;p3do2=0;p3vie=100;
+	}else{if(Math.random()*500<dt*0.001){p3tfollow=tframe+20000;};}
+	var p3o10=p3o1,p3o20=p3o2,p3o30=p3o3;
+	var distmax=900; 
+	while(p3x<(x-distmax)){p3x+=1.9999*distmax;}
+	while(p3x>(x+distmax)){p3x-=1.9999*distmax;}
+	while(p3y<(y-distmax)){p3y+=1.9999*distmax;}
+	while(p3y>(y+distmax)){p3y-=1.9999*distmax;}
+	var alt=getterrainheight2(p3x+40*p3cos1,p3y+40*p3sin1);
+	var alt0=getterrainheight(p3x+5*p3cos1,p3y+5*p3sin1);
+	if(p3z<(alt0+1)){p3z=alt0+1.1;if(p3o2<-1.1){p3o2=-1.0;};};
+	var t=timer();
+	if (t>tp3o1 && alt>(p3z-5)){
+	   tp3o1=t+Math.random()*7000;tattackp3=0;
+	   var alt1=getterrainheight(p3x+40*p3cos1-15*p3sin1,p3x+40*p3sin1+15*p3sin1);
+	   var alt2=getterrainheight(p3x+40*p3cos1+15*p3sin1,p3x+40*p3sin1-15*p3sin1);
+	   if(alt1<alt2){p3keys[37]=1;p3keys[39]=0;}else{p3keys[37]=0;p3keys[39]=1;};
+	}
+	if(p3vie>0 || (p3dist*1.4)<Math.abs(p3do1)){
+	 if(p3vie<0 && Math.random()*20<0.001*dt){tattackp3=1;}
+	 if(p3keys[37] || p3keys[39]){tattackp3=0;}
+	 if(tattackp3){tattackp3=0;
+	   tp3o1=t+Math.random()*20000;
+	   if(Math.random()>0.5){p3keys[37]=1;p3keys[39]=0;}else{p3keys[37]=0;p3keys[39]=1;};
+	 }
+	}else{
+	 p3keys[37]=0;p3keys[39]=0;tattackp3=1;
+	 if(p3do1>(p3dist/4)){p3keys[37]=1;p3keys[39]=0;tattackp3=0;tp3o1=t+2;}
+	 if(p3do1<(-p3dist/4)){p3keys[37]=0;p3keys[39]=1;tattackp3=0;tp3o1=t+2;}
+	 if(tattackp3){tattackp3=0;
+	   tp3o1=t+Math.random()*20000;
+	   if(Math.random()>0.5){p3keys[37]=1;p3keys[39]=0;}else{p3keys[37]=0;p3keys[39]=1;};
+	 }
+    }	
+	if (t>tp3o1){if(Math.random()<0.001*dt){if(Math.random()<1/40){//40sec
+	   tp3o1=t+Math.random()*20000;
+	   if(Math.random()>0.5){p3keys[37]=1;p3keys[39]=0;}else{p3keys[37]=0;p3keys[39]=1;};
+	}}else{p3keys[37]=0;p3keys[39]=0;
+	      if(p3o3<-2){p3keys[37]=1;};if(p3o3>2){p3keys[39]=1;};};
+	}
+	if(p3vie<0 && p3dist>Math.abs(p3do1/2)){
+	 if(p3do2>(p3dist/7)){p3keys[38]=0;p3keys[40]=1;tattackp3=0;tp3o2=t+2;}
+	 if(p3do2<(-p3dist/5)){p3keys[38]=1;p3keys[40]=0;tattackp3=0;tp3o2=t+2;}
+	}
+	if (t>tp3o2){if(Math.random()<0.001*dt){if(Math.random()<1/40){//40sec
+	   tp3o2=t+Math.random()*10000;
+	   if(Math.random()>0.5){p3keys[40]=1;p3keys[38]=0;}else{p3keys[40]=0;p3keys[38]=1;};
+	}}else{p3keys[40]=0;p3keys[38]=0;
+	     if(p3vie>0){
+		  if(p3z<18){p3keys[40]=1;};if(p3z>40){p3keys[38]=1;};
+		 }else{
+		  if(p3z<5.5){p3keys[40]=1;};if(p3z>90){p3keys[38]=1;};
+		 };
+	 }
+	}
+	if(p3vplane<0.65){p3vrun=1.3;}else{p3vrun=1.0;};
+	if(p3vie>0 || p3dist<Math.abs(p3do1/4)){
+	  if(p3z>40 || p3vplane<0.5){p3keys[40]=0;p3keys[38]=1;if(p3z>45.01){p3z=45;};}
+	  if(p3z<18){p3keys[40]=1;p3keys[38]=0;if(p3z<15){p3z=15.01;};}
+	}else{
+	  if(p3z>90 || p3vplane<0.5){p3keys[40]=0;p3keys[38]=1;if(p3z>95.01){p3z=95;};}
+	  if(p3z<5.5){p3keys[40]=1;p3keys[38]=0;if(p3z<4){p3z=4.01;};}
+	}
+	tattackp3=0;
+    //left=37,up3=38,right=39,down=40,p3ageup3=33,p3agedown=34,m=77,esc=27,h=72,shift=16
+    //p3=80,T=84
+    if (p3keys[40]) {p3o2+=dt*0.015*p3cos3;if(p3o2>89){p3o2=89;};p3o1+=dt*0.015*p3sin3;}
+    if (p3keys[38]) {p3o2-=dt*0.015*p3cos3;if(p3o2<-89){p3o2=-89;};p3o1-=dt*0.015*p3sin3;}
+    if (p3keys[37]) {p3o3+=dt*0.019;if(p3o3>180){p3o3-=360;p3o30-=360;};}
+    if (p3keys[39]) {p3o3-=dt*0.019;if(p3o3<-180){p3o3+=360;p3o30+=360;};}
+	if (p3keys[33] || p3keys[16]) {p3vrun+=dt*0.0003;if(p3vrun>1.3){p3vrun=1.3;};};
+    if (p3keys[34]) {p3vrun-=dt*0.0003;if(p3vrun<0){p3vrun=0;};};
+	if (p3keys[32]) {p3keys[32]=0;if(tframe>(p3tkeytir+80)){soundshoot();p3tir();};}
+	if(p3vie>0 || p3dist<(-Math.abs(p3do1/3))){
+	 if(p3o3<-35.01){p3o3=-35;}
+	 if(p3o3>35.01){p3o3=35;}
+    }else{
+	 if(p3o3<-45.01){p3o3=-45;}
+	 if(p3o3>45.01){p3o3=45;}
+	}
+	if(p3o2<-18.01){p3o2=-18;}
+	if(p3o2>10.01){p3o2=10;}
+	//var p3air=10000.0/(10000+z);
+	////vplane+=0.4*((vrun-vplane)*0.0013*0.8*air*dt-dt*(air*0.0003*vplane+sin2*0.004));
+	//p3vplane+=0.7*((p3vrun)*0.0003*p3air*dt-dt*(p3air*0.0003*p3vplane+p3sin2*0.0024));
+	var p3air=(5000-p3z)/(5000+p3z);if(p3air<0){p3air=0;};
+	//vplane+=0.4*((vrun-vplane)*0.0013*0.8*air*dt-dt*(air*0.0003*vplane+sin2*0.004));
+	var p3vrun2=p3vrun*((3-1.4*p3vplane)/2)*3*p3air*p3air/(2+p3air*p3air);
+	if(p3dist>50 && p3vie<0){if(p3vrun2<1.5 && p3dist>Math.abs(p3do1/2)){p3vrun2=1.5;};}
+	//p3vplane+=0.8*((p3vrun2)*0.0003*p3air*dt-dt*(p3air*0.0003*p3vplane+(p3sin2+0.03)*0.0024));
+	p3vplane+=0.8*((p3vrun2)*0.0003*p3air*dt-dt*(p3air*0.0003*p3vplane+(p3sin2+0.01)*0.0020));
+	if(p3vplane>4){p3vplane=4;}//max vv=800
+	//var p3air=50000.0/(50000+p3z);
+	//p3vplane+=0.4*((p3vrun-p3vplane)*0.0013*0.8*p3air*dt-dt*(p3air*0.0003*p3vplane+p3sin2*0.004));
+    var p3vdt=dt*0.013*p3vplane;var p3vcruise=0.8;
+	p3o1+=p3sin3*dt*0.010;
+	p3o2-=Math.abs(Math.sin(degtorad(0.7*p3o3)))*dt*0.0015;
+	p3o2+=(p3vplane*p3air-p3vcruise)*p3air*p3cos2*p3cos3*dt*0.01;
+	if(p3o3>0.1){p3o3-=dt*0.001;};
+	if(p3o3<-0.1){p3o3+=dt*0.001;};
+	var dt1=(dt*0.002);
+	if(dt1>0.8){dt1=0.8;}
+	p3do3+=(p3o3-p3o30)-dt1*p3do3;
+	p3do2+=(p3o2-p3o20)-dt1*p3do2;
+	p3do1+=(p3o1-p3o10)-dt1*p3do1;
+	if(p3do1<-20){p3do1=-20;}
+	if(p3do1>20){p3do1=20;}
+	if(p3do1*p3sin3<0){p3o3-=p3o3*dt*0.0015;
+	   if(p3o3>0){p3keys[37]=0;}else{p3keys[39]=0;};}
+	p3o1+=p3do1*dt*0.001;
+	p3o2+=p3do2*dt*0.0025;
+	p3o3+=p3do3*dt*0.0025;
+	if(Math.abs(p3o3)<1.6){p3o3+=Math.cos(timer()*0.0015)*0.2*(1.6-Math.abs(p3o3));};
+	p3x+=p3vdt*p3cos1*p3cos2;
+	p3y+=p3vdt*p3sin1*p3cos2;
+	p3z+=p3vdt*p3sin2;
+    if(p3o2>85){p3o2=84-(p3o2-85);p3o1=180+p3o1;p3o3=180+p3o3;};
+    if(p3o2<-85){p3o2=-84-(p3o2+85);p3o1=180+p3o1;p3o3=180+p3o3;};
+	if(p3o1>180){p3o1-=360;} 
+	if(p3o1<-180){p3o1+=360;}
+	if(p3o3>180){p3o3-=360;}
+	if(p3o3<-180){p3o3+=360;}
+    p3cos1=Math.cos(degtorad(p3o1));p3sin1=Math.sin(degtorad(p3o1));
+    p3cos2=Math.cos(degtorad(p3o2));p3sin2=Math.sin(degtorad(p3o2));
+    p3cos3=Math.cos(degtorad(p3o3));p3sin3=Math.sin(degtorad(p3o3));
+	p3dmx=p3cos1*p3cos2;p3dmy=p3sin1*p3cos2;p3dmz=p3sin2;
+	p3vie=p3vie0;
+}
+var radtodeg=180/Math.PI;
+function diro1(dx,dy){ 
+var do1;
+if (Math.abs(dx)>Math.max(0.001,0.001*Math.abs(dy))){
+   if(dx>0){do1=Math.atan(dy/dx)*radtodeg;
+   }else{do1=180-Math.atan(dy/Math.abs(dx))*radtodeg;}
+   }
+else {if(dy>0){do1=90;}else{do1=-90;};}
+return do1;
+}
+var tvolume=0,tspeed=0;
+function setvolume(){
+    testsounds();
+    var volume=(0.09+(Math.max(0,vplane)*0.4047+vrun*0.4033)*0.9);
+	if(volume>1){volume=1;};
+    var speed=(0.14+(Math.max(0,vplane)*0.7+vrun*0.1)*0.9);
+	if(speed>1){speed=1;};
+	if(Math.abs(tvolume-volume)<0.005 && Math.abs(tspeed-speed)<0.005){return;}
+	tvolume=volume;tspeed=speed;
+	var volume0=0.45*volume,volume1=0.32*volume;
+	//var volume0=0.35*volume,volume1=0.85*volume;
+	/*myaudio.volume=volume0*(1-speed*0.75);
+	myaudio1.volume=volume0*(1-speed*0.75);
+	myaudio2.volume=volume1*speed;
+	myaudio21.volume=volume1*speed;
+	*/
+	setvol(myaudio,volume);
+	setspeed(myaudio,speed+0.54);
+}
+function testsounds(){	
+/*	if(tframe<tpneu){if(myaudiopneu.volume<0.3){myaudiopneu.volume=0.4;};
+	}else{if(myaudiopneu.volume>0.1){myaudiopneu.volume=0.002;};}
+	
+	if(tframe<tshoot){if(myaudioshoot.volume<0.1){myaudioshoot.volume=0.18;};
+	}else{if(myaudioshoot.volume>0.1){myaudioshoot.volume=0.002;};}
+*/
+	if(tframe<tshoot){if(myaudioshoot.volume<0.1){myaudioshoot.volume=0.18;setvol(myaudioshoot,0.3);};
+	}else{if(myaudioshoot.volume>0.1){myaudioshoot.volume=0.002;};setvol(myaudioshoot,0.002);}
+
+}
+/*var wav="mp3",browser="";
+if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){wav="ogg";browser="firefox";};
+//if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1){wav="wav";};
+//alert(navigator.userAgent+" "+wav);
+var myaudio = new Audio();
+myaudio.src=folder+"avion2."+wav;
+myaudio.volume=0.3;
+myaudio.play();
+myaudio.loop=true;
+var myaudio1 = new Audio();
+myaudio1.src=folder+"avion2."+wav;
+myaudio1.volume=0.3;
+setTimeout("myaudio1.play();",4000);
+myaudio1.loop=true;
+var myaudio2 = new Audio();
+myaudio2.src=folder+"avion22."+wav;
+myaudio2.volume=0.3;
+setTimeout("myaudio2.play();",2000);
+myaudio2.loop=true;
+var myaudio21 = new Audio();
+myaudio21.src=folder+"avion22."+wav;
+myaudio21.volume=0.3;
+setTimeout("myaudio21.play();",6000);
+myaudio21.loop=true;
+var audio=null,audiosrc=null,tsoundwait=0;
+function playsound(mymp3){
+audio= new Audio();
+audiosrc =mymp3; 
+audio.src=audiosrc;
+audio.volume=1.0;
+audio.addEventListener('canplay',function(){audio.play();setTimeout('tsoundwait=0;',200);});
+audio.load();
+}
+var myaudiopneu = new Audio()
+myaudiopneu.src=folder+"pneu2."+wav;
+myaudiopneu.volume=0.002;
+myaudiopneu.loop=true;
+myaudiopneu.play();
+var tpneu=0;
+function soundpneu(){
+   //tsoundwait=1;
+   //setTimeout('playsound(folder+"pneu."+wav);',200);
+   tpneu=timer()+750;
+   }
+soundpneu();   
+var myaudioshoot = new Audio()
+myaudioshoot.src=folder+"shoot."+wav;
+myaudioshoot.volume=0.002;
+myaudioshoot.loop=true;
+myaudioshoot.play();
+var tshoot=0;
+function soundshoot(){
+   tshoot=tframe+750;
+   }
+*/
+var vertexCount = 0;
+var vertexPositions = [];
+var vertexTextureCoords = [];
+var worldVertexPositionBuffer = null;
+var worldVertexTextureCoordBuffer = null;
+var world2VertexPositionBuffer = null;
+var world2VertexTextureCoordBuffer = null;
+var shipVertexPositionBuffer = null;
+var shipVertexTextureCoordBuffer = null;
+var skydomeVertexPositionBuffer = null;
+var skydomeVertexTextureCoordBuffer = null;
+var spitfireVertexPositionBuffer = null;
+var spitfireVertexTextureCoordBuffer = null;
+var spitfirecockpitVertexPositionBuffer = null;
+var spitfirecockpitVertexTextureCoordBuffer = null;
+var zeroVertexPositionBuffer = null;
+var zeroVertexTextureCoordBuffer = null;
+var zerocockpitVertexPositionBuffer = null;
+var zerocockpitVertexTextureCoordBuffer = null;
+var shipcarrierVertexPositionBuffer = null;
+var shipcarrierVertexTextureCoordBuffer = null;
+
+  function loadWorld() {
+    handleLoadedWorld(c150objtxt);
+    worldVertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+    worldVertexPositionBuffer.itemSize = 3;
+    worldVertexPositionBuffer.numItems = vertexCount;
+
+    worldVertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, worldVertexTextureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
+    worldVertexTextureCoordBuffer.itemSize = 2;
+    worldVertexTextureCoordBuffer.numItems = vertexCount;//alert(vertexCount);
+	
+    handleLoadedWorld(c150minus6objtxt);
+    world2VertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, world2VertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+    world2VertexPositionBuffer.itemSize = 3;
+    world2VertexPositionBuffer.numItems = vertexCount;
+
+    world2VertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, world2VertexTextureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
+    world2VertexTextureCoordBuffer.itemSize = 2;
+    world2VertexTextureCoordBuffer.numItems = vertexCount;//alert(vertexCount);
+
+	handleLoadedWorld(shipobjtxt);
+    shipVertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, shipVertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+    shipVertexPositionBuffer.itemSize = 3;
+    shipVertexPositionBuffer.numItems = vertexCount;
+
+    shipVertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, shipVertexTextureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
+    shipVertexTextureCoordBuffer.itemSize = 2;
+    shipVertexTextureCoordBuffer.numItems = vertexCount;//alert(vertexCount);
+
+    handleLoadedWorld(spitfirelowobjtxt);
+    spitfireVertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, spitfireVertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+    spitfireVertexPositionBuffer.itemSize = 3;
+    spitfireVertexPositionBuffer.numItems = vertexCount;
+
+    spitfireVertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, spitfireVertexTextureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
+    spitfireVertexTextureCoordBuffer.itemSize = 2;
+    spitfireVertexTextureCoordBuffer.numItems = vertexCount;//alert(vertexCount);
+
+	handleLoadedWorld(spitfirecockpitobjtxt);
+    spitfirecockpitVertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, spitfirecockpitVertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+    spitfirecockpitVertexPositionBuffer.itemSize = 3;
+    spitfirecockpitVertexPositionBuffer.numItems = vertexCount;
+
+    spitfirecockpitVertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, spitfirecockpitVertexTextureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
+    spitfirecockpitVertexTextureCoordBuffer.itemSize = 2;
+    spitfirecockpitVertexTextureCoordBuffer.numItems = vertexCount;//alert(vertexCount);
+
+    handleLoadedWorld(zeroobjtxt);
+    zeroVertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, zeroVertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+    zeroVertexPositionBuffer.itemSize = 3;
+    zeroVertexPositionBuffer.numItems = vertexCount;
+
+    zeroVertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, zeroVertexTextureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
+    zeroVertexTextureCoordBuffer.itemSize = 2;
+    zeroVertexTextureCoordBuffer.numItems = vertexCount;//alert(vertexCount);
+
+	handleLoadedWorld(zerocockpitobjtxt);
+    zerocockpitVertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, zerocockpitVertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+    zerocockpitVertexPositionBuffer.itemSize = 3;
+    zerocockpitVertexPositionBuffer.numItems = vertexCount;
+
+    zerocockpitVertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, zerocockpitVertexTextureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
+    zerocockpitVertexTextureCoordBuffer.itemSize = 2;
+    zerocockpitVertexTextureCoordBuffer.numItems = vertexCount;//alert(vertexCount);
+	
+	handleLoadedWorld(shipcarrierobjtxt);
+    shipcarrierVertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, shipcarrierVertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+    shipcarrierVertexPositionBuffer.itemSize = 3;
+    shipcarrierVertexPositionBuffer.numItems = vertexCount;
+
+    shipcarrierVertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, shipcarrierVertexTextureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
+    shipcarrierVertexTextureCoordBuffer.itemSize = 2;
+    shipcarrierVertexTextureCoordBuffer.numItems = vertexCount;//alert(vertexCount);
+
+	/*
+    handleLoadedWorld(skydomeobjtxt);
+    skydomeVertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, skydomeVertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPositions), gl.STATIC_DRAW);
+    skydomeVertexPositionBuffer.itemSize = 3;
+    skydomeVertexPositionBuffer.numItems = vertexCount;
+
+    skydomeVertexTextureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, skydomeVertexTextureCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexTextureCoords), gl.STATIC_DRAW);
+    skydomeVertexTextureCoordBuffer.itemSize = 2;
+    skydomeVertexTextureCoordBuffer.numItems = vertexCount;//alert(vertexCount);
+	*/
+	}	
+ function handleLoadedWorld(data){//,vertexposbuff,vertextextbuff) { 
+    var lines = data.split("\n");
+    vertexCount = 0;
+    vertexPositions = [];
+    vertexTextureCoords = [];
+    for (var i in lines) {
+      var vals = lines[i].replace(/^\s+/, "").split(/\s+/);
+      if (vals.length == 5 && vals[0] != "//") {
+        // It is a line describing a vertex; get X, Y and Z first
+        vertexPositions.push(parseFloat(vals[0]));
+        vertexPositions.push(parseFloat(vals[1]));
+        vertexPositions.push(parseFloat(vals[2]));
+
+        // And then the texture coords
+        vertexTextureCoords.push(parseFloat(vals[3]));
+        vertexTextureCoords.push(parseFloat(vals[4]));
+
+        vertexCount += 1;
+      }
+    }
+	//setTimeout("delete("+data+");",5000);
+}
+function dirtext(dx,dy){
+var do1=diro1(dx,dy)
+switch (parseInt((do1+22.5)/45)){
+	case 0:
+		return "east";
+	case 1:
+		return "north east";
+	case 2:
+		return "north";
+	case 3:
+		return "north west";
+	case 4:
+		return "west";
+	case -1:
+	    return "south east";
+	case 7:
+		return "south east";
+	case -2:
+		return "south";
+	case 6:
+		return "south";
+	case -3:
+		return "south west";
+	case 5:
+		return "south west";
+	case -4:
+		return "west";
+	default:
+		return "direction";
+ }
+}
+function airporttext(){
+switch(parseInt(Math.random()*4)){
+	case 0:
+		return "ground airport";
+	case 1:
+		return "ground control";
+	case 2:
+		return "airport control";
+	case 3: 
+		return "ground airport control";
+ }
+}
+function carriertext(){
+switch(parseInt(Math.random()*3)){
+	case 0:
+		return "carrier";
+	case 1:
+		return "carrier control";
+	case 2:
+        return "aircraft carrier";
+ }
+} 
+		
+function begintext(){
+switch(parseInt(Math.random()*4)){
+	case 0:
+		return "start";
+	case 1:
+		return "continue";
+	case 2:
+		return "begin";
+	case 3: 
+		return "engage";
+ }
+}
+function approachtext(){
+switch (parseInt(Math.random()*2)){
+	case 0:
+		return "approaching";
+	case 1:
+		return "your approach";
+ }
+}
+function directiontext(){
+switch (parseInt(Math.random()*2)){
+	case 0:
+		return "direction";
+	case 1:
+		return "azimut";
+ }
+}
+/*var audiosrc=null,audio=null;
+function speak(textspeak){
+audio= new Audio();
+audiosrc ='http://translate.google.com/translate_tts?&tl=en&q='+encodeURIComponent(textspeak);
+audio.type="audio/x-wav" 
+audio.src=audiosrc;
+audio.addEventListener('canplay',function(){audio.play();});
+audio.load();
+}*/
+var radiotxt="",tradio=0,radiosource=0;
+function subradio(){
+if(tframe<tradio+12000 || Math.random()<0.5){
+  if(radiosource==0){radiosource=1;}else{radiosource=0;};}
+if(radiosource==0 || tsea==0){
+  radiotxt=airporttext()+" to "+plane+" , "+begintext()+" "+approachtext()+" , "
+  radiotxt+=directiontext()+" "+dirtext(pistex-x,pistey-y);
+}else{
+  radiotxt=carriertext()+" to "+plane+" , "+begintext()+" "+approachtext()+" , "
+  radiotxt+=directiontext()+" "+dirtext(shipcarrierx-x,shipcarriery-y);
+}
+  //alert(radiotxt);
+tradio=tframe;
+}
+ //tkey=timer();
+ //testkeys();
+ //document.getElementById('intext').focus();
+initparms();
+webGLStart();
+//speak("hello how are you");
+</script>
+
+</body>
+
+</html>
