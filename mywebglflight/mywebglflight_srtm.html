@@ -4553,6 +4553,9 @@ var tshadow=0,zsol=0,distshadow=0,sunzz=1000,sunco2=0,sunsi2=1,sunco1=0,sunsi1=1
         gl.vertexAttribPointer(solProgram.textureCoordAttribute, solVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
         gl.activeTexture(gl.TEXTURE1);
+		if(tsea==1){zgrass=99;}
+		else if(tsea==2){zgrass=12+9;}
+		else{zgrass=-99;}
         if(z>=zsol+zgrass || tgmap==0 || zsol<=2){
 		  gl.bindTexture(gl.TEXTURE_2D, rttTexture);
         }else{
