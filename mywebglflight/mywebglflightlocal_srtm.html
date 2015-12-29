@@ -3488,7 +3488,8 @@ solTexture3.image.onload = function () {
     }
 solTexture1.image.onload = function () {
 	tskip2=timer()+10000;
-	canvastext.drawImage(solTexture1.image, -40, -40,1104,1104);
+	//canvastext.drawImage(solTexture1.image, -40, -40,1104,1104);
+	canvastext.drawImage(solTexture1.image, -40+10, -40-10,1104,1104);
 	handleLoadedTexture00(solTexture1);
     canvas2.setAttribute('width', 512);
     canvas2.setAttribute('height', 512);
@@ -4078,10 +4079,11 @@ function updatetir(){
 		   zc=tirz[i]+vz*dt;
 		   zh=-999;
 		   var kvie=(1+tdogfight*2)*vrunmax/1.30;
-           testhorse(xc,yc,zc,2);
-           testelephant(xc,yc,zc,3);
-           testgirafe(xc,yc,zc,2.2);
-		   testantilope(xc,yc,zc,2);
+           testhorse(xc,yc,zc-0.5,2);
+           testelephant(xc,yc,zc-0.5,3);
+           testgirafe(xc,yc,zc-0.5,2.2);
+		   testzebra(xc,yc,zc-0.5,2);
+		   testantilope(xc,yc,zc-0.5,2);
 		   if(tirtype[i]!=2){		   
 		    if(Math.abs(xc-px)<2){if(Math.abs(yc-py)<2){
 		      if(Math.abs(zc-pz)<1){vx=0,vy=0;vz=0;zh=-9999;
