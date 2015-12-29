@@ -3671,7 +3671,8 @@ solTexture3.image.onload = function () {
     }
 solTexture1.image.onload = function () {
 	tskip2=timer()+10000;
-	canvastext.drawImage(solTexture1.image, -40, -40,1104,1104);
+	//canvastext.drawImage(solTexture1.image, -40, -40,1104,1104);
+	canvastext.drawImage(solTexture1.image, -40+10, -40-10,1104,1104);
 	handleLoadedTexture00(solTexture1);
     canvas2.setAttribute('width', 512);
     canvas2.setAttribute('height', 512);
