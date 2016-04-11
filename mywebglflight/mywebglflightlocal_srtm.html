@@ -2080,7 +2080,19 @@ var buddahx=worldx,buddahy=worldy;
     var pMatrix = mat4.create();
     var camx=0,camy=0,camz=0;
 
-    function mvPushMatrix() {
+    var mymvMatrixstack=[],nmatrixstack=30,imatrixstack=0;
+	for(var i=0;i<=nmatrixstack;i++){mymvMatrixstack[i]=mat4.create();}
+	function mvPushMatrix() {
+	   mat4.set(mvMatrix,mymvMatrixstack[imatrixstack]);
+	   imatrixstack+=1;if(imatrixstack>nmatrixstack){imatrixstack=0;}
+	}
+	
+	function mvPopMatrix() {
+	   imatrixstack-=1;if(imatrixstack<0){imatrixstack=nmatrixstack;}
+	   mat4.set(mymvMatrixstack[imatrixstack],mvMatrix);
+	}
+	
+    /*function mvPushMatrix() {
         var copy = mat4.create();
         mat4.set(mvMatrix, copy);
         mvMatrixStack.push(copy);
@@ -2091,7 +2103,7 @@ var buddahx=worldx,buddahy=worldy;
             throw "Invalid popMatrix!";
         }
         mvMatrix = mvMatrixStack.pop();
-    }
+    }*/
 
     var scaletexture=1;
     function setMatrixUniformssol() {
