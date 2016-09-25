@@ -169,6 +169,7 @@ return "https://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zo
 <script type="text/javascript">
 var folder="http://sites.google.com/site/chungkn1400/mywebglflight/";
 var folderdrive="https://b3d8783ddc02a86af1ce60266a06c20f1a961f99.googledrive.com/host/0B6GM9ay7ImZLOXpiUkx5bFhacXc/";
+folderdrive="https://chungkn1400.github.io/mysrtm/";
 folder="";
 var myurl=document.location.href;
 if(myurl.indexOf("local")>0){
@@ -10764,10 +10765,10 @@ if(lat5>=0){srtmfile+="latN"+lat5;}
 else{srtmfile+="latS"+(0-lat5);}
 lat50=-60+50*parseInt((lat1+110.0)/50);
 lng40=-180+40*parseInt((lng1+180.0)/40);
-if(lng40<=0){srtmfolder="W"+(0-lng40);}
-else{srtmfolder="E"+(lng40);}
-if(lat50>=0){srtmfolder+="N"+lat50;}
-else{srtmfolder+="S"+(0-lat50);}
+if(lng40<=0){srtmfolder="w"+(0-lng40);}
+else{srtmfolder="e"+(lng40);}
+if(lat50>=0){srtmfolder+="n"+lat50;}
+else{srtmfolder+="s"+(0-lat50);}
 srtmvar=srtmfile; 
 srtmfile=srtmfolder+"/"+srtmfile+".js";
 }
