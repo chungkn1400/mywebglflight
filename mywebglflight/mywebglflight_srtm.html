@@ -63,6 +63,12 @@
     </div>
 	<div id="mapdiv" style="position:absolute;top:100px;left:0px;width:100%;height:100%;">
     </div>	
+<script>
+var apikey='&key=AIzaSyAH372ZH8QSQgRHsqdtqNxkLVpcp_XUUkE';
+apikey='&key=AIzaSyB6IVrhJJ9pNpagPZIKyEQYlDHDsoAGusE';
+//put here your google static map apikey (=> https://developers.google.com/maps/documentation/static-maps/get-api-key)
+//to get more than per ip apiusage quota (some thousands to 20 thousands per day) (its free)
+</script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3&libraries=places&language=en" type="text/javascript" ></script>
 <!--script type="text/javascript" src="https://www.google.com/jsapi"></script-->
 <!--script type="text/javascript" src="https://b3d8783ddc02a86af1ce60266a06c20f1a961f99.googledrive.com/host/0B6GM9ay7ImZLOXpiUkx5bFhacXc/jscompile_chung.js"></script-->
@@ -152,7 +158,7 @@ function getmap(zoom,lat,lng,size,type0,scale){
 var type=type0;
 if(type=="jpg"){type="jpg-baseline";}
 var mapstyle="&style=feature:road%7Cvisibility:off&style=element:labels%7Cvisibility:off&style=element:geometry.stroke%7Cvisibility:off";
-return "https://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom="+zoom+"&scale="+scale+"&size="+size+"x"+size+"&maptype=satellite&format="+type+mapstyle;
+return "https://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom="+zoom+"&scale="+scale+"&size="+size+"x"+size+"&maptype=satellite&format="+type+mapstyle+apikey;
 //var mapstyle="&style=feature:road%7Cvisibility:on&style=element:labels%7Cvisibility:off&style=element:geometry.stroke%7Cvisibility:off";
 //return "https://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom="+zoom+"&scale="+scale+"&size="+size+"x"+size+"&maptype=hybrid&format="+type+mapstyle;
 } 
@@ -163,7 +169,7 @@ if(type=="jpg"){type="jpg-baseline";}
 //mapstyle+="&style=element:geometry.fill%7Cvisibility:on";
 //mapstyle+="&style=feature:road%7Cvisibility:off";
 var mapstyle="&style=feature:road%7Cvisibility:off&style=element:labels%7Cvisibility:off&style=element:geometry.stroke%7Cvisibility:off";
-return "https://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom="+zoom+"&scale="+scale+"&size="+size+"x"+size+"&maptype=terrain&format="+type+mapstyle;
+return "https://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom="+zoom+"&scale="+scale+"&size="+size+"x"+size+"&maptype=terrain&format="+type+mapstyle+apikey;
 } 
 </script>
 <script type="text/javascript">
