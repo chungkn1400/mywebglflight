@@ -165,7 +165,7 @@ return "https://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zo
 //http://dev.virtualearth.net/REST/v1/Imagery/Map/aerial/47.619048,-122.35384/15?mapSize=500,500&key=%20Aq0npnXsrnwL9eY3rCUQsJZJJedr8Za9hIH-XsWnppaizf92DYjKS1syE9K3HqVr	
 var sizex=Math.floor(scale*size);
 var zoom1=zoom+1;
-return "http://dev.virtualearth.net/REST/v1/Imagery/Map/aerial/"+lat+","+lng+"/"+zoom1+"?mapSize="+sizex+","+sizex+"&key=%20Aq0npnXsrnwL9eY3rCUQsJZJJedr8Za9hIH-XsWnppaizf92DYjKS1syE9K3HqVr"
+return "http://dev.virtualearth.net/REST/v1/Imagery/Map/aerial/"+lat+","+lng+"/"+zoom1+"?mapSize="+sizex+","+sizex+"&format=jpeg"+"&key=%20Aq0npnXsrnwL9eY3rCUQsJZJJedr8Za9hIH-XsWnppaizf92DYjKS1syE9K3HqVr"
 } 
 function getterrain(zoom,lat,lng,size,type0,scale){
 var type=type0;
