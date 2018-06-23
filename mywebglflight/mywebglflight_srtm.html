@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
- mywebglflight_srtmcar a program  by NGUYEN.Chung (freeware 2015) <br />
+ mywebglflight_srtmcar a program  by NGUYEN.Chung (freeware 2015-2018) <br />
  H key: help 
 <head>
 <title>mywebglflight sim</title>
@@ -155,12 +155,17 @@ worldx=pointx*Math.pow(2,zoom);
 worldy=pointy*Math.pow(2,zoom);
 }
 function getmap(zoom,lat,lng,size,type0,scale){
-var type=type0;
+/*var type=type0;
 if(type=="jpg"){type="jpg-baseline";}
 var mapstyle="&style=feature:road%7Cvisibility:off&style=element:labels%7Cvisibility:off&style=element:geometry.stroke%7Cvisibility:off";
 return "https://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom="+zoom+"&scale="+scale+"&size="+size+"x"+size+"&maptype=satellite&format="+type+mapstyle+apikey;
-//var mapstyle="&style=feature:road%7Cvisibility:on&style=element:labels%7Cvisibility:off&style=element:geometry.stroke%7Cvisibility:off";
-//return "https://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom="+zoom+"&scale="+scale+"&size="+size+"x"+size+"&maptype=hybrid&format="+type+mapstyle;
+*/
+////var mapstyle="&style=feature:road%7Cvisibility:on&style=element:labels%7Cvisibility:off&style=element:geometry.stroke%7Cvisibility:off";
+////return "https://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom="+zoom+"&scale="+scale+"&size="+size+"x"+size+"&maptype=hybrid&format="+type+mapstyle;
+//http://dev.virtualearth.net/REST/v1/Imagery/Map/aerial/47.619048,-122.35384/15?mapSize=500,500&key=%20Aq0npnXsrnwL9eY3rCUQsJZJJedr8Za9hIH-XsWnppaizf92DYjKS1syE9K3HqVr	
+var sizex=Math.floor(scale*size);
+var zoom1=zoom+1;
+return "http://dev.virtualearth.net/REST/v1/Imagery/Map/aerial/"+lat+","+lng+"/"+zoom1+"?mapSize="+sizex+","+sizex+"&key=%20Aq0npnXsrnwL9eY3rCUQsJZJJedr8Za9hIH-XsWnppaizf92DYjKS1syE9K3HqVr"
 } 
 function getterrain(zoom,lat,lng,size,type0,scale){
 var type=type0;
@@ -168,8 +173,12 @@ if(type=="jpg"){type="jpg-baseline";}
 //var mapstyle="&style=element:all%7Cvisibility:off";
 //mapstyle+="&style=element:geometry.fill%7Cvisibility:on";
 //mapstyle+="&style=feature:road%7Cvisibility:off";
-var mapstyle="&style=feature:road%7Cvisibility:off&style=element:labels%7Cvisibility:off&style=element:geometry.stroke%7Cvisibility:off";
+/*var mapstyle="&style=feature:road%7Cvisibility:off&style=element:labels%7Cvisibility:off&style=element:geometry.stroke%7Cvisibility:off";
 return "https://maps.googleapis.com/maps/api/staticmap?center="+lat+","+lng+"&zoom="+zoom+"&scale="+scale+"&size="+size+"x"+size+"&maptype=terrain&format="+type+mapstyle+apikey;
+*/
+var sizex=Math.floor(scale*size);
+var zoom1=zoom+1;
+return "http://dev.virtualearth.net/REST/v1/Imagery/Map/road/"+lat+","+lng+"/"+zoom1+"?mapSize="+sizex+","+sizex+"&format=jpeg&st=me|lv:0"+"&key=%20Aq0npnXsrnwL9eY3rCUQsJZJJedr8Za9hIH-XsWnppaizf92DYjKS1syE9K3HqVr"
 } 
 </script>
 <script type="text/javascript">
@@ -10465,7 +10474,7 @@ document.getElementById('intext').focus();
 }
 var airports=[],airportname=[],airportx=[],airporty=[],nairport=0;
 var airportlat=[],airportlng=[],airportz=[];
-function getairports(){
+function getairports(){return;
   var request = {
     location: new google.maps.LatLng(lat,lng),
     radius: 40000,
@@ -10556,7 +10565,7 @@ return test;
 var towers=[],towername=[],towerx=[],towery=[],ntower=0;
 var towerlat=[],towerlng=[],towerz=[],towertype=[];
 var towerwx=[],towerwy=[];
-function gettowers(){
+function gettowers(){return;
   var request = {
     location: new google.maps.LatLng(lat,lng),
     radius: 15000,
